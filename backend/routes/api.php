@@ -15,9 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('v1')->group(function () {
-    Route::get('/user/{id}', 'API\Admin\DashboardController@show');
+    Route::prefix('admin')->group(function () {
+        Route::post('/register', 'API\Admin\AuthController@register');
+        Route::post('/login', 'API\Admin\AuthController@login');
 
-    Route::middleware('auth:api')->group( function () {
-        Route::get('user', 'API\AuthController@user');
+        Route::middleware('auth:admin')->group( function () {
+            Route::get('user/{id}', 'API\Admin\DashboardController@show');
+        });
     });
 });
