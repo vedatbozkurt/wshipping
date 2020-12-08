@@ -50,6 +50,14 @@ return [
             'driver' => 'passport',
             'provider' => 'admins',
         ],
+        'branch' => [
+            'driver' => 'passport',
+            'provider' => 'branches',
+        ],
+        'courier' => [
+            'driver' => 'passport',
+            'provider' => 'couriers',
+        ],
     ],
 
     /*
@@ -77,6 +85,14 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Admin::class,
+        ],
+        'branches' => [
+            'driver' => 'eloquent',
+            'model' => App\Branch::class,
+        ],
+        'couriers' => [
+            'driver' => 'eloquent',
+            'model' => App\Courier::class,
         ],
 
         // 'users' => [

@@ -13,7 +13,7 @@ class Courier extends Authenticatable
     protected $guard = 'courier';
 
     protected $fillable = [
-        'name', 'email', 'password', 'status',
+       'branch_id', 'name', 'image', 'phone', 'email', 'password', 'vehicle', 'plate', 'color', 'status',
     ];
 
     protected $hidden = [
@@ -22,6 +22,5 @@ class Courier extends Authenticatable
 
     function branch() {
         return $this->belongsTo('App\Branch');
-
     }
 }

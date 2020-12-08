@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBranchesTable extends Migration
+class CreateAddressesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,16 @@ class CreateBranchesTable extends Migration
      */
     public function up()
     {
-        Schema::create('branches', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id')->default(0);
+            $table->foreign('user_id')->references('id')->on('users');
             $table->integer('city_id')->default(0);
             $table->foreign('city_id')->references('id')->on('cities');
             $table->integer('district_id')->default(0);
             $table->foreign('district_id')->references('id')->on('districts');
             $table->string('name');
-            $table->string('phone');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->boolean('status')->default(false);
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -35,6 +34,6 @@ class CreateBranchesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('branches');
+        Schema::dropIfExists('addresses');
     }
 }
