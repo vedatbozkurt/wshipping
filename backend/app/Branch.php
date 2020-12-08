@@ -5,17 +5,18 @@
  * @Email: info@wedat.org
  * @Date:   2020-06-16 17:52:20
  * @Last Modified by:   @vedatbozkurt
- * @Last Modified time: 2020-06-16 23:25:38
+ * @Last Modified time: 2020-06-17 23:52:41
  */
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Branch extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable, SoftDeletes;
 
     protected $guard = 'branch';
 

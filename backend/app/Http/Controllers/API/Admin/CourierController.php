@@ -4,9 +4,9 @@ namespace App\Http\Controllers\API\Admin;
 
 use App\Courier;
 use Illuminate\Http\Request;
-use App\Http\Controllers\API\Admin\BaseController as BaseController;
+use App\Http\Controllers\Controller;
 
-class CourierController extends BaseController
+class CourierController extends Controller
 {
     /**
      * Display a listing of the resource.
