@@ -22,9 +22,9 @@ class CreateTasksTable extends Migration
             $table->integer('receiver_id')->default(0);
             $table->foreign('receiver_id')->references('id')->on('users');
             $table->integer('sender_address_id')->default(0);
-            $table->foreign('sender_address_id')->references('id')->on('address');
+            $table->foreign('sender_address_id')->references('id')->on('addresses');
             $table->integer('receiver_address_id')->default(0);
-            $table->foreign('receiver_address_id')->references('id')->on('address');
+            $table->foreign('receiver_address_id')->references('id')->on('addresses');
             $table->integer('price')->default(0);
             $table->char('description', 250); //100x20x40 boyutunda 3 kglık 2 kutu
             $table->string('status');

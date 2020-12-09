@@ -15,8 +15,6 @@ class CreateCouriersTable extends Migration
     {
         Schema::create('couriers', function (Blueprint $table) {
             $table->id();
-            $table->integer('branch_id')->default(0);
-            $table->foreign('branch_id')->references('id')->on('branches');
             $table->string('name');
             $table->string('image');
             $table->string('phone');

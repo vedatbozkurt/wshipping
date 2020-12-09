@@ -16,7 +16,10 @@ class BranchController extends Controller
      */
     public function index()
     {
-        $branches = Branch::withTrashed()->get();
+        /*$branches = Branch::join('cities', 'cities.id', '=', 'branches.city_id')
+       ->select('branches.*','cities.name as city_name')
+       ->take(5)->get();*/
+       $branches = Branch::with('city','district')->orderBy('id', 'desc')->paginate(10);
         return response($branches);
     }
 
@@ -33,6 +36,9 @@ class BranchController extends Controller
         $input = $request->validated();
         $input['password'] = bcrypt($input['password']);
         $branch = Branch::create($input);
+        $branch->city()->attach($request->city);
+        $branch->district()->attach($request->district);
+
 
         activity()->causedBy(Auth::user())->performedOn($branch)
         ->withProperties(['action' => 'create', 'status' => 'success'])
@@ -40,19 +46,6 @@ class BranchController extends Controller
 
         return response()->json('success');
         // return response()->json(['status'=> 'success', 'data' => $success, 'message' => 'User register successfully.']);
-    }
-
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Branch $branch)
-    {
-
     }
 
     /**
@@ -69,6 +62,9 @@ class BranchController extends Controller
             $input['password'] = bcrypt($input['password']);
         }
         $branch->update($input);
+        $branch->city()->sync($request->city);
+        $branch->district()->sync($request->district);
+
         activity()->causedBy(Auth::user())->performedOn($branch)
         ->withProperties(['action' => 'update', 'status' => 'success'])
         ->log($branch->name.' branch successfully updated');

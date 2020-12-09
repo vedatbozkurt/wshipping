@@ -15,10 +15,6 @@ class CreateBranchesTable extends Migration
     {
         Schema::create('branches', function (Blueprint $table) {
             $table->id();
-            $table->integer('city_id')->default(0);
-            $table->foreign('city_id')->references('id')->on('cities');
-            $table->integer('district_id')->default(0);
-            $table->foreign('district_id')->references('id')->on('districts');
             $table->string('name');
             $table->string('phone');
             $table->string('email')->unique();

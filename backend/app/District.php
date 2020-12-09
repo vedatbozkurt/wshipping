@@ -14,11 +14,7 @@ class District extends Model
         return $this->belongsTo('App\City');
     }
 
-    function address() {
-        return $this->belongsTo('App\Address');
-    }
-
     function branch() {
-        return $this->belongsTo('App\Branch');
+        return $this->belongsToMany('App\Branch');
     }
 }

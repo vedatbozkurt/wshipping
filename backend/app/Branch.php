@@ -5,7 +5,7 @@
  * @Email: info@wedat.org
  * @Date:   2020-06-16 17:52:20
  * @Last Modified by:   @vedatbozkurt
- * @Last Modified time: 2020-06-17 23:52:41
+ * @Last Modified time: 2020-06-18 17:45:38
  */
 namespace App;
 
@@ -28,16 +28,12 @@ class Branch extends Authenticatable
         'password',
     ];
 
-    function courier() {
-        return $this->hasMany('App\Courier');
-    }
-
     function city() {
-        return $this->hasMany('App\City');
+        return $this->belongsToMany('App\City');
     }
 
     function district() {
-        return $this->hasMany('App\District');
+        return $this->belongsToMany('App\District');
     }
 
 

@@ -36,7 +36,7 @@ Route::prefix('v1')->group(function () {
         Route::post('/register', 'API\Admin\AuthController@register');
         Route::post('/login', 'API\Admin\AuthController@login');
 
-        Route::middleware('auth:admin')->group( function () {
+        // Route::middleware('auth:admin')->group( function () {
             //profile
             Route::get('getprofile', 'API\Admin\AuthController@getProfile');
             Route::put('updateprofile', 'API\Admin\AuthController@updateProfile');
@@ -49,7 +49,7 @@ Route::prefix('v1')->group(function () {
 
             //dashboard
             Route::get('user/{id}', 'API\Admin\DashboardController@show');
-        });
+        // });
     });
 
 });

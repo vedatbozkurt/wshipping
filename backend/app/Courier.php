@@ -20,7 +20,4 @@ class Courier extends Authenticatable
         'password',
     ];
 
-    function branch() {
-        return $this->belongsTo('App\Branch');
-    }
 }

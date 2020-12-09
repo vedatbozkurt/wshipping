@@ -14,12 +14,8 @@ class City extends Model
         return $this->hasMany('App\District');
     }
 
-    function address() {
-        return $this->belongsTo('App\Address');
-    }
-
     function branch() {
-        return $this->belongsTo('App\Branch');
+        return $this->belongsToMany('App\Branch');
     }
 
 }
