@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'phone', 'email', 'password', 'status',
     ];
 
     /**
@@ -38,7 +38,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    function address() {
+    function address() { //müsteri birçok adrese sahip olabilir
         return $this->hasMany('App\Address');
+    }
+
+    function tasksender() { //gönderen user birçok gönderiye sahip olabilir
+        return $this->hasMany('App\Task', 'sender_id', 'id');
+    }
+
+    function taskreceiver() { //alıcı user birçok gönderiye sahip olabilir
+        return $this->hasMany('App\Task', 'receiver_id', 'id');
     }
 }

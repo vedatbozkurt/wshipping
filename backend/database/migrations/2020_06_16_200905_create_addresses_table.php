@@ -23,6 +23,7 @@ class CreateAddressesTable extends Migration
             $table->foreign('district_id')->references('id')->on('districts');
             $table->string('name');
             $table->string('description');
+            $table->boolean('default')->default(false); //varsayılan adres
             $table->timestamps();
         });
     }

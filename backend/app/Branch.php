@@ -5,7 +5,7 @@
  * @Email: info@wedat.org
  * @Date:   2020-06-16 17:52:20
  * @Last Modified by:   @vedatbozkurt
- * @Last Modified time: 2020-06-18 17:45:38
+ * @Last Modified time: 2020-06-20 01:49:01
  */
 namespace App;
 
@@ -21,20 +21,19 @@ class Branch extends Authenticatable
     protected $guard = 'branch';
 
     protected $fillable = [
-        'city_id', 'district_id', 'name', 'phone', 'email', 'password', 'status',
+        'name', 'phone', 'email', 'password', 'status',
     ];
 
     protected $hidden = [
         'password',
     ];
 
-    function city() {
+    function city() { //şubeye ait birçok il olabilir
         return $this->belongsToMany('App\City');
     }
 
-    function district() {
+    function district() { //şubeye ait birçok ilçe olabilir
         return $this->belongsToMany('App\District');
     }
-
 
 }
