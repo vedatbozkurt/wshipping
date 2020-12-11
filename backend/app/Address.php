@@ -10,16 +10,16 @@ class Address extends Model
        'user_id', 'city_id', 'district_id', 'name', 'description',
     ];
 
-    function user() { //adres bir kullanıcıya ait olabilir
-        return $this->belongsTo('App\User');
-    }
-
     function city() { //adres bir ile ait olabilir
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\City');
     }
 
     function district() { //adres bir ilçeye ait olabilir
         return $this->belongsTo('App\District');
+    }
+
+    function user() { //adres bir kullanıcıya ait olabilir
+        return $this->belongsTo('App\User');
     }
 
     function tasksenderaddress() { //gönderen userın adresi birçok gönderiye sahip olabilir

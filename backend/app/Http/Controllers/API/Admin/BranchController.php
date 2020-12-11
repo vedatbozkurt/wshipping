@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\API\Admin;
 
+use App\Branch;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\BranchRequest;
-use App\Branch;
 use Illuminate\Support\Facades\Auth;
 
 class BranchController extends Controller
@@ -86,13 +86,18 @@ class BranchController extends Controller
         // $branch= Branch::withTrashed()->find($branch->id);
         // $branch= Branch::onlyTrashed()->find($branch->id);
         // $branch = Branch::where('id',$branch)->withTrashed()->get();
-        $branch= Branch::withTrashed()->find($id)->forceDelete();
-        return response()->json($branch);
+        $branch = Branch::withTrashed()->find($id);
+        $branch->city()->detach();
+        $branch->district()->detach();
+        $branch->forceDelete();
+        // return response()->json($branch);
+        return response()->json('success');
     }
     public function restore($id)
     {
-        $branch = \App\Branch::where('id',$id)->withTrashed()->first();
+        $branch = Branch::where('id',$id)->withTrashed()->first();
         $branch->restore();
-        return response()->json($branch);
+        // return response()->json($branch);
+        return response()->json('success');
     }
 }

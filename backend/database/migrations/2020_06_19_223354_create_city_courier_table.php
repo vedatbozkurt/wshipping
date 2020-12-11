@@ -16,9 +16,9 @@ class CreateCityCourierTable extends Migration
         Schema::create('city_courier', function (Blueprint $table) {
             $table->id();
             $table->integer('city_id')->unsigned();
-            $table->foreign('city_id')->references('id')->on('city')->onDelete('cascade');
+            $table->foreign('city_id')->references('id')->on('cities');
             $table->integer('courier_id')->unsigned();
-            $table->foreign('courier_id')->references('id')->on('courier')->onDelete('cascade');
+            $table->foreign('courier_id')->references('id')->on('couriers');
             $table->timestamps();
         });
     }

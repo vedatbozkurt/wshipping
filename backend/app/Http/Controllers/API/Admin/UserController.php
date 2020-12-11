@@ -2,22 +2,21 @@
 
 namespace App\Http\Controllers\API\Admin;
 
-use App\Courier;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\CourierRequest;
+use App\Http\Requests\Api\UserRequest;
+use App\User;
 
-class CourierController extends Controller
+class UserController extends Controller
 {
-    /**
+/**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $courier = Courier::with('city','district','task')->orderBy('id', 'desc')->paginate(10);
-        return response($courier);
+        $user = User::orderBy('id', 'desc')->paginate(10);
+        return response($user);
     }
 
     /**
@@ -26,14 +25,11 @@ class CourierController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CourierRequest $request)
+    public function store(UserRequest $request)
     {
         $input = $request->validated();
         $input['password'] = bcrypt($input['password']);
-        $courier = Courier::create($input);
-        $courier->city()->attach($request->city);
-        $courier->district()->attach($request->district);
-
+        $user = User::create($input);
         return response()->json('success');
     }
 
@@ -41,18 +37,16 @@ class CourierController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Courier  $courier
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(CourierRequest $request, Courier $courier)
+    public function update(UserRequest $request, User $user)
     {
         $input = $request->validated();
         if(!empty($input['password'])){
             $input['password'] = bcrypt($input['password']);
         }
-        $courier->update($input);
-        $courier->city()->sync($request->city);
-        $courier->district()->sync($request->district);
+        $user->update($input);
 
         return response()->json('success');
     }
@@ -60,24 +54,22 @@ class CourierController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Courier  $courier
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        // $courier = Courier::withTrashed()->find($id)->forceDelete();
-        // return response()->json($courier);
-        $courier = Courier::withTrashed()->find($id);
-        $courier->city()->detach();
-        $courier->district()->detach();
-        $courier->forceDelete();
+        $user = User::withTrashed()->find($id);
+        $user->forceDelete();
+        //müşteriye ait adresleri de sil
+        \App\Address::where('user_id',$id)->delete();
         return response()->json('success');
     }
 
     public function restore($id)
     {
-        $courier = Courier::where('id',$id)->withTrashed()->first();
-        $courier->restore();
+        $user = User::where('id',$id)->withTrashed()->first();
+        $user->restore();
         return response()->json('success');
     }
 }

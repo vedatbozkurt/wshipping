@@ -24,6 +24,7 @@ class CreateCouriersTable extends Migration
             $table->string('plate');
             $table->string('color');
             $table->boolean('status')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

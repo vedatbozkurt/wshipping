@@ -16,9 +16,9 @@ class CreateCourierDistrictTable extends Migration
         Schema::create('courier_district', function (Blueprint $table) {
             $table->id();
             $table->integer('district_id')->unsigned();
-            $table->foreign('district_id')->references('id')->on('district')->onDelete('cascade');
+            $table->foreign('district_id')->references('id')->on('districts');
             $table->integer('courier_id')->unsigned();
-            $table->foreign('courier_id')->references('id')->on('courier')->onDelete('cascade');
+            $table->foreign('courier_id')->references('id')->on('couriers');
             $table->timestamps();
         });
     }

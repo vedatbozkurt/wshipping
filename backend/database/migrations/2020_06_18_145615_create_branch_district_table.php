@@ -15,10 +15,8 @@ class CreateBranchDistrictTable extends Migration
     {
         Schema::create('branch_district', function (Blueprint $table) {
             $table->id();
-            $table->integer('district_id')->unsigned();
-            $table->foreign('district_id')->references('id')->on('district')->onDelete('cascade');
-            $table->integer('branch_id')->unsigned();
-            $table->foreign('branch_id')->references('id')->on('branch')->onDelete('cascade');
+            $table->integer('district_id');
+            $table->integer('branch_id');
             $table->timestamps();
         });
     }

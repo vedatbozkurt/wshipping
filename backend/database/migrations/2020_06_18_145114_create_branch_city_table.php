@@ -15,10 +15,10 @@ class CreateBranchCityTable extends Migration
     {
         Schema::create('branch_city', function (Blueprint $table) {
             $table->id();
-            $table->integer('city_id')->unsigned();
-            $table->foreign('city_id')->references('id')->on('city')->onDelete('cascade');
-            $table->integer('branch_id')->unsigned();
-            $table->foreign('branch_id')->references('id')->on('branch')->onDelete('cascade');
+            $table->integer('city_id');
+            $table->foreign('city_id')->references('id')->on('cities');
+            $table->integer('branch_id');
+            $table->foreign('branch_id')->references('id')->on('branches');
             $table->timestamps();
         });
     }

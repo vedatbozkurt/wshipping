@@ -1,16 +1,19 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
-class DatabaseSeeder extends Seeder
+class StarterDataSeeder extends Seeder
+
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
+
         //gönderici
         \App\Address::create([
             'id' => 1,
@@ -18,7 +21,6 @@ class DatabaseSeeder extends Seeder
             'city_id' => 35,
             'district_id' => 184,
             'name' => 'My address',
-            'description' => 'okulun karşısında',
             'default' => 0,
         ]);
 
@@ -29,11 +31,10 @@ class DatabaseSeeder extends Seeder
             'city_id' => 35,
             'district_id' => 173,
             'name' => 'My address',
-            'description' => 'okulun diğer karşısında',
             'default' => 0,
         ]);
 
-        //add sample user admin
+    	//add sample user admin
         \App\Admin::create([
             'id' => 1,
             'name' => 'John Doe',
@@ -73,14 +74,14 @@ class DatabaseSeeder extends Seeder
 
         //şubenin ilçesi demirci
         DB::table('branch_district')->insert([
-            'id' => 3,
+            'id' => 2,
             'district_id' => 276,
             'branch_id' => 1,
         ]);
 
         //şubenin ilçesi salihli
         DB::table('branch_district')->insert([
-            'id' => 4,
+            'id' => 2,
             'district_id' => 757,
             'branch_id' => 1,
         ]);
@@ -124,14 +125,14 @@ class DatabaseSeeder extends Seeder
 
         //kuryenin ilçesi demirci
         DB::table('courier_district')->insert([
-            'id' => 3,
+            'id' => 2,
             'district_id' => 276,
             'courier_id' => 1,
         ]);
 
         //kuryenin ilçesi salihli
         DB::table('courier_district')->insert([
-            'id' => 4,
+            'id' => 2,
             'district_id' => 757,
             'courier_id' => 1,
         ]);
@@ -162,24 +163,5 @@ class DatabaseSeeder extends Seeder
             'status' => 1,
         ]);
 
-      \App\User::create([
-            'id' => 1,
-            'name' => 'Joe Doe',
-            'image' => 'joe.png',
-            'phone' => '05511254152',
-            'email' => 'u@u.com',
-            'password' => bcrypt('123'),
-            'status' => 1,
-        ]);
-
-      \App\User::create([
-            'id' => 2,
-            'name' => 'Jane Doe',
-            'image' => 'jane.png',
-            'phone' => '05553214433',
-            'email' => 'u2@u.com',
-            'password' => bcrypt('123'),
-            'status' => 1,
-        ]);
     }
 }

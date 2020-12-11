@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Task extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
        'courier_id', 'sender_id', 'receiver_id', 'sender_address_id', 'receiver_address_id', 'price', 'description', 'status',
     ];
@@ -15,19 +18,19 @@ class Task extends Model
     }
 
     function sender() { //gönderi bir kuryeye ait olabilir
-       return $this->belongsTo('App\User', 'id', 'sender_id');
+       return $this->belongsTo('App\User', 'sender_id', 'id');
     }
 
     function receiver() { //gönderi bir kuryeye ait olabilir
-       return $this->belongsTo('App\User', 'id', 'receiver_id');
+       return $this->belongsTo('App\User', 'receiver_id', 'id');
     }
 
     function senderaddress() { //gönderi bir gönderici adrese ait olabilir
-       return $this->belongsTo('App\Address', 'id', 'sender_address_id');
+       return $this->belongsTo('App\Address', 'sender_address_id', 'id');
     }
 
     function receiveraddress() { //gönderi bir alıcı adrese ait olabilir
-       return $this->belongsTo('App\Address', 'id', 'receiver_address_id');
+       return $this->belongsTo('App\Address', 'receiver_address_id', 'id');
     }
 
 }

@@ -3,9 +3,8 @@
 namespace App\Http\Requests\Api;
 
 use App\Http\Requests\Api\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
-class BranchRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,8 +29,9 @@ class BranchRequest extends FormRequest
       {
         return [
           'name' => 'required',
+          'image' => 'required',
           'phone' => 'required',
-          'email' => 'required|email|unique:branches',
+          'email' => 'required|email|unique:users',
           'password'  => 'required|min:3',
           'status'  => 'required'
         ];
@@ -41,8 +41,9 @@ class BranchRequest extends FormRequest
       {
         return [
           'name' => 'required',
+          'image' => 'required',
           'phone' => 'required',
-          'email' => 'required|email|unique:branches,email,'.$this->route('branch')->id,
+          'email' => 'required|email|unique:users,email,'.$this->route('user')->id,
           'password'  => 'sometimes|required|min:3',
           'status'  => 'required'
         ];

@@ -15,7 +15,7 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->integer('courier_id')->default(0);
+            $table->integer('courier_id')->default(0)->nullable();
             $table->foreign('courier_id')->references('id')->on('couriers');
             $table->integer('sender_id')->default(0);
             $table->foreign('sender_id')->references('id')->on('users');
@@ -27,8 +27,9 @@ class CreateTasksTable extends Migration
             $table->foreign('receiver_address_id')->references('id')->on('addresses');
             $table->integer('price')->default(0);
             $table->char('description', 250); //100x20x40 boyutunda 3 kglık 2 kutu
-            $table->string('status');
+            $table->string('status')->default(0);
             // $table->dateTime('delivered_at');
+            $table->softDeletes();
             $table->timestamps();
         });
             \DB::statement('ALTER TABLE tasks AUTO_INCREMENT = 1000;');
