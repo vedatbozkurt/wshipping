@@ -10,6 +10,8 @@ class City extends Model
        'name',
     ];
 
+    public $timestamps = false;
+
     function district() {
         return $this->hasMany('App\District');
     }
@@ -22,8 +24,6 @@ class City extends Model
         return $this->belongsToMany('App\Courier');
     }
 
-    function address() { //müsteri birçok adrese sahip olabilir
-        return $this->hasMany('App\Address');
-    }
+
 
 }

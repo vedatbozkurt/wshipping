@@ -139,7 +139,7 @@ class DatabaseSeeder extends Seeder
 //add sample courier
         \App\Courier::create([
             'id' => 1,
-            'name' => 'Ege Şubesi',
+            'name' => 'Kurye New',
             'image' => 'c.png',
             'phone' => '02125871212',
             'email' => 'c@c.com',

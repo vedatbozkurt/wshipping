@@ -22,11 +22,11 @@ class Address extends Model
         return $this->belongsTo('App\User');
     }
 
-    function tasksenderaddress() { //gönderen userın adresi birçok gönderiye sahip olabilir
+    function senderaddresstask() { //gönderen userın adresi birçok gönderiye sahip olabilir
         return $this->hasMany('App\Task', 'sender_address_id', 'id');
     }
 
-    function taskreceiveraddress() { //alıcı userın adresi birçok gönderiye sahip olabilir
+    function receiveraddresstask() { //alıcı userın adresi birçok gönderiye sahip olabilir
         return $this->hasMany('App\Task', 'receiver_address_id', 'id');
     }
 }

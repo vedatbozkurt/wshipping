@@ -69,6 +69,26 @@ Route::prefix('v1')->group(function () {
             Route::post('address/store', 'Api\Admin\AddressController@store');
             Route::put('address/{address}', 'Api\Admin\AddressController@update');
             Route::delete('address/{address}', 'Api\Admin\AddressController@destroy');
+
+             //city
+            Route::prefix('city')->group(function () {
+            Route::get('/', 'Api\Admin\CityController@index');
+            Route::post('city/store', 'Api\Admin\CityController@store');
+            Route::put('city/{city}', 'Api\Admin\CityController@update');
+            Route::delete('city/{city}', 'Api\Admin\CityController@destroy');
+            Route::get('{city}/districts', 'Api\Admin\CityController@districts'); //city districts
+            Route::get('{city}/couriers', 'Api\Admin\CityController@couriers'); //city couriers
+            Route::get('{city}/branches', 'Api\Admin\CityController@branches'); //city branches
+            // Route::get('{city}/addresses', 'Api\Admin\CityController@addresses');// city addresses
+            Route::get('{city}/users', 'Api\Admin\CityController@users');// city users
+            Route::get('{city}/tasks', 'Api\Admin\CityController@tasks');// city tasks
+            });
+
+             //district
+            Route::get('district', 'Api\Admin\DistrictController@index');
+            Route::post('district/store', 'Api\Admin\DistrictController@store');
+            Route::put('district/{district}', 'Api\Admin\DistrictController@update');
+            Route::delete('district/{district}', 'Api\Admin\DistrictController@destroy');
             //dashboard
             Route::get('user/{id}', 'API\Admin\DashboardController@show');
         // });
