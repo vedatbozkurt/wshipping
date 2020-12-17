@@ -23,9 +23,6 @@ class BranchController extends Controller
        $branches = Branch::with('city','district')->orderBy('id', 'desc')->paginate(10);
        return response($branches);
    }
-
-
-
     /**
      * Store a newly created resource in storage.
      *
@@ -102,58 +99,64 @@ class BranchController extends Controller
         return response()->json('success');
     }
 // şubenin sorumlu olduğu ilde courier olmadığından courier boş gelmesi normal
-    public function citycouriers(Branch $branch) //şubenin sorumlu olduğu illerdeki kuryeler
+    public function citycouriers($branch) //şubenin sorumlu olduğu illerdeki kuryeler
     {
-     $cities =  $branch->city()->orderBy('id', 'desc')->paginate(10);
-     $cities->map(function ($city) {
+     // $cities =  $branch->city()->orderBy('id', 'desc')->paginate(10); //Branch $branch
+     /*$cities->map(function ($city) {
         return $city->courier;
-    });
+    });*/
+    $cities = \App\Branch::with('city.courier')->where('id',$branch)->orderBy('id', 'desc')->paginate(10);
      return response($cities);
  }
 
-    public function districtcouriers(Branch $branch) //şubenin sorumlu olduğu ilçelerdeki kuryeler
+    public function districtcouriers($branch) //şubenin sorumlu olduğu ilçelerdeki kuryeler
     {
-       $districts =  $branch->district()->orderBy('id', 'desc')->paginate(10);
+       /*$districts =  $branch->district()->orderBy('id', 'desc')->paginate(10);  //Branch $branch
        $districts->map(function ($district) {
         return $district->courier;
-    });
+    });*/
+    $districts = \App\Branch::with('district.courier')->where('id',$branch)->orderBy('id', 'desc')->paginate(10);
        return response($districts);
    }
 
 // şubenin sorumlu olduğu ilde user olmadığından users boş gelmesi normal
-    public function cityusers(Branch $branch) //şubenin sorumlu olduğu illerdeki müşteriler
+    public function cityusers($branch) //şubenin sorumlu olduğu illerdeki müşteriler
     {
-       $cities =  $branch->city()->orderBy('id', 'desc')->paginate(10);
+       /*$cities =  $branch->city()->orderBy('id', 'desc')->paginate(10); //Branch $branch
        $cities->map(function ($city) {
         return $city->users;
-    });
+    });*/
+    $cities = \App\Branch::with('city.users')->where('id',$branch)->orderBy('id', 'desc')->paginate(10);
        return response($cities);
    }
 
 // şubenin sorumlu olduğu ilçede user olmadığından users boş gelmesi normal
-    public function districtusers(Branch $branch) //şubenin sorumlu olduğu ilçelerdeki müşteriler
+    public function districtusers($branch) //şubenin sorumlu olduğu ilçelerdeki müşteriler
     {
-       $districts =  $branch->district()->orderBy('id', 'desc')->paginate(10);
+       /*$districts =  $branch->district()->orderBy('id', 'desc')->paginate(10); //Branch $branch
        $districts->map(function ($district) {
         return $district->users;
-    });
+    });*/
+    $districts = \App\Branch::with('district.users')->where('id',$branch)->orderBy('id','desc')->paginate(10);
        return response($districts);
    }
-   public function citytasks(Branch $branch) //şubenin sorumlu olduğu illerdeki gönderiler
+   public function citytasks($branch) //şubenin sorumlu olduğu illerdeki gönderiler
     {
-       $cities =  $branch->city()->orderBy('id', 'desc')->paginate(10);
+       /*$cities =  $branch->city()->orderBy('id', 'desc')->paginate(10); //Branch $branch
        $cities->map(function ($city) {
         return $city->tasks;
-    });
+    });*/
+    $cities = \App\Branch::with('city.tasks')->where('id',$branch)->orderBy('id','desc')->paginate(10);
        return response($cities);
    }
 
-    public function districttasks(Branch $branch) //şubenin sorumlu olduğu ilçelerdeki gönderiler
+    public function districttasks($branch) //şubenin sorumlu olduğu ilçelerdeki gönderiler
     {
-       $districts =  $branch->district()->orderBy('id', 'desc')->paginate(10);
+       /*$districts =  $branch->district()->orderBy('id', 'desc')->paginate(10); //Branch $branch
        $districts->map(function ($district) {
         return $district->tasks;
-    });
+    });*/
+    $districts = \App\Branch::with('district.tasks')->where('id',$branch)->orderBy('id','desc')->paginate(10);
        return response($districts);
    }
 }

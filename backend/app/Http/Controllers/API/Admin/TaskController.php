@@ -10,7 +10,7 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $task = Task::with('courier','sender','receiver', 'senderaddress', 'receiveraddress')->orderBy('id', 'desc')->paginate(10);
+        $task = Task::with('courier','sender','receiver', 'senderaddress.city', 'senderaddress.district', 'receiveraddress.city', 'receiveraddress.district')->orderBy('id', 'desc')->paginate(10);
         return response($task);
     }
 

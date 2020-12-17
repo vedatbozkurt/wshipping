@@ -73,9 +73,24 @@ class UserController extends Controller
         return response()->json('success');
     }
 
-    public function addresses(User $user)
+    public function addresses($user)
     {
-        $addresses = $user->address()->orderBy('id', 'desc')->paginate(10);
+         $addresses = \App\User::with('address')->where('id',$user)->orderBy('id', 'desc')->paginate(10);
+        // $user->address()->orderBy('id', 'desc')->paginate(10);
         return response($addresses);
+    }
+
+    //userın gönderdiği gönderiler
+    public function sendertasks($user)
+    {
+        $tasks = \App\User::with('tasksender')->where('id',$user)->orderBy('id', 'desc')->paginate(10);
+        return response($tasks);
+    }
+
+    //userın aldığı gönderiler
+    public function receivertasks($user)
+    {
+        $tasks = \App\User::with('taskreceiver')->where('id',$user)->orderBy('id', 'desc')->paginate(10);
+        return response($tasks);
     }
 }

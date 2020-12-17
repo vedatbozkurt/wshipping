@@ -77,26 +77,35 @@ Route::prefix('v1')->group(function () {
 
         //user(customer)
         Route::prefix('user')->group(function () {
-        Route::get('', 'Api\Admin\UserController@index');
-        Route::post('store', 'Api\Admin\UserController@store');
-        Route::put('{user}', 'Api\Admin\UserController@update');
-        Route::delete('{user}', 'Api\Admin\UserController@destroy');
-        Route::post('{user}/restore', 'Api\Admin\UserController@restore');
-        Route::get('{user}/addresses', 'Api\Admin\UserController@addresses');
+            Route::get('/', 'Api\Admin\UserController@index');
+            Route::post('store', 'Api\Admin\UserController@store');
+            Route::put('{user}', 'Api\Admin\UserController@update');
+            Route::delete('{user}', 'Api\Admin\UserController@destroy');
+            Route::post('{user}/restore', 'Api\Admin\UserController@restore');
+            Route::get('{user}/addresses', 'Api\Admin\UserController@addresses'); //userın adres defteri
+            Route::get('{user}/sendertasks', 'Api\Admin\UserController@sendertasks'); //userın gönderdikleri
+            Route::get('{user}/receivertasks', 'Api\Admin\UserController@receivertasks'); //userın aldıkları
         });
-            //task
-        Route::get('task', 'Api\Admin\TaskController@index');
-        Route::post('task/store', 'Api\Admin\TaskController@store');
-        Route::put('task/{task}', 'Api\Admin\TaskController@update');
-        Route::delete('task/{task}', 'Api\Admin\TaskController@destroy');
-        Route::post('task/{task}/restore', 'Api\Admin\TaskController@restore');
-            //address
-        Route::get('address', 'Api\Admin\AddressController@index');
-        Route::post('address/store', 'Api\Admin\AddressController@store');
-        Route::put('address/{address}', 'Api\Admin\AddressController@update');
-        Route::delete('address/{address}', 'Api\Admin\AddressController@destroy');
 
-             //city
+        //task
+        Route::prefix('task')->group(function () {
+            Route::get('/', 'Api\Admin\TaskController@index');
+            Route::post('store', 'Api\Admin\TaskController@store');
+            Route::put('{task}', 'Api\Admin\TaskController@update');
+            Route::delete('{task}', 'Api\Admin\TaskController@destroy');
+            Route::post('{task}/restore', 'Api\Admin\TaskController@restore');
+            Route::get('{task}', 'Api\Admin\TaskController@index');
+        });
+
+        //address
+        Route::prefix('address')->group(function () {
+            Route::get('/', 'Api\Admin\AddressController@index');
+            Route::post('store', 'Api\Admin\AddressController@store');
+            Route::put('{address}', 'Api\Admin\AddressController@update');
+            Route::delete('{address}', 'Api\Admin\AddressController@destroy');
+        });
+
+        //city
         Route::prefix('city')->group(function () {
             Route::get('/', 'Api\Admin\CityController@index');
             Route::post('city/store', 'Api\Admin\CityController@store');

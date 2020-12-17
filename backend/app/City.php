@@ -36,6 +36,6 @@ class City extends Model
         //normal işleyişte 3. tabloda 2. sıradaki tablonun bilgisi olur
         //bu durumda 2. tabloda 3.tablonun bilgisi bulunuyor
         //city_id: address--id:user--id:city--user_id:address
-        return $this->hasManyThrough('App\User', 'App\Address','city_id', 'id', 'id','user_id' )->distinct();
+        return $this->hasManyThrough('App\User', 'App\Address','city_id', 'id', 'id','user_id')->distinct()->orderBy('id', 'desc');
     }
 }
