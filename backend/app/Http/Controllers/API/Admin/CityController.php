@@ -43,19 +43,18 @@ class CityController extends Controller
         return response($district);
     }
 
-    public function couriers(City $city)
-    {
-        // $districts = City::find($city)->district;
-        $courier = $city->courier()->orderBy('id', 'desc')->paginate(10);
-        return response($courier);
-    }
-
     public function branches(City $city)
     {
         $branch = $city->branch()->orderBy('id', 'desc')->paginate(10);
         return response($branch);
     }
 
+    public function couriers(City $city)
+    {
+        // $districts = City::find($city)->district;
+        $courier = $city->courier()->orderBy('id', 'desc')->paginate(10);
+        return response($courier);
+    }
 
     public function users(City $city)
     {

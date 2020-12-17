@@ -47,22 +47,43 @@ Route::prefix('v1')->group(function () {
             Route::put('{branch}', 'Api\Admin\BranchController@update');
             Route::delete('{branch}', 'Api\Admin\BranchController@destroy');
             Route::post('{branch}/restore', 'Api\Admin\BranchController@restore');
+            //şubenin illerinin kuryeleri
             Route::get('{branch}/citycouriers', 'Api\Admin\BranchController@citycouriers');
+            //şubenin ilçelerinin kuryeleri
             Route::get('{branch}/districtcouriers', 'Api\Admin\BranchController@districtcouriers');
+            //şubenin illerinin müşterileri
+            Route::get('{branch}/cityusers', 'Api\Admin\BranchController@cityusers');
+            //şubenin ilçelerinin müşterileri
+            Route::get('{branch}/districtusers', 'Api\Admin\BranchController@districtusers');
+            //şubenin illerinin gönderileri
+            Route::get('{branch}/citytasks', 'Api\Admin\BranchController@citytasks');
+            //şubenin ilçelerinin gönderileri
+            Route::get('{branch}/districttasks', 'Api\Admin\BranchController@districttasks');
         });
 
-            //courier
-        Route::get('courier', 'Api\Admin\CourierController@index');
-        Route::post('courier/store', 'Api\Admin\CourierController@store');
-        Route::put('courier/{courier}', 'Api\Admin\CourierController@update');
-        Route::delete('courier/{courier}', 'Api\Admin\CourierController@destroy');
-        Route::post('courier/{courier}/restore', 'Api\Admin\CourierController@restore');
-             //user(customer)
-        Route::get('user', 'Api\Admin\UserController@index');
-        Route::post('user/store', 'Api\Admin\UserController@store');
-        Route::put('user/{user}', 'Api\Admin\UserController@update');
-        Route::delete('user/{user}', 'Api\Admin\UserController@destroy');
-        Route::post('user/{user}/restore', 'Api\Admin\UserController@restore');
+        //courier
+        Route::prefix('courier')->group(function () {
+            Route::get('/', 'Api\Admin\CourierController@index');
+            Route::post('store', 'Api\Admin\CourierController@store');
+            Route::put('{courier}', 'Api\Admin\CourierController@update');
+            Route::delete('{courier}', 'Api\Admin\CourierController@destroy');
+            Route::post('{courier}/restore', 'Api\Admin\CourierController@restore');
+            //kurye illerinin şubeleri
+            Route::get('{courier}/citybranches', 'Api\Admin\CourierController@citybranches');
+            //kuryenin çalıştıgı ilçelerin şubeleri
+            Route::get('{courier}/districtbranches', 'Api\Admin\CourierController@districtbranches');
+            Route::get('{courier}/tasks', 'Api\Admin\CourierController@tasks');
+        });
+
+        //user(customer)
+        Route::prefix('user')->group(function () {
+        Route::get('', 'Api\Admin\UserController@index');
+        Route::post('store', 'Api\Admin\UserController@store');
+        Route::put('{user}', 'Api\Admin\UserController@update');
+        Route::delete('{user}', 'Api\Admin\UserController@destroy');
+        Route::post('{user}/restore', 'Api\Admin\UserController@restore');
+        Route::get('{user}/addresses', 'Api\Admin\UserController@addresses');
+        });
             //task
         Route::get('task', 'Api\Admin\TaskController@index');
         Route::post('task/store', 'Api\Admin\TaskController@store');
@@ -89,7 +110,7 @@ Route::prefix('v1')->group(function () {
             Route::get('{city}/tasks', 'Api\Admin\CityController@tasks');// city tasks
         });
 
-             //district
+        //district
         Route::prefix('district')->group(function () {
             Route::get('/', 'Api\Admin\DistrictController@index');
             Route::post('store', 'Api\Admin\DistrictController@store');
@@ -100,9 +121,9 @@ Route::prefix('v1')->group(function () {
             Route::get('{district}/users', 'Api\Admin\DistrictController@users');// district users
             Route::get('{district}/tasks', 'Api\Admin\DistrictController@tasks');// district tasks
         });
-            //dashboard
+         //dashboard
         Route::get('user/{id}', 'API\Admin\DashboardController@show');
-        // });
+        // }); //auth:admin middleware
     });
 
 });

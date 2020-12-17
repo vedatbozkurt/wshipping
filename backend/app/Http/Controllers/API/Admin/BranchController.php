@@ -101,23 +101,59 @@ class BranchController extends Controller
         // return response()->json($branch);
         return response()->json('success');
     }
-
+// şubenin sorumlu olduğu ilde courier olmadığından courier boş gelmesi normal
     public function citycouriers(Branch $branch) //şubenin sorumlu olduğu illerdeki kuryeler
+    {
+     $cities =  $branch->city()->orderBy('id', 'desc')->paginate(10);
+     $cities->map(function ($city) {
+        return $city->courier;
+    });
+     return response($cities);
+ }
+
+    public function districtcouriers(Branch $branch) //şubenin sorumlu olduğu ilçelerdeki kuryeler
+    {
+       $districts =  $branch->district()->orderBy('id', 'desc')->paginate(10);
+       $districts->map(function ($district) {
+        return $district->courier;
+    });
+       return response($districts);
+   }
+
+// şubenin sorumlu olduğu ilde user olmadığından users boş gelmesi normal
+    public function cityusers(Branch $branch) //şubenin sorumlu olduğu illerdeki müşteriler
     {
        $cities =  $branch->city()->orderBy('id', 'desc')->paginate(10);
        $cities->map(function ($city) {
-        return $city->courier;
+        return $city->users;
     });
        return response($cities);
    }
 
- public function districtcouriers(Branch $branch) //şubenin sorumlu olduğu ilçelerdeki kuryeler
- {
-
-     $districts =  $branch->district()->orderBy('id', 'desc')->paginate(10);
-     $districts->map(function ($district) {
-        return $district->courier;
+// şubenin sorumlu olduğu ilçede user olmadığından users boş gelmesi normal
+    public function districtusers(Branch $branch) //şubenin sorumlu olduğu ilçelerdeki müşteriler
+    {
+       $districts =  $branch->district()->orderBy('id', 'desc')->paginate(10);
+       $districts->map(function ($district) {
+        return $district->users;
     });
-    return response($districts);
-}
+       return response($districts);
+   }
+   public function citytasks(Branch $branch) //şubenin sorumlu olduğu illerdeki gönderiler
+    {
+       $cities =  $branch->city()->orderBy('id', 'desc')->paginate(10);
+       $cities->map(function ($city) {
+        return $city->tasks;
+    });
+       return response($cities);
+   }
+
+    public function districttasks(Branch $branch) //şubenin sorumlu olduğu ilçelerdeki gönderiler
+    {
+       $districts =  $branch->district()->orderBy('id', 'desc')->paginate(10);
+       $districts->map(function ($district) {
+        return $district->tasks;
+    });
+       return response($districts);
+   }
 }

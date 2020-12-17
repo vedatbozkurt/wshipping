@@ -80,4 +80,33 @@ class CourierController extends Controller
         $courier->restore();
         return response()->json('success');
     }
+
+    // kuryenin çalıştıgı illerin şubeleri
+    // kuryenin çalıştıgı ilde şube olmadığından şube boş gelmesi normal
+    public function citybranches(Courier $courier) //kuryenin sorumlu olduğu illerdeki şubeler
+    {
+     $cities =  $courier->city()->orderBy('id', 'desc')->paginate(10);
+     $cities->map(function ($city) {
+        return $city->branch;
+    });
+     return response($cities);
+ }
+    // kuryenin çalıştıgı ilçelerin şubeleri
+    // kuryenin çalıştıgı ilde şube olmadığından şube boş gelmesi normal
+    public function districtbranches(Courier $courier) //kuryenin sorumlu olduğu illerdeki şubeler
+    {
+     // $courier = Courier::with('city','district')->orderBy('id', 'desc')->paginate(10);
+     $districts =  $courier->district()->orderBy('id', 'desc')->paginate(10);
+     $districts->map(function ($district) {
+        return $district->branch;
+    });
+     return response($districts);
+ }
+
+    public function tasks($courier) //kuryenin sorumlu olduğu illerdeki şubeler
+    {
+     $tasks = Courier::with('task')->where('id', $courier)->orderBy('id', 'desc')->paginate(10);
+     // $tasks = $courier->task()->orderBy('id', 'desc')->paginate(10);
+     return response($tasks);
+    }
 }

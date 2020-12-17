@@ -72,4 +72,10 @@ class UserController extends Controller
         $user->restore();
         return response()->json('success');
     }
+
+    public function addresses(User $user)
+    {
+        $addresses = $user->address()->orderBy('id', 'desc')->paginate(10);
+        return response($addresses);
+    }
 }
