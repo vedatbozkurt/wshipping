@@ -46,32 +46,34 @@ class CityController extends Controller
     public function couriers(City $city)
     {
         // $districts = City::find($city)->district;
-        $courier = $city->courier;
+        $courier = $city->courier()->orderBy('id', 'desc')->paginate(10);
         return response($courier);
     }
 
     public function branches(City $city)
     {
-        $branch = $city->branch;
+        $branch = $city->branch()->orderBy('id', 'desc')->paginate(10);
         return response($branch);
     }
 
-    public function users($city)
+
+    public function users(City $city)
     {
         // $address = Address::select('id','user_id', 'city_id', 'name', 'description')->with('user:id,name','city:id,name')->where('city_id', $city)->orderBy('id', 'desc')->paginate(10);
-        $user = Address::with('user:id,name','city:id,name')->where('city_id', $city)->orderBy('id', 'desc')->paginate(10);
+        /*$user =  User::with(['address' => function ($q) use ($city) {
+            $q->where('city_id', $city);
+        }])->orderBy('id', 'desc')->paginate(10);
+        return response($user);*/
+        $user = $city->users()->orderBy('id', 'desc')->paginate(10);
         return response($user);
     }
 
-    public function tasks($city)
+    public function tasks(City $city)
     {
-
        /*$task = Task::with(['senderaddress' => $city, function ($query, $city) {
             $query->where('city_id','=', $city);
         }])->get();*/
-        $task =  Task::with(['senderaddress' => function ($q) use ($city) {
-            $q->where('city_id', $city);
-        }])->orderBy('id', 'desc')->paginate(10);
+        $task =  $city->tasks()->orderBy('id', 'desc')->paginate(10);
         return response($task);
     }
 

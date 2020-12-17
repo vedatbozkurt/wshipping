@@ -24,7 +24,14 @@ class District extends Model
         return $this->belongsToMany('App\Courier');
     }
 
-    function address() { //müsteri birçok adrese sahip olabilir
+    function address() { //ilçe birçok adrese sahip olabilir(usera adres detayları gösterilirken kullanılabilir)
         return $this->hasMany('App\Address');
+    }
+
+    public function tasks(){
+        return $this->hasManyThrough('App\Task', 'App\Address','district_id', 'sender_address_id', 'id');
+    }
+    public function users(){
+        return $this->hasManyThrough('App\User', 'App\Address','district_id', 'id', 'id','user_id' )->distinct();
     }
 }

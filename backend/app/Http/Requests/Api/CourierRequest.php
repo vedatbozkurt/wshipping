@@ -28,6 +28,8 @@ class CourierRequest extends FormRequest
       case 'POST':
       {
         return [
+          'city' => 'required',
+          'district' => 'required',
           'name' => 'required',
           'image' => 'required',
           'phone' => 'required',
@@ -43,6 +45,8 @@ class CourierRequest extends FormRequest
       case 'PUT':
       {
         return [
+          'city' => 'required',
+          'district' => 'required',
           'name' => 'required',
           'image' => 'required',
           'phone' => 'required',

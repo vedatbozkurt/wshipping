@@ -6,6 +6,7 @@ use App\Branch;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\BranchRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BranchController extends Controller
 {
@@ -20,8 +21,8 @@ class BranchController extends Controller
        ->select('branches.*','cities.name as city_name')
        ->take(5)->get();*/
        $branches = Branch::with('city','district')->orderBy('id', 'desc')->paginate(10);
-        return response($branches);
-    }
+       return response($branches);
+   }
 
 
 
@@ -100,4 +101,23 @@ class BranchController extends Controller
         // return response()->json($branch);
         return response()->json('success');
     }
+
+    public function citycouriers(Branch $branch) //şubenin sorumlu olduğu illerdeki kuryeler
+    {
+       $cities =  $branch->city()->orderBy('id', 'desc')->paginate(10);
+       $cities->map(function ($city) {
+        return $city->courier;
+    });
+       return response($cities);
+   }
+
+ public function districtcouriers(Branch $branch) //şubenin sorumlu olduğu ilçelerdeki kuryeler
+ {
+
+     $districts =  $branch->district()->orderBy('id', 'desc')->paginate(10);
+     $districts->map(function ($district) {
+        return $district->courier;
+    });
+    return response($districts);
+}
 }

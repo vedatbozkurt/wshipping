@@ -29,6 +29,8 @@ class BranchRequest extends FormRequest
       case 'POST':
       {
         return [
+          'city' => 'required',
+          'district' => 'required',
           'name' => 'required',
           'phone' => 'required',
           'email' => 'required|email|unique:branches',
@@ -40,6 +42,8 @@ class BranchRequest extends FormRequest
       case 'PUT':
       {
         return [
+          'city' => 'required',
+          'district' => 'required',
           'name' => 'required',
           'phone' => 'required',
           'email' => 'required|email|unique:branches,email,'.$this->route('branch')->id,
