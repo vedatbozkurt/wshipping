@@ -47,14 +47,20 @@ Route::prefix('v1')->group(function () {
             Route::put('{branch}', 'Api\Admin\BranchController@update');
             Route::delete('{branch}', 'Api\Admin\BranchController@destroy');
             Route::post('{branch}/restore', 'Api\Admin\BranchController@restore');
+            //şubenin il ve ilçelerinin tümünün kuryeleri yani şubenin tüm kuryeleri
+            Route::get('{branch}/couriers', 'Api\Admin\BranchController@couriers');
             //şubenin illerinin kuryeleri
             Route::get('{branch}/citycouriers', 'Api\Admin\BranchController@citycouriers');
             //şubenin ilçelerinin kuryeleri
             Route::get('{branch}/districtcouriers', 'Api\Admin\BranchController@districtcouriers');
+            //şubenin il ve ilçelerinin tümünün müşterileri yani şubenin tüm müşterileri
+            Route::get('{branch}/users', 'Api\Admin\BranchController@users');
             //şubenin illerinin müşterileri
             Route::get('{branch}/cityusers', 'Api\Admin\BranchController@cityusers');
             //şubenin ilçelerinin müşterileri
             Route::get('{branch}/districtusers', 'Api\Admin\BranchController@districtusers');
+            //şubenin il ve ilçelerinin tümünün gönderileri yani şubenin tüm gönderileri
+            Route::get('{branch}/tasks', 'Api\Admin\BranchController@tasks');
             //şubenin illerinin gönderileri
             Route::get('{branch}/citytasks', 'Api\Admin\BranchController@citytasks');
             //şubenin ilçelerinin gönderileri
