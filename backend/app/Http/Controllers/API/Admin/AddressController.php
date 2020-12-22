@@ -21,6 +21,11 @@ class AddressController extends Controller
         return response()->json('success');
     }
 
+    public function edit(Address $address)
+    {
+        return response()->json($address);
+    }
+
     public function update(AddressRequest $request, Address $address)
     {
         $input = $request->validated();

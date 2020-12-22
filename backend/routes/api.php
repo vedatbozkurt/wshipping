@@ -44,6 +44,7 @@ Route::prefix('v1')->group(function () {
         Route::prefix('branch')->group(function () {
             Route::get('/', 'Api\Admin\BranchController@index');
             Route::post('store', 'Api\Admin\BranchController@store');
+            Route::get('{branch}', 'Api\Admin\BranchController@edit');
             Route::put('{branch}', 'Api\Admin\BranchController@update');
             Route::delete('{branch}', 'Api\Admin\BranchController@destroy');
             Route::post('{branch}/restore', 'Api\Admin\BranchController@restore');
@@ -71,6 +72,7 @@ Route::prefix('v1')->group(function () {
         Route::prefix('courier')->group(function () {
             Route::get('/', 'Api\Admin\CourierController@index');
             Route::post('store', 'Api\Admin\CourierController@store');
+            Route::get('{courier}', 'Api\Admin\CourierController@edit');
             Route::put('{courier}', 'Api\Admin\CourierController@update');
             Route::delete('{courier}', 'Api\Admin\CourierController@destroy');
             Route::post('{courier}/restore', 'Api\Admin\CourierController@restore');
@@ -85,6 +87,7 @@ Route::prefix('v1')->group(function () {
         Route::prefix('user')->group(function () {
             Route::get('/', 'Api\Admin\UserController@index');
             Route::post('store', 'Api\Admin\UserController@store');
+            Route::get('{user}', 'Api\Admin\UserController@edit');
             Route::put('{user}', 'Api\Admin\UserController@update');
             Route::delete('{user}', 'Api\Admin\UserController@destroy');
             Route::post('{user}/restore', 'Api\Admin\UserController@restore');
@@ -97,16 +100,17 @@ Route::prefix('v1')->group(function () {
         Route::prefix('task')->group(function () {
             Route::get('/', 'Api\Admin\TaskController@index');
             Route::post('store', 'Api\Admin\TaskController@store');
+            Route::get('{task}', 'Api\Admin\TaskController@edit');
             Route::put('{task}', 'Api\Admin\TaskController@update');
             Route::delete('{task}', 'Api\Admin\TaskController@destroy');
             Route::post('{task}/restore', 'Api\Admin\TaskController@restore');
-            Route::get('{task}', 'Api\Admin\TaskController@index');
         });
 
         //address
         Route::prefix('address')->group(function () {
             Route::get('/', 'Api\Admin\AddressController@index');
             Route::post('store', 'Api\Admin\AddressController@store');
+            Route::get('{address}', 'Api\Admin\AddressController@edit');
             Route::put('{address}', 'Api\Admin\AddressController@update');
             Route::delete('{address}', 'Api\Admin\AddressController@destroy');
         });
@@ -115,6 +119,7 @@ Route::prefix('v1')->group(function () {
         Route::prefix('city')->group(function () {
             Route::get('/', 'Api\Admin\CityController@index');
             Route::post('city/store', 'Api\Admin\CityController@store');
+            Route::get('{city}', 'Api\Admin\CityController@edit');
             Route::put('city/{city}', 'Api\Admin\CityController@update');
             Route::delete('city/{city}', 'Api\Admin\CityController@destroy');
             Route::get('{city}/districts', 'Api\Admin\CityController@districts'); //city districts
@@ -129,6 +134,7 @@ Route::prefix('v1')->group(function () {
         Route::prefix('district')->group(function () {
             Route::get('/', 'Api\Admin\DistrictController@index');
             Route::post('store', 'Api\Admin\DistrictController@store');
+            Route::get('{district}', 'Api\Admin\DistrictController@edit');
             Route::put('{district}', 'Api\Admin\DistrictController@update');
             Route::delete('{district}', 'Api\Admin\DistrictController@destroy');
             Route::get('{district}/couriers', 'Api\Admin\DistrictController@couriers'); //district couriers

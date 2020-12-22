@@ -46,6 +46,12 @@ class BranchController extends Controller
         // return response()->json(['status'=> 'success', 'data' => $success, 'message' => 'User register successfully.']);
     }
 
+
+    public function edit(Branch $branch)
+    {
+        return response()->json($branch);
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -136,20 +142,20 @@ class BranchController extends Controller
     });*/
     $districts = \App\Branch::with('district.courier')->where('id',$branch)->orderBy('id', 'desc')->paginate(10);
     return response($districts);
-    }
+}
 
-    public function users(Branch $branch){
+public function users(Branch $branch){
     // $users = \App\Branch::with('city.users')->where('id',$branch)->orderBy('id', 'desc')->paginate(10);
 
-        $cities = $branch->city;
-        $user = [];
-        foreach ($cities as $city) {
-            array_push($user, $city->users);
-        }
-        $users=collect($user)->flatten();
-        $users = $users->unique('id');
-        return response($users);
+    $cities = $branch->city;
+    $user = [];
+    foreach ($cities as $city) {
+        array_push($user, $city->users);
     }
+    $users=collect($user)->flatten();
+    $users = $users->unique('id');
+    return response($users);
+}
 
     // şubenin sorumlu olduğu ilde user olmadığından users boş gelmesi normal
     public function cityusers($branch) //şubenin sorumlu olduğu illerdeki müşteriler
@@ -175,15 +181,15 @@ class BranchController extends Controller
 
 public function tasks(Branch $branch){
 
-        $cities = $branch->city;
-        $task = [];
-        foreach ($cities as $city) {
-            array_push($task, $city->tasks);
-        }
-        $tasks=collect($task)->flatten();
-        $tasks = $tasks->unique('id');
-        return response($tasks);
+    $cities = $branch->city;
+    $task = [];
+    foreach ($cities as $city) {
+        array_push($task, $city->tasks);
     }
+    $tasks=collect($task)->flatten();
+    $tasks = $tasks->unique('id');
+    return response($tasks);
+}
 
    public function citytasks($branch) //şubenin sorumlu olduğu illerdeki gönderiler
    {

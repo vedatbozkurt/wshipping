@@ -21,6 +21,14 @@ class TaskController extends Controller
         return response()->json('success');
     }
 
+    public function edit(Task $task)
+    {
+        $city = \App\City::all();
+        return response()->json(array('task'=>$task,'city'=>$city));
+
+        return response()->json($task);
+    }
+
     public function update(TaskRequest $request, Task $task)
     {
         $input = $request->validated();

@@ -23,6 +23,11 @@ class CityController extends Controller
         return response()->json('success');
     }
 
+    public function edit(City $city)
+    {
+        return response()->json($city);
+    }
+
     public function update(CityRequest $request, City $city)
     {
         $input = $request->validated();

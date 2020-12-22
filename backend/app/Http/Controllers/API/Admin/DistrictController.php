@@ -23,6 +23,11 @@ class DistrictController extends Controller
         return response()->json('success');
     }
 
+    public function edit(District $district)
+    {
+        return response()->json($district);
+    }
+
     public function update(DistrictRequest $request, District $district)
     {
         $input = $request->validated();

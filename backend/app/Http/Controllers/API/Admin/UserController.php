@@ -33,6 +33,10 @@ class UserController extends Controller
         return response()->json('success');
     }
 
+    public function edit(User $user)
+    {
+        return response()->json($user);
+    }
     /**
      * Update the specified resource in storage.
      *

@@ -37,6 +37,11 @@ class CourierController extends Controller
         return response()->json('success');
     }
 
+    public function edit(Courier $courier)
+    {
+        return response()->json($courier);
+    }
+
     /**
      * Update the specified resource in storage.
      *
