@@ -149,85 +149,84 @@ Route::prefix('v1')->group(function ()
          //dashboard
         Route::get('user/{id}', 'API\Admin\DashboardController@show');
         // }); //auth:admin middleware
-    });
-
+ }); //admin prefix
     //branch page
-    Route::prefix('branch')->group(function ()
+Route::prefix('branch')->group(function ()
+{
+    Route::post('/login', 'API\Branch\AuthController@login');
+
+    Route::middleware(['auth:branch', 'scope:branch'])->group( function ()
     {
-        Route::post('/login', 'API\Branch\AuthController@login');
+        Route::get('profile', 'API\Branch\AuthController@getProfile');
+        Route::put('profile', 'API\Branch\AuthController@updateProfile');
 
-        Route::middleware(['auth:branch', 'scope:branch'])->group( function ()
+        Route::prefix('courier')->group(function ()
         {
-            Route::get('profile', 'API\Branch\AuthController@getProfile');
-            Route::put('profile', 'API\Branch\AuthController@updateProfile');
 
-            Route::prefix('courier')->group(function ()
-            {
+        });
+        Route::prefix('user')->group(function ()
+        {
 
-            });
-            Route::prefix('user')->group(function ()
-            {
+        });
+        Route::prefix('task')->group(function ()
+        {
 
-            });
-            Route::prefix('task')->group(function ()
-            {
-
-            });
+        });
 
                 //dashboard
-            Route::get('user/{id}', 'API\Branch\DashboardController@show');
-        });
+        Route::get('user/{id}', 'API\Branch\DashboardController@show');
     });
+});
 
     //courier page
-    Route::prefix('courier')->group(function ()
+Route::prefix('courier')->group(function ()
+{
+    Route::post('/register', 'API\Courier\AuthController@register');
+    Route::post('/login', 'API\Courier\AuthController@login');
+
+    Route::middleware(['auth:courier', 'scope:courier'])->group( function ()
     {
-        Route::post('/register', 'API\Courier\AuthController@register');
-        Route::post('/login', 'API\Courier\AuthController@login');
+        Route::get('profile', 'API\Courier\AuthController@getProfile');
+        Route::put('profile', 'API\Courier\AuthController@updateProfile');
 
-        Route::middleware(['auth:courier', 'scope:courier'])->group( function ()
+        Route::prefix('task')->group(function ()
         {
-            Route::get('profile', 'API\Courier\AuthController@getProfile');
-            Route::put('profile', 'API\Courier\AuthController@updateProfile');
 
-            Route::prefix('task')->group(function ()
-            {
-
-            });
+        });
 
                 //dashboard
-            Route::get('user/{id}', 'API\Courier\DashboardController@show');
-        });
+        Route::get('user/{id}', 'API\Courier\DashboardController@show');
     });
+});
     //customer page
-    Route::prefix('user')->group(function ()
+Route::prefix('user')->group(function ()
+{
+    Route::post('/register', 'API\User\AuthController@register');
+    Route::post('/login', 'API\User\AuthController@login');
+
+    Route::middleware(['auth:user', 'scope:user'])->group( function ()
     {
-        Route::post('/register', 'API\User\AuthController@register');
-        Route::post('/login', 'API\User\AuthController@login');
-
-        Route::middleware(['auth:user', 'scope:user'])->group( function ()
-        {
-            Route::get('profile', 'API\User\AuthController@getProfile');
-            Route::put('profile', 'API\User\AuthController@updateProfile');
+        Route::get('profile', 'API\User\AuthController@getProfile');
+        Route::put('profile', 'API\User\AuthController@updateProfile');
             //dashboard
-            Route::get('/', 'API\User\DashboardController@show');
+        Route::get('/', 'API\User\DashboardController@show');
 
-            Route::prefix('address')->group(function ()
-            {
-                Route::get('/', 'Api\User\AddressController@index');
-                Route::post('store', 'Api\User\AddressController@store');
-                Route::get('{address}', 'Api\User\AddressController@edit');
-                Route::put('{address}', 'Api\User\AddressController@update');
-                Route::delete('{address}', 'Api\User\AddressController@destroy');
-            });
+        Route::prefix('address')->group(function ()
+        {
+            Route::get('/', 'Api\User\AddressController@index');
+            Route::post('store', 'Api\User\AddressController@store');
+            Route::get('{address}', 'Api\User\AddressController@edit');
+            Route::put('{address}', 'Api\User\AddressController@update');
+            Route::delete('{address}', 'Api\User\AddressController@destroy');
+        });
 
-            Route::prefix('task')->group(function ()
-            {
+        Route::prefix('task')->group(function ()
+        {
                 Route::get('sent', 'API\User\TaskController@tasksent'); //kurye, durum vb göster
                 Route::get('received', 'API\User\TaskController@taskreceived');
                 Route::get('{task}', 'API\User\TaskController@taskedit');
                 Route::put('{task}', 'API\User\TaskController@taskupdate');
             });
-        });
     });
+});
 });

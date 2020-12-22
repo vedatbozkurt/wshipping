@@ -28,7 +28,7 @@ class City extends Model
         return $this->hasMany('App\Address');
     }
 
-    public function tasks(){
+    public function tasks(){ //tasklar hangi şubenin ilinden gönderildiyse o şubeye gösterilir
         //city_id: address tablosundan, sender_address_id: task tablosundan, id: city tablosundan
         return $this->hasManyThrough('App\Task', 'App\Address','city_id', 'sender_address_id', 'id');
     }

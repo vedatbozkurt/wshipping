@@ -111,11 +111,11 @@ class BranchController extends Controller
     // $courier = \App\Branch::with('city.courier','district.courier')->where('id',$branch)->orderBy('id', 'desc')->paginate(10);
 
         //şubenin il veya ilçelerindeki kuryeleri çekersen tüm kuryelerini çekmiş olursun
-        $cities = $branch->city;
+        $districts = $branch->district;
 
         $courier = [];
-        foreach ($cities as $city) {
-            array_push($courier,$city->courier);
+        foreach ($districts as $district) {
+            array_push($courier,$district->courier);
         }
         $couriers=collect($courier)->flatten();
         $couriers = $couriers->unique('id');
@@ -148,10 +148,10 @@ class BranchController extends Controller
 public function users(Branch $branch){
     // $users = \App\Branch::with('city.users')->where('id',$branch)->orderBy('id', 'desc')->paginate(10);
 
-    $cities = $branch->city;
+    $districts = $branch->district;
     $user = [];
-    foreach ($cities as $city) {
-        array_push($user, $city->users);
+    foreach ($districts as $district) {
+        array_push($user, $district->users);
     }
     $users=collect($user)->flatten();
     $users = $users->unique('id');
@@ -182,10 +182,10 @@ public function users(Branch $branch){
 
 public function tasks(Branch $branch){
 
-    $cities = $branch->city;
+    $districts = $branch->district;
     $task = [];
-    foreach ($cities as $city) {
-        array_push($task, $city->tasks);
+    foreach ($districts as $district) {
+        array_push($task, $district->tasks);
     }
     $tasks=collect($task)->flatten();
     $tasks = $tasks->unique('id');
