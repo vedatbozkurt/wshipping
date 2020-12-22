@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api;
 
 use App\Http\Requests\Api\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CourierRequest extends FormRequest
 {
@@ -38,25 +39,32 @@ class CourierRequest extends FormRequest
           'vehicle'  => 'required',
           'plate'  => 'required',
           'color'  => 'required',
-          'status'  => 'required'
+          // 'status'  => 'required'
         ];
       }
       case 'PATCH':
       case 'PUT':
       {
-        return [
+        $rules = [
           'city' => 'required',
           'district' => 'required',
           'name' => 'required',
           'image' => 'required',
           'phone' => 'required',
-          'email' => 'required|email|unique:couriers,email,'.$this->route('courier')->id,
           'password'  => 'sometimes|required|min:3',
           'vehicle'  => 'required',
           'plate'  => 'required',
           'color'  => 'required',
-          'status'  => 'required'
+          // 'status'  => 'required'
         ];
+
+        if (isset(Auth::guard('courier')->user()->id)) { //if updated by branch
+          $rules += ['email' => 'required|email|unique:couriers,email,'.Auth::guard('courier')->user()->id];
+        }else{ //if updated by admin or branch
+          $rules += ['email' => 'required|email|unique:couriers,email,'.$this->route('courier')->id,];
+        }
+
+        return $rules;
       }
       default: break;
     }

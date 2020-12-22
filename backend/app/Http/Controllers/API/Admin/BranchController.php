@@ -5,8 +5,6 @@ namespace App\Http\Controllers\API\Admin;
 use App\Branch;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\BranchRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class BranchController extends Controller
 {
@@ -17,10 +15,12 @@ class BranchController extends Controller
      */
     public function index()
     {
-        /*$branches = Branch::join('cities', 'cities.id', '=', 'branches.city_id')
-       ->select('branches.*','cities.name as city_name')
-       ->take(5)->get();*/
-       $branches = Branch::with('city','district')->orderBy('id', 'desc')->paginate(10);
+        // $branches = $branch->city->district;
+       // $branches = Branch::with('city','district')->orderBy('id', 'desc')->paginate(10);
+        // $branches = \App\Branch::with('district.city')->orderBy('id','desc')->paginate(10);
+        $branches = \App\Branch::orderBy('id','desc')->paginate(10);
+        // $branches = \App\Branch::with('city.branch.district')->orderBy('id','desc')->paginate(10);
+
        return response($branches);
    }
     /**
@@ -37,18 +37,19 @@ class BranchController extends Controller
         $branch->city()->attach($request->city);
         $branch->district()->attach($request->district);
 
-
+/*
         activity()->causedBy(Auth::user())->performedOn($branch)
         ->withProperties(['action' => 'create', 'status' => 'success'])
         ->log($branch->name.' branch successfully created');
-
+*/
         return response()->json('success');
         // return response()->json(['status'=> 'success', 'data' => $success, 'message' => 'User register successfully.']);
     }
 
 
-    public function edit(Branch $branch)
+    public function edit($branch)
     {
+        $branch = \App\Branch::with('city','district')->findOrFail($branch);
         return response()->json($branch);
     }
 
@@ -68,11 +69,11 @@ class BranchController extends Controller
         $branch->update($input);
         $branch->city()->sync($request->city);
         $branch->district()->sync($request->district);
-
+/*
         activity()->causedBy(Auth::user())->performedOn($branch)
         ->withProperties(['action' => 'update', 'status' => 'success'])
         ->log($branch->name.' branch successfully updated');
-
+*/
         return response()->json('success');
     }
 
@@ -129,7 +130,7 @@ class BranchController extends Controller
         return $city->courier;
     });*/
 
-    $cities = \App\Branch::with('city.courier','district.courier')->where('id',$branch)->orderBy('id', 'desc')->paginate(10);
+    $cities = \App\Branch::with('city.courier')->where('id',$branch)->orderBy('id', 'desc')->paginate(10);
     // Courier::whereHas(‘branch’, ...)->whereHas(‘city’...)...
     return response($cities);
 }

@@ -16,7 +16,10 @@ class CreateBranchDistrictTable extends Migration
         Schema::create('branch_district', function (Blueprint $table) {
             $table->id();
             $table->integer('district_id');
+            $table->foreign('district_id')->references('id')->on('districts');
             $table->integer('branch_id');
+            $table->foreign('branch_id')->references('id')->on('branches');
+
             $table->timestamps();
         });
     }

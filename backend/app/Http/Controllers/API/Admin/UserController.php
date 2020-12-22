@@ -16,6 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $user = User::orderBy('id', 'desc')->paginate(10);
+        // $user = User::with('address.city')->orderBy('id','desc')->paginate(10);
         return response($user);
     }
 
@@ -35,6 +36,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        //il ilçeyi adreste eklediği için burada gerek yok
         return response()->json($user);
     }
     /**

@@ -16,15 +16,15 @@ class AuthController extends Controller
     {
         $input = $request->validated();
         $input['password'] = bcrypt($input['password']);
-        $user = Admin::create($input);
+        $user = Admin::create($input);/*
         $success['token'] =  $user->createToken($user->name)->accessToken;
-        $success['name'] =  $user->name;
-
+        $success['name'] =  $user->name;*/
+/*
         activity()
         ->causedBy($user) //yapan kişi:admin -- buraya giriş yapmış adminin auth bilgisini ekle
         ->performedOn($user) //yapılan işlem:task created
         ->withProperties(['action' => 'register', 'status' => 'success', 'user' => $user->name])
-        ->log('new registration');
+        ->log('new registration');*/
 
         return response()->json(['status'=> 'success', 'data' => $success, 'message' => 'User register successfully.']);
     }
@@ -41,7 +41,7 @@ class AuthController extends Controller
     if (!Hash::check($password, $user->password)) {
         return response()->json(['success'=>false, 'message' => 'Login Fail, please check password']);
     }
-    $success['token'] =  $user->createToken('MyApp')-> accessToken;
+    $success['token'] =  $user->createToken('MyApp', ['admin'])->accessToken;
     $success['name'] =  $user->name;
 
     return response()->json(['status'=> 'success', 'data' => $success, 'message' => 'User login successfully.']);
@@ -64,7 +64,7 @@ public function updateProfile(AdminRequest $request)
         $input['password'] = bcrypt($input['password']);
     }
     Admin::whereId($userid)->update($input);
-    return response()->json($input);
+    return response()->json('success');
 }
 
 

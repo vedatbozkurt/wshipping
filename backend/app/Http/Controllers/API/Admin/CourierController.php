@@ -16,7 +16,10 @@ class CourierController extends Controller
      */
     public function index()
     {
-        $courier = Courier::with('city','district','task')->orderBy('id', 'desc')->paginate(10);
+        $courier = Courier::orderBy('id', 'desc')->paginate(10);
+        // $courier = Courier::with('district.city')->orderBy('id', 'desc')->paginate(10);
+        //no need to show tasks
+        // $courier = Courier::with('district.city','task')->orderBy('id', 'desc')->paginate(10);
         return response($courier);
     }
 
@@ -37,8 +40,9 @@ class CourierController extends Controller
         return response()->json('success');
     }
 
-    public function edit(Courier $courier)
+    public function edit($courier)
     {
+        $courier = \App\Courier::with('city','district')->findOrFail($courier);
         return response()->json($courier);
     }
 
@@ -88,23 +92,25 @@ class CourierController extends Controller
 
     // kuryenin çalıştıgı illerin şubeleri
     // kuryenin çalıştıgı ilde şube olmadığından şube boş gelmesi normal
-    public function citybranches(Courier $courier) //kuryenin sorumlu olduğu illerdeki şubeler
+    public function citybranches($courier) //kuryenin sorumlu olduğu illerdeki şubeler
     {
-     $cities =  $courier->city()->orderBy('id', 'desc')->paginate(10);
+     /*$cities =  $courier->city()->orderBy('id', 'desc')->paginate(10);
      $cities->map(function ($city) {
         return $city->branch;
-    });
+    });*/
+    $cities = \App\Courier::with('city.branch')->where('id',$courier)->orderBy('id', 'desc')->paginate(10);
      return response($cities);
  }
     // kuryenin çalıştıgı ilçelerin şubeleri
     // kuryenin çalıştıgı ilde şube olmadığından şube boş gelmesi normal
-    public function districtbranches(Courier $courier) //kuryenin sorumlu olduğu illerdeki şubeler
+    public function districtbranches($courier) //kuryenin sorumlu olduğu illerdeki şubeler
     {
      // $courier = Courier::with('city','district')->orderBy('id', 'desc')->paginate(10);
-     $districts =  $courier->district()->orderBy('id', 'desc')->paginate(10);
+     /*$districts =  $courier->district()->orderBy('id', 'desc')->paginate(10);
      $districts->map(function ($district) {
         return $district->branch;
-    });
+    });*/
+    $districts = \App\Courier::with('district.branch')->where('id',$courier)->orderBy('id', 'desc')->paginate(10);
      return response($districts);
  }
 

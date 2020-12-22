@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Http\Controllers\API\User;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\User;
+
+class DashboardController extends Controller
+{
+    public function show($id)
+    {
+        return response()->json('dashboard hazırlanıyor');
+    }
+}

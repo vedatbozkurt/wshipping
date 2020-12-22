@@ -10,7 +10,8 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $task = Task::with('courier','sender','receiver', 'senderaddress.city', 'senderaddress.district', 'receiveraddress.city', 'receiveraddress.district')->orderBy('id', 'desc')->paginate(10);
+        // $task = Task::with('courier:id,name','sender:id,name,phone','receiver:id,name', 'senderaddress.city', 'senderaddress.district', 'receiveraddress.city', 'receiveraddress.district')->orderBy('id', 'desc')->paginate(10);
+        $task = Task::with('courier:id,name','sender:id,name,phone','receiver:id,name,phone')->orderBy('id', 'desc')->paginate(10);
         return response($task);
     }
 
@@ -21,11 +22,11 @@ class TaskController extends Controller
         return response()->json('success');
     }
 
-    public function edit(Task $task)
+    public function edit($task)
     {
-        $city = \App\City::all();
-        return response()->json(array('task'=>$task,'city'=>$city));
-
+        // $city = \App\City::all(); //ile baglı ilçeleri de çek
+        $task = Task::with('courier','sender','receiver', 'senderaddress.city', 'senderaddress.district', 'receiveraddress.city', 'receiveraddress.district')->findOrFail($task);
+        // return response()->json(array('task'=>$task,'city'=>$city));
         return response()->json($task);
     }
 
