@@ -18,7 +18,7 @@ class BranchController extends Controller
         // $branches = $branch->city->district;
        // $branches = Branch::with('city','district')->orderBy('id', 'desc')->paginate(10);
         // $branches = \App\Branch::with('district.city')->orderBy('id','desc')->paginate(10);
-        $branches = \App\Branch::orderBy('id','desc')->paginate(10);
+        $branches = \App\Branch::withTrashed()->orderBy('id','desc')->paginate(10);
         // $branches = \App\Branch::with('city.branch.district')->orderBy('id','desc')->paginate(10);
 
        return response($branches);
@@ -49,7 +49,7 @@ class BranchController extends Controller
 
     public function edit($branch)
     {
-        $branch = \App\Branch::with('city','district')->findOrFail($branch);
+        $branch = \App\Branch::with('city','district')->withTrashed()->findOrFail($branch);
         return response()->json($branch);
     }
 

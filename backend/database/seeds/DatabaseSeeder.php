@@ -28,12 +28,12 @@ class DatabaseSeeder extends Seeder
         //city 2
         \App\City::create([
             'id' => 34,
-            'name' => 'Ankara',
+            'name' => 'İstanbul',
         ]);
         //city 3
         \App\City::create([
             'id' => 35,
-            'name' => 'Ankara',
+            'name' => 'İzmir',
         ]);
          //il ilçeleri
          //city 1 district 1

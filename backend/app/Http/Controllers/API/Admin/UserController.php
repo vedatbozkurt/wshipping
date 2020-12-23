@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::orderBy('id', 'desc')->paginate(10);
+        $user = User::withTrashed()->orderBy('id', 'desc')->paginate(10);
         // $user = User::with('address.city')->orderBy('id','desc')->paginate(10);
         return response($user);
     }
@@ -34,8 +34,9 @@ class UserController extends Controller
         return response()->json('success');
     }
 
-    public function edit(User $user)
+    public function edit($user)
     {
+        $user = User::withTrashed()->find($user);
         //il ilçeyi adreste eklediği için burada gerek yok
         return response()->json($user);
     }
@@ -63,18 +64,18 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($user)
     {
-        $user = User::withTrashed()->find($id);
+        $user = User::withTrashed()->find($user);
         $user->forceDelete();
         //müşteriye ait adresleri de sil
-        \App\Address::where('user_id',$id)->delete();
+        \App\Address::where('user_id',$user)->delete();
         return response()->json('success');
     }
 
-    public function restore($id)
+    public function restore($user)
     {
-        $user = User::where('id',$id)->withTrashed()->first();
+        $user = User::where('id',$user)->withTrashed()->first();
         $user->restore();
         return response()->json('success');
     }

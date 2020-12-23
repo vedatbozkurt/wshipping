@@ -16,7 +16,7 @@ class CourierController extends Controller
      */
     public function index()
     {
-        $courier = Courier::orderBy('id', 'desc')->paginate(10);
+        $courier = Courier::withTrashed()->orderBy('id', 'desc')->paginate(10);
         // $courier = Courier::with('district.city')->orderBy('id', 'desc')->paginate(10);
         //no need to show tasks
         // $courier = Courier::with('district.city','task')->orderBy('id', 'desc')->paginate(10);
@@ -42,7 +42,7 @@ class CourierController extends Controller
 
     public function edit($courier)
     {
-        $courier = \App\Courier::with('city','district')->findOrFail($courier);
+        $courier = \App\Courier::with('city','district')->withTrashed()->findOrFail($courier);
         return response()->json($courier);
     }
 
