@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
+use Illuminate\Support\Facades\Auth;
 
 
 class AuthServiceProvider extends ServiceProvider
@@ -34,5 +35,62 @@ class AuthServiceProvider extends ServiceProvider
             'courier' => 'Courier pages',
             'user' => 'User pages',
         ]);
+        //brancha kendi kuryesini göster
+        Gate::define('branch-own-couriers', function ($user, $courierid) {
+            $districts = $user->district;
+            $couriers=[];
+            foreach ($districts as $district) {
+                array_push($couriers,$district->courier);
+            }
+            $couriers=collect($couriers)->flatten();
+            $couriers = $couriers->unique('id');
+        $couriers = $couriers->pluck('id'); //sadece id leri çek
+        $courier = \App\Courier::whereIn('id', $couriers)->findOrFail($courierid);
+        return true;
+    });
+        //brancha kendi müşterilerini göster
+        Gate::define('branch-own-users', function ($user, $userid) {
+            $districts = $user->district;
+            $users=[];
+            foreach ($districts as $district) {
+                array_push($users,$district->users);
+            }
+            $users=collect($users)->flatten();
+            $users = $users->unique('id');
+        $users = $users->pluck('id'); //sadece id leri çek
+        $user = \App\User::whereIn('id', $users)->findOrFail($userid);
+        return true;
+    });
+        //brancha kendi tasklarını göster
+        Gate::define('branch-own-task', function ($user, $taskid) {
+            $districts = $user->district;
+            $tasks=[];
+            foreach ($districts as $district) {
+                array_push($tasks,$district->tasks);
+            }
+            $tasks=collect($tasks)->flatten();
+            $tasks = $tasks->unique('id');
+        $tasks = $tasks->pluck('id'); //sadece id leri çek
+        $task = \App\Task::whereIn('id', $tasks)->findOrFail($taskid);
+        return true;
+    });
+    //brancha kendi adreslerini göster
+        Gate::define('branch-own-address', function ($user, $addressid) {
+            $districts = $user->district;
+            $addresses=[];
+            foreach ($districts as $district) {
+                array_push($addresses,$district->address);
+            }
+            $addresses=collect($addresses)->flatten();
+            $addresses = $addresses->unique('id');
+        $addresses = $addresses->pluck('id'); //sadece id leri çek
+        $address = \App\Address::whereIn('id', $addresses)->findOrFail($addressid);
+        return true;
+    });
+ //courier kendi tasklarını göster
+        Gate::define('courier-own-task', function ($user, $taskid) {
+            $task = \App\Task::where('courier_id', $user->id)->findOrFail($taskid);
+            return true;
+        });
     }
 }

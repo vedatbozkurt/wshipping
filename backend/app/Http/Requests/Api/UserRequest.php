@@ -49,9 +49,9 @@ class UserRequest extends FormRequest
         ];
 
         if (isset(Auth::guard('user')->user()->id)) { //if updated by branch
-          $rules += ['email' => 'required|email|unique:users,email,'.Auth::guard('user')->user()->id];
+          $rules += ['email' => 'required|email|unique:couriers,email,'.Auth::guard('user')->user()->id];
         }else{ //if updated by admin or branch
-          $rules += ['email' => 'required|email|unique:users,email,'.$this->route('courier')->id,];
+          $rules += ['email' => 'required|email|unique:users,email,'.$this->route('user')->id];
         }
 
         return $rules;

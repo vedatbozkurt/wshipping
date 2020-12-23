@@ -37,6 +37,7 @@ class AuthController extends Controller
 public function getProfile()
 {
     // $user = Auth::user()->id;
+    // sadece il ve ilçelerini görür, değiştirmeyi sadece admin yapıyor
     $user = Auth::user();
     $branch = \App\Branch::with('city','district')->findOrFail($user->id);
     return response()->json($branch);

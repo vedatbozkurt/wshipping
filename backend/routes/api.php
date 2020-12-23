@@ -150,8 +150,8 @@ Route::prefix('v1')->group(function ()
             Route::get('user/{id}', 'API\Admin\DashboardController@show');
         }); //auth:admin middleware
  }); //admin prefix
-    //branch page
-Route::prefix('branch')->group(function ()
+
+Route::prefix('branch')->group(function ()//branch page
 {
     Route::post('/login', 'API\Branch\AuthController@login');
 
@@ -161,49 +161,62 @@ Route::prefix('branch')->group(function ()
         Route::put('profile', 'API\Branch\AuthController@updateProfile');
 
         //courier
-        Route::prefix('courier')->group(function ()
+        Route::prefix('courier')->group(function ()//branch/courier
         {
-             //store ve edit işlemlerinde sadece şubenin il ve ilçelerini göster
+            //store ve edit işlemlerinde sadece şubenin il ve ilçelerini göster
             Route::get('/', 'Api\Branch\CourierController@index'); // branch couriers
             Route::get('/citycouriers', 'Api\Branch\CourierController@citycouriers'); // branch city couriers
             Route::get('/districtcouriers', 'Api\Branch\CourierController@districtcouriers'); //branch district couriers
             Route::post('store', 'Api\Branch\CourierController@store');
-             //branch courier,branch cities,branch districts
+            //branch courier,branch cities,branch districts
             Route::get('{courier}', 'Api\Branch\CourierController@edit'); //sadece kendi kuryesini edit
             Route::put('{courier}', 'Api\Branch\CourierController@update');//sadece kendi kuryesini update
             Route::delete('{courier}', 'Api\Branch\CourierController@destroy');//sadece kendi kuryesini delete
             Route::get('{courier}/tasks', 'Api\Branch\CourierController@tasks'); //sadece kendi kuryesinin gönderileri
         });
 
-        Route::prefix('user')->group(function ()
+        Route::prefix('user')->group(function () //branch/user
         {
-
-
-
+            Route::get('/', 'Api\Branch\UserController@index'); // user
+            Route::post('store', 'Api\Branch\UserController@store');
+            Route::get('{user}', 'Api\Branch\UserController@edit'); // user
+            Route::put('{user}', 'Api\Branch\UserController@update');
+            Route::delete('{user}', 'Api\Branch\UserController@destroy');
+            // userın adres defteri //user->addresses
+            Route::get('{user}/addresses', 'Api\Branch\UserController@addresses');
+            // userın gönderdikleri // user->tasksender
+            Route::get('{user}/sendertasks', 'Api\Branch\UserController@sendertasks');
+            // userın aldıkları // user->taskreceiver
+            Route::get('{user}/receivertasks', 'Api\Branch\UserController@receivertasks');
         });
-        Route::prefix('task')->group(function ()
+
+        Route::prefix('task')->group(function () //branch/task
         {
             //store ve edit işlemlerinde sadece şubenin il ve ilçelerini göster
-
-
+            Route::get('/', 'Api\Branch\TaskController@index');
+            Route::post('store', 'Api\Branch\TaskController@store');
+            // task->courier,sender,receiver,senderaddress(city,district),receiveraddress(city,district)
+            Route::get('{task}', 'Api\Branch\TaskController@edit');
+            Route::put('{task}', 'Api\Branch\TaskController@update');
+            Route::delete('{task}', 'Api\Branch\TaskController@destroy');
         });
-        //address
-        Route::prefix('address')->group(function ()
+
+        Route::prefix('address')->group(function ()//branch/address
         {
-            //store ve edit işlemlerinde sadece şubenin il ve ilçelerini göster
-            Route::get('/', 'Api\Admin\AddressController@index');
-            Route::post('store', 'Api\Admin\AddressController@store');
-            Route::get('{address}', 'Api\Admin\AddressController@edit');
-            Route::put('{address}', 'Api\Admin\AddressController@update');
-            Route::delete('{address}', 'Api\Admin\AddressController@destroy');
-        });
+         //store ve edit işlemlerinde sadece şubenin il ve ilçelerini göster
+           Route::get('/', 'Api\Branch\AddressController@index');
+           Route::post('store', 'Api\Branch\AddressController@store');
+           Route::get('{address}', 'Api\Branch\AddressController@edit');
+           Route::put('{address}', 'Api\Branch\AddressController@update');
+           Route::delete('{address}', 'Api\Branch\AddressController@destroy');
+       });
 
-                //dashboard
+        //dashboard
         Route::get('user/{id}', 'API\Branch\DashboardController@show');
     });
 });
 
-    //courier page
+//courier page
 Route::prefix('courier')->group(function ()
 {
     Route::post('/register', 'API\Courier\AuthController@register');
@@ -216,16 +229,22 @@ Route::prefix('courier')->group(function ()
 
         Route::prefix('task')->group(function ()
         {
-            //sadece gönderi bilgilerini görsün-durumunu değiştirebilsin
+            //sadece il ilçesindeki gönderi bilgilerini görsün-durumunu değiştirebilsin
+            //store ve edit işlemlerinde sadece şubenin il ve ilçelerini göster
+            Route::get('/', 'Api\Courier\TaskController@index');
+            Route::get('{task}', 'Api\Courier\TaskController@edit');
+            // sadece gönderi durumunu değiştirebilsin
+            Route::put('{task}', 'Api\Courier\TaskController@update');
+            Route::put('{task}/cancel', 'Api\Courier\TaskController@cancel');
 
         });
 
-       //dashboard
+        //dashboard
         Route::get('user/{id}', 'API\Courier\DashboardController@show');
     });
 });
-    //customer page
-Route::prefix('user')->group(function ()
+
+Route::prefix('user')->group(function () //customer page
 {
     Route::post('/register', 'API\User\AuthController@register');
     Route::post('/login', 'API\User\AuthController@login');
@@ -234,7 +253,7 @@ Route::prefix('user')->group(function ()
     {
         Route::get('profile', 'API\User\AuthController@getProfile');
         Route::put('profile', 'API\User\AuthController@updateProfile');
-            //dashboard
+        //dashboard
         Route::get('/', 'API\User\DashboardController@show');
 
         Route::prefix('address')->group(function ()
@@ -248,11 +267,12 @@ Route::prefix('user')->group(function ()
 
         Route::prefix('task')->group(function ()
         {
-                Route::get('sent', 'API\User\TaskController@tasksent'); //kurye, durum vb göster
-                Route::get('received', 'API\User\TaskController@taskreceived');
-                Route::get('{task}', 'API\User\TaskController@taskedit');
-                Route::put('{task}', 'API\User\TaskController@taskupdate');
-            });
+             //kurye, durum vb göster
+            Route::get('sent', 'API\User\TaskController@tasksent');
+            Route::get('received', 'API\User\TaskController@taskreceived');
+            Route::get('{task}', 'API\User\TaskController@taskedit');
+            Route::put('{task}', 'API\User\TaskController@taskupdate');
+        });
     });
 });
 });

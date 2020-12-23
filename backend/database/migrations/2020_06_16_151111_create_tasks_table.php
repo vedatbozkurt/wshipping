@@ -35,13 +35,13 @@ class CreateTasksTable extends Migration
             \DB::statement('ALTER TABLE tasks AUTO_INCREMENT = 1000;');
             //status
             //0:onay bekliyor
-            //1:onaylandı
-            //2:Kurye atandı
+            //1:onaylandı-Kurye Ataması Bekleniyor
+            //2:Kurye atandı-Kurye Kabul Etmesi Bekleniyor
             //3:Kurye Kabul etti
             //4:Kurye yola çıktı
             //5:Kurye hedefe vardı
             //6:Gönderi teslim edildi
-            //7:İptal edildi
+            //7:İptal edildi-Kurye vazgeçti,yeni Kurye Kabul Etmesi Bekleniyor
     }
 
     /**
