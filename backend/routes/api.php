@@ -259,7 +259,7 @@ Route::prefix('user')->group(function () //customer page
         Route::prefix('address')->group(function ()
         {
             Route::get('/', 'Api\User\AddressController@index');
-            Route::post('store', 'Api\User\AddressController@store');
+            Route::post('store', 'Api\User\AddressController@store'); //user id post et
             Route::get('{address}', 'Api\User\AddressController@edit');
             Route::put('{address}', 'Api\User\AddressController@update');
             Route::delete('{address}', 'Api\User\AddressController@destroy');
@@ -267,11 +267,13 @@ Route::prefix('user')->group(function () //customer page
 
         Route::prefix('task')->group(function ()
         {
-             //kurye, durum vb göster
-            Route::get('sent', 'API\User\TaskController@tasksent');
-            Route::get('received', 'API\User\TaskController@taskreceived');
-            Route::get('{task}', 'API\User\TaskController@taskedit');
-            Route::put('{task}', 'API\User\TaskController@taskupdate');
+            Route::get('/', 'API\User\TaskController@index'); //all
+            Route::get('sendertasks', 'API\User\TaskController@sendertasks'); //gönderdikleri
+            Route::get('receivertasks', 'API\User\TaskController@receivertasks'); //aldıkları
+            Route::post('store', 'Api\User\TaskController@store'); //user id post et
+            Route::get('{task}', 'API\User\TaskController@edit');
+            Route::put('{task}', 'API\User\TaskController@update');
+            // Route::delete('{task}', 'Api\User\TaskController@destroy');
         });
     });
 });

@@ -87,9 +87,20 @@ class AuthServiceProvider extends ServiceProvider
         $address = \App\Address::whereIn('id', $addresses)->findOrFail($addressid);
         return true;
     });
- //courier kendi tasklarını göster
+ //courier kendi taskını göster
         Gate::define('courier-own-task', function ($user, $taskid) {
             $task = \App\Task::where('courier_id', $user->id)->findOrFail($taskid);
+            return true;
+        });
+
+         //usera kendi adresini göster
+        Gate::define('user-own-address', function ($user, $addressid) {
+            $task = \App\Address::where('user_id', $user->id)->findOrFail($addressid);
+            return true;
+        });
+         //usera ait task ise ve user sender ise
+        Gate::define('user-own-and-sender-task', function ($user, $taskid) {
+            $task = \App\Task::where('sender_id', $user->id)->findOrFail($taskid);
             return true;
         });
     }

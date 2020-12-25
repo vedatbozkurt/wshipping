@@ -8,7 +8,7 @@ use App\User;
 
 class DashboardController extends Controller
 {
-    public function show($id)
+    public function show()
     {
         return response()->json('dashboard hazırlanıyor');
     }
