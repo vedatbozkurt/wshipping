@@ -24,10 +24,12 @@ Route::prefix('v1')->group(function () {
     //http://127.0.0.1:8000/api/v1/admin/
     //admin page
     Route::prefix('admin')->group(function () {
-        Route::post('/register', 'API\Admin\AuthController@register');
+        // Route::post('/register', 'API\Admin\AuthController@register');
         Route::post('/login', 'API\Admin\AuthController@login');
 
         Route::middleware(['auth:admin', 'scope:admin'])->group(function () {
+            Route::post('/logout', 'API\Admin\AuthController@logout');
+
             //dashboard
             Route::get('/', 'API\Admin\DashboardController@show');
             //setting

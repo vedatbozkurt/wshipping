@@ -1,11 +1,4 @@
 <?php
-/*
- * @Author: @vedatbozkurt
- * @Email: info@wedat.org
- * @Date: 2020-12-26 19:36:27
- * @LastEditors: @vedatbozkurt
- * @LastEditTime: 2020-12-26 19:36:27
- */
 
 namespace App\Http\Requests\Api;
 

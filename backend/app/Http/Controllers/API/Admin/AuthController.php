@@ -36,10 +36,10 @@ class AuthController extends Controller
 
      $user = Admin::where('email', '=', $email)->first();
      if (!$user) {
-        return response()->json(['success'=>false, 'message' => 'Login Fail, please check email']);
+        return response()->json(['errors' => ['email' => ['Login Fail, please check email']]], 422);
     }
     if (!Hash::check($password, $user->password)) {
-        return response()->json(['success'=>false, 'message' => 'Login Fail, please check password']);
+        return response()->json(['errors' => ['password' => ['Login Fail, please check password']]], 422);
     }
     $success['token'] =  $user->createToken('MyApp', ['admin'])->accessToken;
     $success['name'] =  $user->name;
@@ -66,6 +66,16 @@ public function updateProfile(AdminRequest $request)
     Admin::whereId($userid)->update($input);
     return response()->json('success');
 }
+
+
+    public function logout(Request $request)
+    {
+        Auth::user()->token()->revoke();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Logged out Successfully.'
+        ], 200);
+    }
 
 
 }
