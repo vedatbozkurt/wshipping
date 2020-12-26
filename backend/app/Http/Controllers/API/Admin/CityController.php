@@ -13,7 +13,7 @@ class CityController extends Controller
     public function index()
     {
         $city = City::orderBy('id', 'desc')->paginate(10);
-        return response($city);
+        return response()->json($city);
     }
 
     public function store(CityRequest $request)
@@ -46,14 +46,14 @@ class CityController extends Controller
         // $districts = City::find($city)->district;
         // $district = $city->district;   //City $city
         $district = \App\City::with('district')->where('id',$city)->orderBy('id', 'desc')->paginate(10);
-        return response($district);
+        return response()->json($district);
     }
 
     public function branches($city)
     {
         // $branch = $city->branch()->orderBy('id', 'desc')->paginate(10);  //City $city
         $branch = \App\City::with('branch')->where('id',$city)->orderBy('id', 'desc')->paginate(10);
-        return response($branch);
+        return response()->json($branch);
     }
 
     public function couriers($city)
@@ -61,7 +61,7 @@ class CityController extends Controller
         // $districts = City::find($city)->district;
         // $courier = $city->courier()->orderBy('id', 'desc')->paginate(10); //City $city
         $courier = \App\City::with('courier')->where('id',$city)->orderBy('id', 'desc')->paginate(10);
-        return response($courier);
+        return response()->json($courier);
     }
 
     public function users($city)
@@ -73,7 +73,7 @@ class CityController extends Controller
         return response($user);*/
         // $user = $city->users()->orderBy('id', 'desc')->paginate(10); //City $city
         $user = \App\City::with('users')->where('id',$city)->orderBy('id', 'desc')->paginate(10);
-        return response($user);
+        return response()->json($user);
     }
 
     public function tasks($city)
@@ -83,7 +83,7 @@ class CityController extends Controller
         }])->get();*/
         // $task =  $city->tasks()->orderBy('id', 'desc')->paginate(10); //City $city
         $task = \App\City::with('tasks')->where('id',$city)->orderBy('id', 'desc')->paginate(10);
-        return response($task);
+        return response()->json($task);
     }
 
 }

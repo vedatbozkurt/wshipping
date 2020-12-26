@@ -12,7 +12,7 @@ class AddressController extends Controller
 {
     public function index(){
         $addresses = \App\Address::with('city','district')->where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate(10);
-        return response($addresses);
+        return response()->json($addresses);
     }
 
     public function store(AddressRequest $request)

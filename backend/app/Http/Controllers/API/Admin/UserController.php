@@ -17,7 +17,7 @@ class UserController extends Controller
     {
         $user = User::withTrashed()->orderBy('id', 'desc')->paginate(10);
         // $user = User::with('address.city')->orderBy('id','desc')->paginate(10);
-        return response($user);
+        return response()->json($user);
     }
 
     /**
@@ -84,20 +84,20 @@ class UserController extends Controller
     {
          $addresses = \App\User::with('address')->where('id',$user)->orderBy('id', 'desc')->paginate(10);
         // $user->address()->orderBy('id', 'desc')->paginate(10);
-        return response($addresses);
+        return response()->json($addresses);
     }
 
     //userın gönderdiği gönderiler
     public function sendertasks($user)
     {
         $tasks = \App\User::with('tasksender')->where('id',$user)->orderBy('id', 'desc')->paginate(10);
-        return response($tasks);
+        return response()->json($tasks);
     }
 
     //userın aldığı gönderiler
     public function receivertasks($user)
     {
         $tasks = \App\User::with('taskreceiver')->where('id',$user)->orderBy('id', 'desc')->paginate(10);
-        return response($tasks);
+        return response()->json($tasks);
     }
 }

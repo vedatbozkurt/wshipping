@@ -21,7 +21,7 @@ class BranchController extends Controller
         $branches = \App\Branch::withTrashed()->orderBy('id','desc')->paginate(10);
         // $branches = \App\Branch::with('city.branch.district')->orderBy('id','desc')->paginate(10);
 
-       return response($branches);
+       return response()->json($branches);
    }
     /**
      * Store a newly created resource in storage.
@@ -119,7 +119,7 @@ class BranchController extends Controller
         }
         $couriers=collect($courier)->flatten();
         $couriers = $couriers->unique('id');
-        return response($couriers);
+        return response()->json($couriers);
     }
 
 // şubenin sorumlu olduğu ilde courier olmadığından courier boş gelmesi normal
@@ -132,7 +132,7 @@ class BranchController extends Controller
 
     $cities = \App\Branch::with('city.courier')->where('id',$branch)->orderBy('id', 'desc')->paginate(10);
     // Courier::whereHas(‘branch’, ...)->whereHas(‘city’...)...
-    return response($cities);
+    return response()->json($cities);
 }
 
     public function districtcouriers($branch) //şubenin sorumlu olduğu ilçelerdeki kuryeler
@@ -142,7 +142,7 @@ class BranchController extends Controller
         return $district->courier;
     });*/
     $districts = \App\Branch::with('district.courier')->where('id',$branch)->orderBy('id', 'desc')->paginate(10);
-    return response($districts);
+    return response()->json($districts);
 }
 
 public function users(Branch $branch){
@@ -155,7 +155,7 @@ public function users(Branch $branch){
     }
     $users=collect($user)->flatten();
     $users = $users->unique('id');
-    return response($users);
+    return response()->json($users);
 }
 
     // şubenin sorumlu olduğu ilde user olmadığından users boş gelmesi normal
@@ -166,7 +166,7 @@ public function users(Branch $branch){
         return $city->users;
     });*/
     $cities = \App\Branch::with('city.users')->where('id',$branch)->orderBy('id', 'desc')->paginate(10);
-    return response($cities);
+    return response()->json($cities);
 }
 
 // şubenin sorumlu olduğu ilçede user olmadığından users boş gelmesi normal
@@ -177,7 +177,7 @@ public function users(Branch $branch){
         return $district->users;
     });*/
     $districts = \App\Branch::with('district.users')->where('id',$branch)->orderBy('id','desc')->paginate(10);
-    return response($districts);
+    return response()->json($districts);
 }
 
 public function tasks(Branch $branch){
@@ -189,7 +189,7 @@ public function tasks(Branch $branch){
     }
     $tasks=collect($task)->flatten();
     $tasks = $tasks->unique('id');
-    return response($tasks);
+    return response()->json($tasks);
 }
 
    public function citytasks($branch) //şubenin sorumlu olduğu illerdeki gönderiler
@@ -199,7 +199,7 @@ public function tasks(Branch $branch){
         return $city->tasks;
     });*/
     $cities = \App\Branch::with('city.tasks')->where('id',$branch)->orderBy('id','desc')->paginate(10);
-    return response($cities);
+    return response()->json($cities);
 }
 
     public function districttasks($branch) //şubenin sorumlu olduğu ilçelerdeki gönderiler
@@ -209,6 +209,6 @@ public function tasks(Branch $branch){
         return $district->tasks;
     });*/
     $districts = \App\Branch::with('district.tasks')->where('id',$branch)->orderBy('id','desc')->paginate(10);
-    return response($districts);
+    return response()->json($districts);
 }
 }

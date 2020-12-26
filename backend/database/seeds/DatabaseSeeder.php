@@ -35,8 +35,8 @@ class DatabaseSeeder extends Seeder
             'id' => 35,
             'name' => 'İzmir',
         ]);
-         //il ilçeleri
-         //city 1 district 1
+        //il ilçeleri
+        //city 1 district 1
         \App\District::create([
             'id' => 216,
             'name' => 'Çankaya',
@@ -604,7 +604,5 @@ class DatabaseSeeder extends Seeder
             'description' => 'gönderi 4 istanbul-izmir arası',
             'status' => 1,
         ]);
-
-
     }
 }

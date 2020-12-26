@@ -20,7 +20,7 @@ class CourierController extends Controller
         // $courier = Courier::with('district.city')->orderBy('id', 'desc')->paginate(10);
         //no need to show tasks
         // $courier = Courier::with('district.city','task')->orderBy('id', 'desc')->paginate(10);
-        return response($courier);
+        return response()->json($courier);
     }
 
     /**
@@ -99,7 +99,7 @@ class CourierController extends Controller
         return $city->branch;
     });*/
     $cities = \App\Courier::with('city.branch')->where('id',$courier)->orderBy('id', 'desc')->paginate(10);
-     return response($cities);
+     return response()->json($cities);
  }
     // kuryenin çalıştıgı ilçelerin şubeleri
     // kuryenin çalıştıgı ilde şube olmadığından şube boş gelmesi normal
@@ -111,13 +111,13 @@ class CourierController extends Controller
         return $district->branch;
     });*/
     $districts = \App\Courier::with('district.branch')->where('id',$courier)->orderBy('id', 'desc')->paginate(10);
-     return response($districts);
+     return response()->json($districts);
  }
 
     public function tasks($courier) //kuryenin sorumlu olduğu illerdeki şubeler
     {
      $tasks = Courier::with('task')->where('id', $courier)->orderBy('id', 'desc')->paginate(10);
      // $tasks = $courier->task()->orderBy('id', 'desc')->paginate(10);
-     return response($tasks);
+     return response()->json($tasks);
     }
 }

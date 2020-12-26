@@ -10,6 +10,6 @@ class DashboardController extends Controller
 {
     public function show()
     {
-        return response()->json('dashboard hazırlanıyor');
+        return response()->json('dashboard loading');
     }
 }

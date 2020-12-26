@@ -21,7 +21,7 @@ class UserController extends Controller
         $users=collect($users)->flatten();
         $users = $users->unique('id');
         // $users = $users->toArray()->paginate(10);
-        return response($users);
+        return response()->json($users);
     }
 
     public function store(UserRequest $request)
@@ -60,7 +60,7 @@ class UserController extends Controller
     {
         abort_unless(\Gate::allows('branch-own-users',$user), 403); //user şubeninse burdan devam
         $addresses = \App\User::with('address')->where('id',$user)->orderBy('id', 'desc')->paginate(10);
-        return response($addresses);
+        return response()->json($addresses);
     }
 
      //userın gönderdiği gönderiler
@@ -68,7 +68,7 @@ class UserController extends Controller
     {
         abort_unless(\Gate::allows('branch-own-users',$user), 403); //user şubeninse burdan devam
         $tasks = \App\User::with('tasksender')->where('id',$user)->orderBy('id', 'desc')->paginate(10);
-        return response($tasks);
+        return response()->json($tasks);
     }
 
     //userın aldığı gönderiler
@@ -76,7 +76,7 @@ class UserController extends Controller
     {
         abort_unless(\Gate::allows('branch-own-users',$user), 403); //user şubeninse burdan devam
         $tasks = \App\User::with('taskreceiver')->where('id',$user)->orderBy('id', 'desc')->paginate(10);
-        return response($tasks);
+        return response()->json($tasks);
     }
 
 }

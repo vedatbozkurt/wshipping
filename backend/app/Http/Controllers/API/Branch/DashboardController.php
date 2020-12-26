@@ -8,9 +8,8 @@ use App\User;
 
 class DashboardController extends Controller
 {
-    public function show($id)
+    public function show()
     {
-        $user = User::find($id);
-        return response()->json($user);
+        return response()->json('dashboard loading');
     }
 }

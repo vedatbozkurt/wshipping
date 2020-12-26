@@ -11,7 +11,7 @@ class DistrictController extends Controller
     public function index()
     {
         $district = District::orderBy('id', 'desc')->paginate(10);
-        return response($district);
+        return response()->json($district);
     }
 
     public function store(DistrictRequest $request)
@@ -42,13 +42,13 @@ class DistrictController extends Controller
     public function couriers($district)
     {
         $courier = \App\District::with('courier')->where('id',$district)->orderBy('id', 'desc')->paginate(10);
-        return response($courier);
+        return response()->json($courier);
     }
 
     public function branches($district)
     {
         $branch = \App\District::with('branch')->where('id',$district)->orderBy('id', 'desc')->paginate(10);
-        return response($branch);
+        return response()->json($branch);
     }
 
     public function users($district)
@@ -56,7 +56,7 @@ class DistrictController extends Controller
         /*$user = Address::with('user:id,name','district:id,name')->where('district_id', $district)->orderBy('id', 'desc')->paginate(10);*/
 
         $user = \App\District::with('users')->where('id',$district)->orderBy('id', 'desc')->paginate(10);
-        return response($user);
+        return response()->json($user);
     }
 
     public function tasks($district)
@@ -67,6 +67,6 @@ class DistrictController extends Controller
         // $task =  $district->tasks()->orderBy('id', 'desc')->paginate(10);
         // $task = \App\District::with('tasks.courier')->where('id',$district)->orderBy('id', 'desc')->paginate(10);
         $task = \App\District::with('tasks')->where('id',$district)->orderBy('id', 'desc')->paginate(10);
-        return response($task);
+        return response()->json($task);
     }
 }

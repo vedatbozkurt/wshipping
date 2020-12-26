@@ -11,7 +11,7 @@ class AddressController extends Controller
     public function index()
     {
         $address = Address::with('city:id,name','district:id,name','user:id,name,email')->orderBy('id', 'desc')->paginate(10);
-        return response($address);
+        return response()->json($address);
     }
 
     public function store(AddressRequest $request)

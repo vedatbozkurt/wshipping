@@ -12,7 +12,7 @@ class TaskController extends Controller
     {
         // $task = Task::with('courier:id,name','sender:id,name,phone','receiver:id,name', 'senderaddress.city', 'senderaddress.district', 'receiveraddress.city', 'receiveraddress.district')->orderBy('id', 'desc')->paginate(10);
         $task = Task::with('courier:id,name','sender:id,name,phone','receiver:id,name,phone')->withTrashed()->orderBy('id', 'desc')->paginate(10);
-        return response($task);
+        return response()->json($task);
     }
 
     public function store(TaskRequest $request)

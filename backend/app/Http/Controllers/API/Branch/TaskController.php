@@ -19,7 +19,7 @@ class TaskController extends Controller
         }
         $tasks=collect($task)->flatten();
         $tasks = $tasks->unique('id');
-        return response($tasks);
+        return response()->json($tasks);
     }
     public function store(TaskRequest $request)
     {

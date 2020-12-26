@@ -14,7 +14,7 @@ class TaskController extends Controller
         // abort_unless(\Gate::allows('branch-own-users',$user), 403);
         // $tasks = \App\Task::with('user')->orderBy('id', 'desc')->paginate(10);
         $task = Task::with('sender:id,name,phone','receiver:id,name,phone')->where('courier_id',Auth::user()->id)->orderBy('id', 'desc')->paginate(10);
-        return response($task);
+        return response()->json($task);
     }
 
     public function edit($task)

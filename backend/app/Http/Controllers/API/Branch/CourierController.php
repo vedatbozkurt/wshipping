@@ -20,7 +20,7 @@ class CourierController extends Controller
         }
         $couriers=collect($courier)->flatten();
         $couriers = $couriers->unique('id');
-        return response($couriers);
+        return response()->json($couriers);
     }
 
     public function citycouriers()
@@ -28,13 +28,13 @@ class CourierController extends Controller
         // $courier = Auth::user()::with('city.courier')->orderBy('id', 'desc')->paginate(10);
         $courier = \App\Branch::with('city.courier')->where('id',Auth::user()->id)->orderBy('id', 'desc')->paginate(10);
     // Courier::whereHas(‘branch’, ...)->whereHas(‘city’...)...
-        return response($courier);
+        return response()->json($courier);
     }
 
     public function districtcouriers()
     {
         $courier = \App\Branch::with('district.courier')->where('id',Auth::user()->id)->orderBy('id', 'desc')->paginate(10);
-        return response($courier);
+        return response()->json($courier);
     }
 
 

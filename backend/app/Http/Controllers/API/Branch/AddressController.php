@@ -18,7 +18,7 @@ class AddressController extends Controller
         }
         $addresses=collect($addresses)->flatten();
         $addresses = $addresses->unique('id');
-        return response($addresses);
+        return response()->json($addresses);
     }
     public function store(AddressRequest $request)
     {
