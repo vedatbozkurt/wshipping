@@ -63,8 +63,8 @@ public function updateProfile(AdminRequest $request)
     if(!empty($input['password'])){
         $input['password'] = bcrypt($input['password']);
     }
-    Admin::whereId($userid)->update($input);
-    return response()->json('success');
+    $user=Admin::whereId($userid)->update($input);
+    return response()->json($input);
 }
 
 
