@@ -28,6 +28,11 @@ Route::prefix('v1')->group(function () {
         Route::post('/login', 'API\Admin\AuthController@login');
 
         Route::middleware(['auth:admin', 'scope:admin'])->group(function () {
+            //dashboard
+            Route::get('/', 'API\Admin\DashboardController@show');
+            //setting
+            Route::get('/setting', 'API\Admin\SettingController@edit');
+            Route::put('/setting', 'API\Admin\SettingController@update');
 
             //profile
             Route::get('profile', 'API\Admin\AuthController@getProfile');

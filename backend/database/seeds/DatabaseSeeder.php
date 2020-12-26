@@ -604,5 +604,15 @@ class DatabaseSeeder extends Seeder
             'description' => 'gönderi 4 istanbul-izmir arası',
             'status' => 1,
         ]);
+
+        \App\Setting::create([
+            'address' => 'Deneme sokak No:23 Denem MAh.',
+            'phone' => '4534534453',
+            'company_name' => 'My Company',
+            'description' => 'Best company on the world',
+            'keywords' => 'my,company',
+            'logo' => 'a.png',
+            'email' => 'my@compony.com',
+        ]);
     }
 }
