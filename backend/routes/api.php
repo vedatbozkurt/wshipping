@@ -40,32 +40,36 @@ Route::prefix('v1')->group(function ()
             Route::put('profile', 'API\Admin\AuthController@updateProfile');
             //branch
             Route::prefix('branch')->group(function ()
-            {
-            Route::get('/', 'Api\Admin\BranchController@index'); // branch
-            Route::post('store', 'Api\Admin\BranchController@store');
-            Route::get('{branch}', 'Api\Admin\BranchController@edit');//branch,districts,cities
-            Route::put('{branch}', 'Api\Admin\BranchController@update');
-            Route::delete('{branch}', 'Api\Admin\BranchController@destroy');
-            Route::post('{branch}/restore', 'Api\Admin\BranchController@restore');
-            //şubenin il ve ilçelerinin tümünün kuryeleri yani şubenin tüm kuryeleri
-            Route::get('{branch}/couriers', 'Api\Admin\BranchController@couriers');//sadece courier bilgisi göster yeterli
-            //şubenin illerinin kuryeleri //branch->city->couriers
-            Route::get('{branch}/citycouriers', 'Api\Admin\BranchController@citycouriers');
-            //şubenin ilçelerinin kuryeleri //branch->district->couriers
-            Route::get('{branch}/districtcouriers', 'Api\Admin\BranchController@districtcouriers');
-            //şubenin il ve ilçelerinin tümünün müşterileri yani şubenin tüm müşterileri
-            Route::get('{branch}/users', 'Api\Admin\BranchController@users');//sadece müşteri bilgisi göster yeterli
-            //şubenin illerinin müşterileri //branch->city->users
-            Route::get('{branch}/cityusers', 'Api\Admin\BranchController@cityusers');
-            //şubenin ilçelerinin müşterileri //branch->district->users
-            Route::get('{branch}/districtusers', 'Api\Admin\BranchController@districtusers');
-            //şubenin il ve ilçelerinin tümünün gönderileri yani şubenin tüm gönderileri
-            Route::get('{branch}/tasks', 'Api\Admin\BranchController@tasks');//sadece gönderi bilgisi göster yeterli
-            //şubenin illerinin gönderileri  //branch->city->tasks
-            Route::get('{branch}/citytasks', 'Api\Admin\BranchController@citytasks');
-            //şubenin ilçelerinin gönderileri //branch->district->tasks
-            Route::get('{branch}/districttasks', 'Api\Admin\BranchController@districttasks');
-        });
+                {
+                Route::get('/', 'Api\Admin\BranchController@index'); // branch
+                Route::post('store', 'Api\Admin\BranchController@store');
+
+                Route::get('cities', 'Api\Admin\CityController@getAdminCities'); // all cities
+                Route::post('districts', 'Api\Admin\DistrictController@getAdminDistricts');//all districts
+
+                Route::get('{branch}', 'Api\Admin\BranchController@edit');
+                Route::put('{branch}', 'Api\Admin\BranchController@update');
+                Route::delete('{branch}', 'Api\Admin\BranchController@destroy');
+                // Route::post('{branch}/restore', 'Api\Admin\BranchController@restore');
+                //şubenin il ve ilçelerinin tümünün kuryeleri yani şubenin tüm kuryeleri
+                Route::get('{branch}/couriers', 'Api\Admin\BranchController@couriers');//sadece courier bilgisi göster yeterli
+                //şubenin illerinin kuryeleri //branch->city->couriers
+                Route::get('{branch}/citycouriers', 'Api\Admin\BranchController@citycouriers');
+                //şubenin ilçelerinin kuryeleri //branch->district->couriers
+                Route::get('{branch}/districtcouriers', 'Api\Admin\BranchController@districtcouriers');
+                //şubenin il ve ilçelerinin tümünün müşterileri yani şubenin tüm müşterileri
+                Route::get('{branch}/users', 'Api\Admin\BranchController@users');//sadece müşteri bilgisi göster yeterli
+                //şubenin illerinin müşterileri //branch->city->users
+                Route::get('{branch}/cityusers', 'Api\Admin\BranchController@cityusers');
+                //şubenin ilçelerinin müşterileri //branch->district->users
+                Route::get('{branch}/districtusers', 'Api\Admin\BranchController@districtusers');
+                //şubenin il ve ilçelerinin tümünün gönderileri yani şubenin tüm gönderileri
+                Route::get('{branch}/tasks', 'Api\Admin\BranchController@tasks');//sadece gönderi bilgisi göster yeterli
+                //şubenin illerinin gönderileri  //branch->city->tasks
+                Route::get('{branch}/citytasks', 'Api\Admin\BranchController@citytasks');
+                //şubenin ilçelerinin gönderileri //branch->district->tasks
+                Route::get('{branch}/districttasks', 'Api\Admin\BranchController@districttasks');
+            });
 
             //courier
             Route::prefix('courier')->group(function ()

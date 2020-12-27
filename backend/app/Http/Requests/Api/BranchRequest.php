@@ -35,7 +35,7 @@ class BranchRequest extends FormRequest
           'phone' => 'required',
           'email' => 'required|email|unique:branches',
           'password'  => 'required|min:3',
-          // 'status'  => 'required'
+          'status'  => 'required'
         ];
       }
       case 'PATCH':
@@ -49,12 +49,8 @@ class BranchRequest extends FormRequest
           'password'  => 'sometimes|required|min:3',
           // 'status'  => 'required'
         ];
-
-        if (isset(Auth::guard('branch')->user()->id)) { //if updated by branch
-          $rules += ['email' => 'required|email|unique:branches,email,'.Auth::guard('branch')->user()->id];
-        }else{ //if updated by admin
-          $rules += ['email' => 'required|email|unique:branches,email,'.$this->route('branch')->id];
-        }
+          //çlışması için api ile id göndermen gerekiyor
+          $rules += ['email' => 'required|email|unique:branches,email,'.\Request::instance()->id];
 
         return $rules;
       }

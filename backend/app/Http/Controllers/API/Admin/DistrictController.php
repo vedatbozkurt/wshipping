@@ -5,9 +5,20 @@ namespace App\Http\Controllers\API\Admin;
 use App\District;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\DistrictRequest;
+use Illuminate\Http\Request;
 
 class DistrictController extends Controller
 {
+
+    public function getAdminDistricts(Request $request)
+    {
+        $request=collect($request)->pluck('id');
+        $request=$request->flatten();
+        $districts = \App\District::whereIn('city_id',$request)->get();
+        //
+        return response()->json($districts);
+    }
+
     public function index()
     {
         $district = District::orderBy('id', 'desc')->paginate(10);

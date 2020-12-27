@@ -27,6 +27,6 @@ class SettingController extends Controller
         $input = $request->validated();
         $setting = Setting::where('id', 1)->first();
         $setting->update($input);
-        return response()->json('success');
+        return response()->json($input);
     }
 }

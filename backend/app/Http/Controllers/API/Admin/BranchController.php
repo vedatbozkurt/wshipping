@@ -21,8 +21,8 @@ class BranchController extends Controller
         $branches = \App\Branch::withTrashed()->orderBy('id','desc')->paginate(10);
         // $branches = \App\Branch::with('city.branch.district')->orderBy('id','desc')->paginate(10);
 
-       return response()->json($branches);
-   }
+        return response()->json($branches);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -34,8 +34,13 @@ class BranchController extends Controller
         $input = $request->validated();
         $input['password'] = bcrypt($input['password']);
         $branch = Branch::create($input);
-        $branch->city()->attach($request->city);
-        $branch->district()->attach($request->district);
+
+        $city=collect($request->city)->pluck('id');
+        $city=$city->flatten();
+        $branch->city()->sync($city);
+        $district=collect($request->district)->pluck('id');
+        $district=$district->flatten();
+        $branch->district()->sync($district);
 
 /*
         activity()->causedBy(Auth::user())->performedOn($branch)
@@ -67,8 +72,13 @@ class BranchController extends Controller
             $input['password'] = bcrypt($input['password']);
         }
         $branch->update($input);
-        $branch->city()->sync($request->city);
-        $branch->district()->sync($request->district);
+
+        $city=collect($request->city)->pluck('id');
+        $city=$city->flatten();
+        $branch->city()->sync($city);
+        $district=collect($request->district)->pluck('id');
+        $district=$district->flatten();
+        $branch->district()->sync($district);
 /*
         activity()->causedBy(Auth::user())->performedOn($branch)
         ->withProperties(['action' => 'update', 'status' => 'success'])

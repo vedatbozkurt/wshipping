@@ -35,8 +35,8 @@ class DatabaseSeeder extends Seeder
             'id' => 35,
             'name' => 'İzmir',
         ]);
-        //il ilçeleri
-        //city 1 district 1
+         //il ilçeleri
+         //city 1 district 1
         \App\District::create([
             'id' => 216,
             'name' => 'Çankaya',
@@ -605,7 +605,7 @@ class DatabaseSeeder extends Seeder
             'status' => 1,
         ]);
 
-        \App\Setting::create([
+         \App\Setting::create([
             'address' => 'Deneme sokak No:23 Denem MAh.',
             'phone' => '4534534453',
             'company_name' => 'My Company',
@@ -614,5 +614,7 @@ class DatabaseSeeder extends Seeder
             'logo' => 'a.png',
             'email' => 'my@compony.com',
         ]);
+
+
     }
 }

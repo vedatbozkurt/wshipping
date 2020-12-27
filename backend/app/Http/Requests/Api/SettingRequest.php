@@ -13,7 +13,7 @@ class SettingRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+      return true;
     }
 
     /**
@@ -23,7 +23,8 @@ class SettingRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+
+     return [
           'address' => 'required',
           'phone' => 'required',
           'company_name' => 'required',
@@ -32,5 +33,7 @@ class SettingRequest extends FormRequest
           'logo' => 'required',
           'email' => 'required',
         ];
+
     }
-}
+  }
+

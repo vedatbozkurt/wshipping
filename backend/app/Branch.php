@@ -5,7 +5,7 @@
  * @Email: info@wedat.org
  * @Date:   2020-06-16 17:52:20
  * @Last Modified by:   @vedatbozkurt
- * @Last Modified time: 2020-06-24 23:08:40
+ * @Last Modified time: 2020-06-29 04:54:05
  */
 namespace App;
 
@@ -28,12 +28,13 @@ class Branch extends Authenticatable
         'password',
     ];
 
-    function city() { //şubeye ait birçok il olabilir
+    public function city()
+    { //şubeye ait birçok il olabilir
         return $this->belongsToMany('App\City');
     }
 
-    function district() { //şubeye ait birçok ilçe olabilir
+    public function district()
+    { //şubeye ait birçok ilçe olabilir
         return $this->belongsToMany('App\District');
     }
-
 }
