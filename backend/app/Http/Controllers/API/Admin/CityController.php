@@ -11,11 +11,11 @@ use App\Http\Requests\Api\CityRequest;
 class CityController extends Controller
 {
 
-    public function getAdminCities()
+    public function getAllCities()
     {
         $cities = \App\City::all();
         return response()->json($cities);
-   }
+    }
 
     public function index()
     {

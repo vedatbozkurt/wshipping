@@ -33,10 +33,14 @@ class CourierController extends Controller
     {
         $input = $request->validated();
         $input['password'] = bcrypt($input['password']);
-        $courier = Courier::create($input);
-        $courier->city()->attach($request->city);
-        $courier->district()->attach($request->district);
+        $courier = Courier::create($request->all());
 
+        $city=collect($request->city)->pluck('id');
+        $city=$city->flatten();
+        $courier->city()->sync($city);
+        $district=collect($request->district)->pluck('id');
+        $district=$district->flatten();
+        $courier->district()->sync($district);
         return response()->json('success');
     }
 
@@ -59,9 +63,14 @@ class CourierController extends Controller
         if(!empty($input['password'])){
             $input['password'] = bcrypt($input['password']);
         }
-        $courier->update($input);
-        $courier->city()->sync($request->city);
-        $courier->district()->sync($request->district);
+        $courier->update($request->all());
+
+        $city=collect($request->city)->pluck('id');
+        $city=$city->flatten();
+        $courier->city()->sync($city);
+        $district=collect($request->district)->pluck('id');
+        $district=$district->flatten();
+        $courier->district()->sync($district);
 
         return response()->json('success');
     }
@@ -90,34 +99,42 @@ class CourierController extends Controller
         return response()->json('success');
     }
 
-    // kuryenin çalıştıgı illerin şubeleri
-    // kuryenin çalıştıgı ilde şube olmadığından şube boş gelmesi normal
-    public function citybranches($courier) //kuryenin sorumlu olduğu illerdeki şubeler
+
+    public function getCourierCities($courier)
     {
-     /*$cities =  $courier->city()->orderBy('id', 'desc')->paginate(10);
-     $cities->map(function ($city) {
-        return $city->branch;
-    });*/
-    $cities = \App\Courier::with('city.branch')->where('id',$courier)->orderBy('id', 'desc')->paginate(10);
+     $cities =  Courier::find($courier)->city;
+       // $cities = $cities->toArray();
      return response()->json($cities);
  }
-    // kuryenin çalıştıgı ilçelerin şubeleri
-    // kuryenin çalıştıgı ilde şube olmadığından şube boş gelmesi normal
-    public function districtbranches($courier) //kuryenin sorumlu olduğu illerdeki şubeler
-    {
-     // $courier = Courier::with('city','district')->orderBy('id', 'desc')->paginate(10);
-     /*$districts =  $courier->district()->orderBy('id', 'desc')->paginate(10);
-     $districts->map(function ($district) {
-        return $district->branch;
-    });*/
-    $districts = \App\Courier::with('district.branch')->where('id',$courier)->orderBy('id', 'desc')->paginate(10);
+
+ public function getCourierDistricts($courier)
+ {
+     $districts =  Courier::find($courier)->district;
      return response()->json($districts);
  }
 
+    // kuryenin çalıştıgı illerin şubeleri
+    // kuryenin çalıştıgı ilde şube olmadığından şube boş gelmesi normal
+    public function citybranches($city) //kuryenin sorumlu olduğu illerdeki şubeler
+    {
+        /*$cities = \App\Courier::with('city.branch')->where('id',$courier)->orderBy('id', 'desc')->paginate(10);
+        return response()->json($cities);*/
+        $branch = \App\City::findorFail($city)->branch;
+       return response()->json($branch);
+    }
+    // kuryenin çalıştıgı ilçelerin şubeleri
+    // kuryenin çalıştıgı ilde şube olmadığından şube boş gelmesi normal
+    public function districtbranches($district) //kuryenin sorumlu olduğu illerdeki şubeler
+    {
+        $branch = \App\District::findorFail($district)->branch;
+       return response()->json($branch);
+    }
+
     public function tasks($courier) //kuryenin sorumlu olduğu illerdeki şubeler
     {
-     $tasks = Courier::with('task')->where('id', $courier)->orderBy('id', 'desc')->paginate(10);
+       // $tasks = Courier::with('task')->where('id', $courier)->orderBy('id', 'desc')->paginate(10);
      // $tasks = $courier->task()->orderBy('id', 'desc')->paginate(10);
-     return response()->json($tasks);
-    }
+     $tasks = \App\Task::with('sender:id,name,phone','receiver:id,name,phone')->where('courier_id',$courier)->get();
+       return response()->json($tasks);
+   }
 }

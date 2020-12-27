@@ -28,13 +28,12 @@ class Branch extends Authenticatable
         'password',
     ];
 
-    public function city()
-    { //şubeye ait birçok il olabilir
+    function city() { //şubeye ait birçok il olabilir
         return $this->belongsToMany('App\City');
     }
 
-    public function district()
-    { //şubeye ait birçok ilçe olabilir
+    function district() { //şubeye ait birçok ilçe olabilir
         return $this->belongsToMany('App\District');
     }
+
 }

@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class DistrictController extends Controller
 {
 
-    public function getAdminDistricts(Request $request)
+    public function getCitiesDistricts(Request $request)
     {
         $request=collect($request)->pluck('id');
         $request=$request->flatten();

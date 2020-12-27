@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API\Admin;
 use App\Branch;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\BranchRequest;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Http\Request;
 
 class BranchController extends Controller
 {
@@ -18,7 +20,7 @@ class BranchController extends Controller
         // $branches = $branch->city->district;
        // $branches = Branch::with('city','district')->orderBy('id', 'desc')->paginate(10);
         // $branches = \App\Branch::with('district.city')->orderBy('id','desc')->paginate(10);
-        $branches = \App\Branch::withTrashed()->orderBy('id','desc')->paginate(10);
+        $branches = \App\Branch::withTrashed()->orderBy('id','desc')->paginate(3);
         // $branches = \App\Branch::with('city.branch.district')->orderBy('id','desc')->paginate(10);
 
         return response()->json($branches);
@@ -33,7 +35,7 @@ class BranchController extends Controller
     {
         $input = $request->validated();
         $input['password'] = bcrypt($input['password']);
-        $branch = Branch::create($input);
+        $branch = Branch::create($request->all());
 
         $city=collect($request->city)->pluck('id');
         $city=$city->flatten();
@@ -71,7 +73,7 @@ class BranchController extends Controller
         if(!empty($input['password'])){
             $input['password'] = bcrypt($input['password']);
         }
-        $branch->update($input);
+        $branch->update($request->all());
 
         $city=collect($request->city)->pluck('id');
         $city=$city->flatten();
@@ -115,6 +117,19 @@ class BranchController extends Controller
         // return response()->json($branch);
         return response()->json('success');
     }
+
+    public function getBranchCities($branch)
+    {
+       $cities =  Branch::find($branch)->city;
+       // $cities = $cities->toArray();
+       return response()->json($cities);
+   }
+
+    public function getBranchDistricts($branch)
+    {
+       $districts =  Branch::find($branch)->district;
+       return response()->json($districts);
+   }
     // şubenin sorumlu olduğu ilde courier olmadığından courier boş gelmesi normal
     public function couriers(Branch $branch) //şubenin sorumlu olduğu illerdeki kuryeler
     {
@@ -129,30 +144,37 @@ class BranchController extends Controller
         }
         $couriers=collect($courier)->flatten();
         $couriers = $couriers->unique('id');
+        $couriers = $couriers->flatten();
+        // let paginator to regonize page number automaticly
+
         return response()->json($couriers);
     }
 
 // şubenin sorumlu olduğu ilde courier olmadığından courier boş gelmesi normal
-    public function citycouriers($branch) //şubenin sorumlu olduğu illerdeki kuryeler
+    public function citycouriers($city) //şubenin sorumlu olduğu illerdeki kuryeler
     {
      // $cities =  $branch->city()->orderBy('id', 'desc')->paginate(10); //Branch $branch
      /*$cities->map(function ($city) {
         return $city->courier;
     });*/
-
-    $cities = \App\Branch::with('city.courier')->where('id',$branch)->orderBy('id', 'desc')->paginate(10);
-    // Courier::whereHas(‘branch’, ...)->whereHas(‘city’...)...
-    return response()->json($cities);
+  /*  $citycouriers = [];
+    $couriers = \App\City::where('id',$city)->orderBy('id', 'desc')->get();
+    foreach ($couriers as $courier) {
+        array_push($citycouriers,$courier->courier);
+    }
+    $citycouriers=collect($citycouriers)->flatten();*/
+    $citycouriers = \App\City::findorFail($city)->courier;
+    return response()->json($citycouriers);
 }
 
-    public function districtcouriers($branch) //şubenin sorumlu olduğu ilçelerdeki kuryeler
+    public function districtcouriers($district) //şubenin sorumlu olduğu ilçelerdeki kuryeler
     {
        /*$districts =  $branch->district()->orderBy('id', 'desc')->paginate(10);  //Branch $branch
        $districts->map(function ($district) {
         return $district->courier;
     });*/
-    $districts = \App\Branch::with('district.courier')->where('id',$branch)->orderBy('id', 'desc')->paginate(10);
-    return response()->json($districts);
+    $districtcouriers = \App\District::findorFail($district)->courier;
+    return response()->json($districtcouriers);
 }
 
 public function users(Branch $branch){
@@ -165,29 +187,30 @@ public function users(Branch $branch){
     }
     $users=collect($user)->flatten();
     $users = $users->unique('id');
+    $users = $users->flatten();
     return response()->json($users);
 }
 
     // şubenin sorumlu olduğu ilde user olmadığından users boş gelmesi normal
-    public function cityusers($branch) //şubenin sorumlu olduğu illerdeki müşteriler
+     public function cityusers($city) //şubenin sorumlu olduğu illerdeki müşteriler
     {
        /*$cities =  $branch->city()->orderBy('id', 'desc')->paginate(10); //Branch $branch
        $cities->map(function ($city) {
         return $city->users;
     });*/
-    $cities = \App\Branch::with('city.users')->where('id',$branch)->orderBy('id', 'desc')->paginate(10);
-    return response()->json($cities);
+    $cityusers = \App\City::findorFail($city)->users;
+    return response()->json($cityusers);
 }
 
 // şubenin sorumlu olduğu ilçede user olmadığından users boş gelmesi normal
-    public function districtusers($branch) //şubenin sorumlu olduğu ilçelerdeki müşteriler
+    public function districtusers($district) //şubenin sorumlu olduğu ilçelerdeki müşteriler
     {
        /*$districts =  $branch->district()->orderBy('id', 'desc')->paginate(10); //Branch $branch
        $districts->map(function ($district) {
         return $district->users;
     });*/
-    $districts = \App\Branch::with('district.users')->where('id',$branch)->orderBy('id','desc')->paginate(10);
-    return response()->json($districts);
+    $districtusers = \App\District::findorFail($district)->users;
+    return response()->json($districtusers);
 }
 
 public function tasks(Branch $branch){
@@ -199,26 +222,27 @@ public function tasks(Branch $branch){
     }
     $tasks=collect($task)->flatten();
     $tasks = $tasks->unique('id');
+    $tasks = $tasks->flatten();
     return response()->json($tasks);
 }
 
-   public function citytasks($branch) //şubenin sorumlu olduğu illerdeki gönderiler
+   public function citytasks($city) //şubenin sorumlu olduğu illerdeki gönderiler
    {
        /*$cities =  $branch->city()->orderBy('id', 'desc')->paginate(10); //Branch $branch
        $cities->map(function ($city) {
         return $city->tasks;
     });*/
-    $cities = \App\Branch::with('city.tasks')->where('id',$branch)->orderBy('id','desc')->paginate(10);
-    return response()->json($cities);
+    $citytasks = \App\City::findorFail($city)->tasks;
+    return response()->json($citytasks);
 }
 
-    public function districttasks($branch) //şubenin sorumlu olduğu ilçelerdeki gönderiler
+    public function districttasks($district) //şubenin sorumlu olduğu ilçelerdeki gönderiler
     {
        /*$districts =  $branch->district()->orderBy('id', 'desc')->paginate(10); //Branch $branch
        $districts->map(function ($district) {
         return $district->tasks;
     });*/
-    $districts = \App\Branch::with('district.tasks')->where('id',$branch)->orderBy('id','desc')->paginate(10);
-    return response()->json($districts);
+    $districttasks = \App\District::findorFail($district)->tasks;
+    return response()->json($districttasks);
 }
 }

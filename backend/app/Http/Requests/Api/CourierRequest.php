@@ -57,13 +57,13 @@ class CourierRequest extends FormRequest
           'color'  => 'required',
           // 'status'  => 'required'
         ];
-
+/*
         if (isset(Auth::guard('courier')->user()->id)) { //if updated by branch
           $rules += ['email' => 'required|email|unique:couriers,email,'.Auth::guard('courier')->user()->id];
         }else{ //if updated by admin or branch
           $rules += ['email' => 'required|email|unique:couriers,email,'.$this->route('courier')->id,];
-        }
-
+        }*/
+        $rules += ['email' => 'required|email|unique:couriers,email,'.\Request::instance()->id];
         return $rules;
       }
       default: break;
