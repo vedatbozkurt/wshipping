@@ -134,11 +134,11 @@ Route::prefix('v1')->group(function ()
             //city
             Route::prefix('city')->group(function ()
             {
-                Route::get('/', 'Api\Admin\CityController@index');
-                Route::post('city/store', 'Api\Admin\CityController@store');
-                Route::get('{city}', 'Api\Admin\CityController@edit');
-                Route::put('city/{city}', 'Api\Admin\CityController@update');
-                Route::delete('city/{city}', 'Api\Admin\CityController@destroy');
+            Route::get('/', 'Api\Admin\CityController@index');
+            Route::post('city/store', 'Api\Admin\CityController@store');
+            Route::get('{city}', 'Api\Admin\CityController@edit');
+            Route::put('city/{city}', 'Api\Admin\CityController@update');
+            Route::delete('city/{city}', 'Api\Admin\CityController@destroy');
             Route::get('{city}/districts', 'Api\Admin\CityController@districts'); //city districts
             Route::get('{city}/couriers', 'Api\Admin\CityController@couriers'); //city->couriers
             Route::get('{city}/branches', 'Api\Admin\CityController@branches'); //city->branches
@@ -146,7 +146,6 @@ Route::prefix('v1')->group(function ()
             Route::get('{city}/users', 'Api\Admin\CityController@users');// city->users
             Route::get('{city}/tasks', 'Api\Admin\CityController@tasks');// city->tasks
         });
-
             //district
             Route::prefix('district')->group(function ()
             {
@@ -219,12 +218,12 @@ Route::prefix('branch')->group(function ()//branch page
         Route::prefix('address')->group(function ()//branch/address
         {
          //store ve edit işlemlerinde sadece şubenin il ve ilçelerini göster
-           Route::get('/', 'Api\Branch\AddressController@index');
-           Route::post('store', 'Api\Branch\AddressController@store');
-           Route::get('{address}', 'Api\Branch\AddressController@edit');
-           Route::put('{address}', 'Api\Branch\AddressController@update');
-           Route::delete('{address}', 'Api\Branch\AddressController@destroy');
-       });
+         Route::get('/', 'Api\Branch\AddressController@index');
+         Route::post('store', 'Api\Branch\AddressController@store');
+         Route::get('{address}', 'Api\Branch\AddressController@edit');
+         Route::put('{address}', 'Api\Branch\AddressController@update');
+         Route::delete('{address}', 'Api\Branch\AddressController@destroy');
+     });
     });
 });
 
@@ -238,10 +237,8 @@ Route::prefix('courier')->group(function ()
     {
         //dashboard
         Route::get('/', 'API\Courier\DashboardController@show');
-
         Route::get('profile', 'API\Courier\AuthController@getProfile');
         Route::put('profile', 'API\Courier\AuthController@updateProfile');
-
         Route::prefix('task')->group(function ()
         {
             //sadece il ilçesindeki gönderi bilgilerini görsün-durumunu değiştirebilsin
@@ -261,15 +258,12 @@ Route::prefix('user')->group(function () //customer page
 {
     Route::post('/register', 'API\User\AuthController@register');
     Route::post('/login', 'API\User\AuthController@login');
-
     Route::middleware(['auth:user', 'scope:user'])->group( function ()
     {
         //dashboard
         Route::get('/', 'API\User\DashboardController@show');
-
         Route::get('profile', 'API\User\AuthController@getProfile');
         Route::put('profile', 'API\User\AuthController@updateProfile');
-
         Route::prefix('address')->group(function ()
         {
             Route::get('/', 'Api\User\AddressController@index');

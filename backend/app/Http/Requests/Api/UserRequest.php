@@ -46,13 +46,14 @@ class UserRequest extends FormRequest
           'phone' => 'required',
           'password'  => 'sometimes|required|min:3',
           // 'status'  => 'required'
-        ];
+        ];/*
 
         if (isset(Auth::guard('user')->user()->id)) { //if updated by branch
           $rules += ['email' => 'required|email|unique:users,email,'.Auth::guard('user')->user()->id];
         }else{ //if updated by admin or branch
           $rules += ['email' => 'required|email|unique:users,email,'.$this->route('user')->id];
-        }
+        }*/
+        $rules += ['email' => 'required|email|unique:users,email,'.\Request::instance()->id];
 
         return $rules;
       }

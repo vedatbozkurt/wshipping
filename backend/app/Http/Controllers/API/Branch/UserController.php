@@ -26,9 +26,8 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
-        $input = $request->validated();
-        $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
+        $request['password'] = bcrypt($request['password']);
+        $user = User::create($request->all());
         return response()->json('success');
     }
     //user şubeye aitse düzenlenebilir

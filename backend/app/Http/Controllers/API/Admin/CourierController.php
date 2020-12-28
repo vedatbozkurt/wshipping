@@ -31,8 +31,7 @@ class CourierController extends Controller
      */
     public function store(CourierRequest $request)
     {
-        $input = $request->validated();
-        $input['password'] = bcrypt($input['password']);
+        $request['password'] = bcrypt($request['password']);
         $courier = Courier::create($request->all());
 
         $city=collect($request->city)->pluck('id');
@@ -59,9 +58,8 @@ class CourierController extends Controller
      */
     public function update(CourierRequest $request, Courier $courier)
     {
-        $input = $request->validated();
-        if(!empty($input['password'])){
-            $input['password'] = bcrypt($input['password']);
+        if(!empty($request['password'])){
+            $request['password'] = bcrypt($request['password']);
         }
         $courier->update($request->all());
 
@@ -100,14 +98,14 @@ class CourierController extends Controller
     }
 
 
-    public function getCourierCities($courier)
+    public function getCourierCities($courier) //city e ait branchleri bulmak için gerekiyor
     {
      $cities =  Courier::find($courier)->city;
        // $cities = $cities->toArray();
      return response()->json($cities);
  }
 
- public function getCourierDistricts($courier)
+ public function getCourierDistricts($courier) //district e ait branchleri bulmak için gerekiyor
  {
      $districts =  Courier::find($courier)->district;
      return response()->json($districts);

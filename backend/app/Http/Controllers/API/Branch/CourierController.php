@@ -40,9 +40,8 @@ class CourierController extends Controller
 
     public function store(CourierRequest $request)
     {
-        $input = $request->validated();
-        $input['password'] = bcrypt($input['password']);
-        $courier = Courier::create($input);
+        $request['password'] = bcrypt($request['password']);
+        $courier = Courier::create($request->all());
         $courier->city()->attach($request->city);
         $courier->district()->attach($request->district);
 

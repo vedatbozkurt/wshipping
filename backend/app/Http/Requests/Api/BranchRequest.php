@@ -47,7 +47,7 @@ class BranchRequest extends FormRequest
           'name' => 'required',
           'phone' => 'required',
           'password'  => 'sometimes|required|min:3',
-          // 'status'  => 'required'
+          'status'  => 'required'
         ];
           //çlışması için api ile id göndermen gerekiyor
           $rules += ['email' => 'required|email|unique:branches,email,'.\Request::instance()->id];

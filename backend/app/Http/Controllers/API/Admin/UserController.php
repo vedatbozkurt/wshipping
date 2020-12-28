@@ -13,12 +13,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $user = User::withTrashed()->orderBy('id', 'desc')->paginate(10);
+public function index()
+{
+    $user = User::withTrashed()->orderBy('id', 'desc')->paginate(10);
         // $user = User::with('address.city')->orderBy('id','desc')->paginate(10);
-        return response()->json($user);
-    }
+    return response()->json($user);
+}
 
     /**
      * Store a newly created resource in storage.
@@ -28,9 +28,8 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $input = $request->validated();
-        $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
+        $request['password'] = bcrypt($request['password']);
+        $user = User::create($request->all());
         return response()->json('success');
     }
 
@@ -49,11 +48,10 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        $input = $request->validated();
-        if(!empty($input['password'])){
-            $input['password'] = bcrypt($input['password']);
+        if(!empty($request['password'])){
+            $request['password'] = bcrypt($request['password']);
         }
-        $user->update($input);
+        $user->update($request->all());
 
         return response()->json('success');
     }
@@ -82,22 +80,30 @@ class UserController extends Controller
 
     public function addresses($user)
     {
-         $addresses = \App\User::with('address')->where('id',$user)->orderBy('id', 'desc')->paginate(10);
+         // $addresses = \App\User::with('address')->where('id',$user)->orderBy('id', 'desc')->paginate(10);
         // $user->address()->orderBy('id', 'desc')->paginate(10);
+        // $addresses =  \App\User::find($user)->address;
+        $addresses = \App\Address::with('city','district')->where('user_id',$user)->get();
+
+       /* $addresses =  \App\Address::with(['user' => function ($q) use ($user) {
+            $q->where('id', $user);
+        }])->orderBy('id', 'desc')->paginate(10);*/
         return response()->json($addresses);
     }
 
     //userın gönderdiği gönderiler
     public function sendertasks($user)
     {
-        $tasks = \App\User::with('tasksender')->where('id',$user)->orderBy('id', 'desc')->paginate(10);
+        // $tasks = \App\User::with('tasksender')->where('id',$user)->orderBy('id', 'desc')->paginate(10);
+        $tasks = \App\Task::with('courier:id,name,phone','receiver:id,name,phone')->where('sender_id',$user)->get();
         return response()->json($tasks);
     }
 
     //userın aldığı gönderiler
     public function receivertasks($user)
     {
-        $tasks = \App\User::with('taskreceiver')->where('id',$user)->orderBy('id', 'desc')->paginate(10);
+        // $tasks = \App\User::with('taskreceiver')->where('id',$user)->orderBy('id', 'desc')->paginate(10);
+        $tasks = \App\Task::with('courier:id,name,phone','sender:id,name,phone')->where('receiver_id',$user)->get();
         return response()->json($tasks);
     }
 }
