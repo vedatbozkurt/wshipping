@@ -16,20 +16,35 @@ class AddressController extends Controller
 
     public function store(AddressRequest $request)
     {
-        $input = $request->validated();
-        Address::create($input);
+        $form_data = array(
+            'user_id'       =>   $request->user['id'],
+            'city_id'       =>   $request->city['id'],
+            'district_id'       =>   $request->district['id'],
+            'name'       =>   $request->name,
+            'description'       =>   $request->description,
+            'default'       =>   $request->default
+        );
+        Address::create($form_data);
         return response()->json('success');
     }
 
-    public function edit(Address $address)
+    public function edit($address)
     {
+        $address = Address::with('city','district','user')->findOrFail($address);
         return response()->json($address);
     }
 
     public function update(AddressRequest $request, Address $address)
     {
-        $input = $request->validated();
-        $address->update($input);
+        $form_data = array(
+            'user_id'       =>   $request->user['id'],
+            'city_id'       =>   $request->city['id'],
+            'district_id'       =>   $request->district['id'],
+            'name'       =>   $request->name,
+            'description'       =>   $request->description,
+            'default'       =>   $request->default
+        );
+        $address->update($form_data);
         return response()->json('success');
     }
 

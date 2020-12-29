@@ -25,8 +25,8 @@ class DistrictRequest extends FormRequest
     {
 
      return [
+          'city' => 'required',
           'name' => 'required',
-          'city_id' => 'required',
         ];
 
     }

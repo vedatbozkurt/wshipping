@@ -25,9 +25,9 @@ class AddressRequest extends FormRequest
     {
 
      return [
-          'user_id' => 'required',
-          'city_id' => 'required',
-          'district_id' => 'required',
+          'user' => 'required',
+          'city' => 'required',
+          'district' => 'required',
           'name' => 'required',
           'description' => 'required',
         ];

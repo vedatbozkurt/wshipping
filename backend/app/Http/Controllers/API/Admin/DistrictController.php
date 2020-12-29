@@ -19,28 +19,42 @@ class DistrictController extends Controller
         return response()->json($districts);
     }
 
+    public function getCityDistricts($city)
+    {
+        $districts = \App\District::where('city_id',$city)->get();
+        return response()->json($districts);
+    }
+
     public function index()
     {
-        $district = District::orderBy('id', 'desc')->paginate(10);
+        $district = District::with('city')->orderBy('id', 'desc')->paginate(10);
         return response()->json($district);
     }
 
     public function store(DistrictRequest $request)
     {
-        $input = $request->validated();
-        District::create($input);
+        $form_data = array(
+            'city_id'       =>   $request->city['id'],
+            'name'       =>   $request->name
+        );
+        District::create($form_data);
         return response()->json('success');
     }
 
     public function edit(District $district)
     {
+        // $district = $district->city;
+        $district = \App\District::with('city')->findorFail($district->id);
         return response()->json($district);
     }
 
     public function update(DistrictRequest $request, District $district)
     {
-        $input = $request->validated();
-        $district->update($input);
+        $form_data = array(
+            'city_id'       =>   $request->city['id'],
+            'name'       =>   $request->name
+        );
+        $district->update($form_data);
         return response()->json('success');
     }
 

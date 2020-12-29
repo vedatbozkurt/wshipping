@@ -13,13 +13,13 @@ class CityController extends Controller
 
     public function getAllCities()
     {
-        $cities = \App\City::all();
+        $cities = City::all();
         return response()->json($cities);
     }
 
     public function index()
     {
-        $city = City::orderBy('id', 'desc')->paginate(10);
+        $city = City::orderBy('id', 'desc')->paginate(2);
         return response()->json($city);
     }
 

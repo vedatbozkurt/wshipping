@@ -62,7 +62,7 @@ public function all() //paginate olmadan tümü, dropdown için
 
     public function edit($branch)
     {
-        $branch = \App\Branch::withTrashed()->findOrFail($branch);
+        $branch = \App\Branch::with('city','district')->withTrashed()->findOrFail($branch);
         return response()->json($branch);
     }
 

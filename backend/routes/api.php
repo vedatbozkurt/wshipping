@@ -44,8 +44,6 @@ Route::prefix('v1')->group(function ()
                 Route::get('/', 'Api\Admin\BranchController@index'); // branch
                 Route::get('/all', 'Api\Admin\BranchController@all'); // user
                 Route::post('store', 'Api\Admin\BranchController@store');
-                Route::get('cities', 'Api\Admin\CityController@getAllCities'); // all cities
-                Route::post('districts', 'Api\Admin\DistrictController@getCitiesDistricts');//cities all districts
                 Route::get('cities/{branch}', 'Api\Admin\BranchController@getBranchCities'); // branch cities
                 Route::get('districts/{branch}', 'Api\Admin\BranchController@getBranchDistricts'); // Branch Districts
                 //şubenin illerinin kuryeleri //branch->city->couriers
@@ -136,11 +134,12 @@ Route::prefix('v1')->group(function ()
             //city
             Route::prefix('city')->group(function ()
             {
-            Route::get('/', 'Api\Admin\CityController@index');
-            Route::post('city/store', 'Api\Admin\CityController@store');
+            Route::get('/', 'Api\Admin\CityController@index'); // all cities for pagination
+            Route::get('allcities', 'Api\Admin\CityController@getAllCities'); // all cities for dropdown
+            Route::post('store', 'Api\Admin\CityController@store');
             Route::get('{city}', 'Api\Admin\CityController@edit');
-            Route::put('city/{city}', 'Api\Admin\CityController@update');
-            Route::delete('city/{city}', 'Api\Admin\CityController@destroy');
+            Route::put('{city}', 'Api\Admin\CityController@update');
+            Route::delete('{city}', 'Api\Admin\CityController@destroy');
             Route::get('{city}/districts', 'Api\Admin\CityController@districts'); //city districts
             Route::get('{city}/couriers', 'Api\Admin\CityController@couriers'); //city->couriers
             Route::get('{city}/branches', 'Api\Admin\CityController@branches'); //city->branches
@@ -151,7 +150,10 @@ Route::prefix('v1')->group(function ()
             //district
             Route::prefix('district')->group(function ()
             {
-                Route::get('/', 'Api\Admin\DistrictController@index');
+                Route::get('/', 'Api\Admin\DistrictController@index'); //for pagination
+               Route::post('citiesalldistricts', 'Api\Admin\DistrictController@getCitiesDistricts');//cities all districts for dropdown
+               Route::get('cityalldistricts/{city}', 'Api\Admin\DistrictController@getCityDistricts');//city all districts for dropdown
+               Route::post('cityalldistricts', 'Api\Admin\DistrictController@getCitiesDistricts');//city all districts for dropdown
                 Route::post('store', 'Api\Admin\DistrictController@store');
                 Route::get('{district}', 'Api\Admin\DistrictController@edit');
                 Route::put('{district}', 'Api\Admin\DistrictController@update');
