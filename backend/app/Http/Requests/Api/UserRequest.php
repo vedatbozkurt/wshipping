@@ -30,7 +30,7 @@ class UserRequest extends FormRequest
       {
         return [
           'name' => 'required',
-          'image' => 'required',
+          // 'image' => 'required',
           'phone' => 'required',
           'email' => 'required|email|unique:users',
           'password'  => 'required|min:3',

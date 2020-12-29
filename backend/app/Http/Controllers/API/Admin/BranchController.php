@@ -25,6 +25,12 @@ class BranchController extends Controller
 
         return response()->json($branches);
     }
+
+public function all() //paginate olmadan tümü, dropdown için
+{
+    $branch = Branch::select('id', 'name')->withTrashed()->get();
+    return response()->json($branch);
+}
     /**
      * Store a newly created resource in storage.
      *
@@ -56,7 +62,7 @@ class BranchController extends Controller
 
     public function edit($branch)
     {
-        $branch = \App\Branch::with('city','district')->withTrashed()->findOrFail($branch);
+        $branch = \App\Branch::withTrashed()->findOrFail($branch);
         return response()->json($branch);
     }
 
@@ -125,8 +131,8 @@ class BranchController extends Controller
        return response()->json($cities);
    }
 
-    public function getBranchDistricts($branch)
-    {
+   public function getBranchDistricts($branch)
+   {
        $districts =  Branch::find($branch)->district;
        return response()->json($districts);
    }
@@ -193,7 +199,7 @@ public function users(Branch $branch){
 
     // şubenin sorumlu olduğu ilde user olmadığından users boş gelmesi normal
      public function cityusers($city) //şubenin sorumlu olduğu illerdeki müşteriler
-    {
+     {
        /*$cities =  $branch->city()->orderBy('id', 'desc')->paginate(10); //Branch $branch
        $cities->map(function ($city) {
         return $city->users;

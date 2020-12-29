@@ -42,6 +42,7 @@ Route::prefix('v1')->group(function ()
             Route::prefix('branch')->group(function ()
             {
                 Route::get('/', 'Api\Admin\BranchController@index'); // branch
+                Route::get('/all', 'Api\Admin\BranchController@all'); // user
                 Route::post('store', 'Api\Admin\BranchController@store');
                 Route::get('cities', 'Api\Admin\CityController@getAllCities'); // all cities
                 Route::post('districts', 'Api\Admin\DistrictController@getCitiesDistricts');//cities all districts
@@ -95,6 +96,7 @@ Route::prefix('v1')->group(function ()
             Route::prefix('user')->group(function ()
             {
             Route::get('/', 'Api\Admin\UserController@index'); // user
+            Route::get('/all', 'Api\Admin\UserController@all'); // user
             Route::post('store', 'Api\Admin\UserController@store');
             Route::get('{user}', 'Api\Admin\UserController@edit'); // user
             Route::put('{user}', 'Api\Admin\UserController@update');

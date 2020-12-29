@@ -19,6 +19,11 @@ public function index()
         // $user = User::with('address.city')->orderBy('id','desc')->paginate(10);
     return response()->json($user);
 }
+public function all()
+{
+    $user = User::select('id', 'name')->withTrashed()->get();
+    return response()->json($user);
+}
 
     /**
      * Store a newly created resource in storage.

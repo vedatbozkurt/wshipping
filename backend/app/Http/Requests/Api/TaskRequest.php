@@ -25,10 +25,10 @@ class TaskRequest extends FormRequest
     {
 
      return [
-          'sender_id' => 'required',
-          'receiver_id' => 'required',
-          'sender_address_id' => 'required',
-          'receiver_address_id' => 'required',
+          'sender' => 'required',
+          'receiver' => 'required',
+          'senderaddress' => 'required',
+          'receiveraddress' => 'required',
           'price' => 'required',
           'description' => 'required',
         ];

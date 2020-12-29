@@ -11,14 +11,28 @@ class TaskController extends Controller
     public function index()
     {
         // $task = Task::with('courier:id,name','sender:id,name,phone','receiver:id,name', 'senderaddress.city', 'senderaddress.district', 'receiveraddress.city', 'receiveraddress.district')->orderBy('id', 'desc')->paginate(10);
-        $task = Task::with('courier:id,name','sender:id,name,phone','receiver:id,name,phone')->withTrashed()->orderBy('id', 'desc')->paginate(10);
+        $task = Task::with('courier:id,name,phone','sender:id,name,phone','receiver:id,name,phone')->withTrashed()->orderBy('id', 'desc')->paginate(10);
         return response()->json($task);
     }
 
     public function store(TaskRequest $request)
     {
-        $input = $request->validated();
-        $task = Task::create($input);
+        $form_data = array(
+            'courier_id'       =>   $request->courier['id'],
+            'sender_id'       =>   $request->sender['id'],
+            'receiver_id'       =>   $request->receiver['id'],
+            'sender_address_id'       =>   $request->senderaddress['id'],
+            'receiver_address_id'       =>   $request->receiveraddress['id'],
+            'description'       =>   $request->description,
+            'price'       =>   $request->price,
+        );
+
+        if(!empty($request->status)){
+            $form_data += ['status' => $request->status];
+        }
+
+        Task::create($form_data);
+
         return response()->json('success');
     }
 
@@ -32,11 +46,18 @@ class TaskController extends Controller
 
     public function update(TaskRequest $request, Task $task)
     {
-        $input = $request->validated();
-        if(!empty($input['password'])){
-            $input['password'] = bcrypt($input['password']);
-        }
-        $task->update($input);
+        $form_data = array(
+            'courier_id'       =>   $request->courier['id'],
+            'sender_id'       =>   $request->sender['id'],
+            'receiver_id'       =>   $request->receiver['id'],
+            'sender_address_id'       =>   $request->senderaddress['id'],
+            'receiver_address_id'       =>   $request->receiveraddress['id'],
+            'description'       =>   $request->description,
+            'price'       =>   $request->price,
+            'status'       =>   $request->status,
+        );
+
+        $task->update($form_data);
         return response()->json('success');
     }
 
