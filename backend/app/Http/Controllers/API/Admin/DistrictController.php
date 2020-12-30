@@ -64,34 +64,34 @@ class DistrictController extends Controller
         return response()->json('success');
     }
 
-    public function couriers($district)
+    public function couriers(District $district)
     {
-        $courier = \App\District::with('courier')->where('id',$district)->orderBy('id', 'desc')->paginate(10);
+        // $courier = \App\District::with('courier')->where('id',$district)->orderBy('id', 'desc')->paginate(10);
+        $courier = $district->courier()->orderBy('id', 'desc')->paginate(2);
         return response()->json($courier);
     }
 
-    public function branches($district)
+    public function branches(District $district)
     {
-        $branch = \App\District::with('branch')->where('id',$district)->orderBy('id', 'desc')->paginate(10);
+        // $branch = \App\District::with('branch')->where('id',$district)->orderBy('id', 'desc')->paginate(10);
+        $branch = $district->branch()->orderBy('id', 'desc')->paginate(2);
         return response()->json($branch);
     }
 
-    public function users($district)
+    public function users(District $district)
     {
         /*$user = Address::with('user:id,name','district:id,name')->where('district_id', $district)->orderBy('id', 'desc')->paginate(10);*/
 
-        $user = \App\District::with('users')->where('id',$district)->orderBy('id', 'desc')->paginate(10);
+        // $user = \App\District::with('users')->where('id',$district)->orderBy('id', 'desc')->paginate(10);
+        $user = $district->users()->orderBy('id', 'desc')->paginate(2);
         return response()->json($user);
     }
 
     public function tasks($district)
     {
-        /*$task =  Task::with(['senderaddress' => function ($q) use ($district) {
-            $q->where('district_id', $district);
-        }])->orderBy('id', 'desc')->paginate(10);*/
-        // $task =  $district->tasks()->orderBy('id', 'desc')->paginate(10);
-        // $task = \App\District::with('tasks.courier')->where('id',$district)->orderBy('id', 'desc')->paginate(10);
-        $task = \App\District::with('tasks')->where('id',$district)->orderBy('id', 'desc')->paginate(10);
+         $task = \App\Task::with('sender:id,name,phone','receiver:id,name,phone','senderaddress:id,district_id',)->whereHas("senderaddress",function($q) use($district){
+            $q->where("district_id","=",$district);
+        })->orderBy('id', 'desc')->paginate(10);
         return response()->json($task);
     }
 }
