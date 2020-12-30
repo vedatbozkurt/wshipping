@@ -20,7 +20,7 @@ class BranchController extends Controller
         // $branches = $branch->city->district;
        // $branches = Branch::with('city','district')->orderBy('id', 'desc')->paginate(10);
         // $branches = \App\Branch::with('district.city')->orderBy('id','desc')->paginate(10);
-        $branches = \App\Branch::withTrashed()->orderBy('id','desc')->paginate(3);
+        $branches = \App\Branch::withTrashed()->orderBy('id','desc')->paginate(10);
         // $branches = \App\Branch::with('city.branch.district')->orderBy('id','desc')->paginate(10);
 
         return response()->json($branches);

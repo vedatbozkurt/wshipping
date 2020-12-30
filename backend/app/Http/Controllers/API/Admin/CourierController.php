@@ -117,22 +117,21 @@ class CourierController extends Controller
     {
         /*$cities = \App\Courier::with('city.branch')->where('id',$courier)->orderBy('id', 'desc')->paginate(10);
         return response()->json($cities);*/
-        $branch = \App\City::findorFail($city)->branch()->orderBy('id', 'desc')->paginate(10);
+        $branch = \App\City::findorFail($city)->branch()->orderBy('id', 'desc')->paginate(1);
        return response()->json($branch);
     }
     // kuryenin çalıştıgı ilçelerin şubeleri
     // kuryenin çalıştıgı ilde şube olmadığından şube boş gelmesi normal
     public function districtbranches($district) //kuryenin sorumlu olduğu illerdeki şubeler
     {
-        $branch = \App\District::findorFail($district)->branch()->orderBy('id', 'desc')->paginate(10);
+        $branch = \App\District::findorFail($district)->branch()->orderBy('id', 'desc')->paginate(1);
        return response()->json($branch);
     }
 
     public function tasks($courier) //kuryenin sorumlu olduğu illerdeki şubeler
     {
-       // $tasks = Courier::with('task')->where('id', $courier)->orderBy('id', 'desc')->paginate(10);
      // $tasks = $courier->task()->orderBy('id', 'desc')->paginate(10);
-     $tasks = \App\Task::with('sender:id,name,phone','receiver:id,name,phone')->where('courier_id',$courier)->orderBy('id', 'desc')->paginate(4);
+     $tasks = \App\Task::with('sender:id,name,phone','receiver:id,name,phone')->where('courier_id',$courier)->orderBy('id', 'desc')->paginate(1);
        return response()->json($tasks);
    }
 }

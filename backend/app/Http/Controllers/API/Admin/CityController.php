@@ -50,25 +50,25 @@ class CityController extends Controller
 
     public function districts(City $city)
     {
-        $districts = $city->district()->orderBy('id', 'desc')->paginate(2); //City $city
+        $districts = $city->district()->orderBy('id', 'desc')->paginate(10); //City $city
         return response()->json($districts);
     }
 
     public function branches(City $city)
     {
-        $branch = $city->branch()->orderBy('id', 'desc')->paginate(2); //City $city
+        $branch = $city->branch()->orderBy('id', 'desc')->paginate(10); //City $city
         return response()->json($branch);
     }
 
     public function couriers(City $city)
     {
-        $courier = $city->courier()->orderBy('id', 'desc')->paginate(2); //City $city
+        $courier = $city->courier()->orderBy('id', 'desc')->paginate(10); //City $city
         return response()->json($courier);
     }
 
     public function users(City $city)
     {
-        $user = $city->users()->orderBy('id', 'desc')->paginate(2); //City $city
+        $user = $city->users()->paginate(10);
         return response()->json($user);
     }
 

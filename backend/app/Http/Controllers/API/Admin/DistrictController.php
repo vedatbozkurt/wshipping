@@ -67,14 +67,14 @@ class DistrictController extends Controller
     public function couriers(District $district)
     {
         // $courier = \App\District::with('courier')->where('id',$district)->orderBy('id', 'desc')->paginate(10);
-        $courier = $district->courier()->orderBy('id', 'desc')->paginate(2);
+        $courier = $district->courier()->orderBy('id', 'desc')->paginate(10);
         return response()->json($courier);
     }
 
     public function branches(District $district)
     {
         // $branch = \App\District::with('branch')->where('id',$district)->orderBy('id', 'desc')->paginate(10);
-        $branch = $district->branch()->orderBy('id', 'desc')->paginate(2);
+        $branch = $district->branch()->orderBy('id', 'desc')->paginate(10);
         return response()->json($branch);
     }
 
@@ -83,7 +83,7 @@ class DistrictController extends Controller
         /*$user = Address::with('user:id,name','district:id,name')->where('district_id', $district)->orderBy('id', 'desc')->paginate(10);*/
 
         // $user = \App\District::with('users')->where('id',$district)->orderBy('id', 'desc')->paginate(10);
-        $user = $district->users()->orderBy('id', 'desc')->paginate(2);
+        $user = $district->users()->orderBy('id', 'desc')->paginate(10);
         return response()->json($user);
     }
 
