@@ -11,6 +11,11 @@ use Illuminate\Pagination\Paginator;
 
 class BranchController extends Controller
 {
+    public function all() //paginate olmadan tümü, dropdown için
+    {
+        $branch = Branch::select('id', 'name')->withTrashed()->get();
+        return response()->json($branch);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,17 +26,18 @@ class BranchController extends Controller
         // $branches = $branch->city->district;
        // $branches = Branch::with('city','district')->orderBy('id', 'desc')->paginate(10);
         // $branches = \App\Branch::with('district.city')->orderBy('id','desc')->paginate(10);
-        $branches = \App\Branch::withTrashed()->orderBy('id','desc')->paginate(10);
+        $branches = Branch::withTrashed()->orderBy('id','desc')->paginate(10);
         // $branches = \App\Branch::with('city.branch.district')->orderBy('id','desc')->paginate(10);
 
         return response()->json($branches);
     }
 
-public function all() //paginate olmadan tümü, dropdown için
-{
-    $branch = Branch::select('id', 'name')->withTrashed()->get();
-    return response()->json($branch);
-}
+    public function search($search)
+    {
+        $branches = Branch::withTrashed()->search($search)->orderBy('id', 'desc')->paginate(10);
+        return response()->json($branches);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -40,8 +46,7 @@ public function all() //paginate olmadan tümü, dropdown için
      */
     public function store(BranchRequest $request)
     {
-        $input = $request->validated();
-        $input['password'] = bcrypt($input['password']);
+        $request['password'] = bcrypt($request['password']);
         $branch = Branch::create($request->all());
 
         $city=collect($request->city)->pluck('id');
@@ -76,9 +81,8 @@ public function all() //paginate olmadan tümü, dropdown için
      */
     public function update(BranchRequest $request, Branch $branch)
     {
-        $input = $request->validated();
-        if(!empty($input['password'])){
-            $input['password'] = bcrypt($input['password']);
+        if(!empty($request['password'])){
+            $request['password'] = bcrypt($request['password']);
         }
         $branch->update($request->all());
 
@@ -226,7 +230,7 @@ public function users(Request $request, Branch $branch){
 
     $current_page_orders = array_slice($users, $offset, $perPage);
     $orders_to_show = new \Illuminate\Pagination\LengthAwarePaginator($current_page_orders, count($users), $perPage);
-        $orders_to_show->setPath($request->url());
+    $orders_to_show->setPath($request->url());
     return response()->json($orders_to_show);
 }
 
@@ -269,7 +273,7 @@ public function tasks(Request $request, Branch $branch){
 
     $current_page_orders = array_slice($tasks, $offset, $perPage);
     $orders_to_show = new \Illuminate\Pagination\LengthAwarePaginator($current_page_orders, count($tasks), $perPage);
-        $orders_to_show->setPath($request->url());
+    $orders_to_show->setPath($request->url());
     return response()->json($orders_to_show);
 }
 

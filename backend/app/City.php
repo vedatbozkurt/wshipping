@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class City extends Model
 {
     protected $fillable = [
-     'name',
- ];
+       'name',
+   ];
 
- public $timestamps = false;
+   public $timestamps = false;
 
- function district() {
+   function district() {
     return $this->hasMany('App\District');
 }
 
@@ -37,5 +37,11 @@ class City extends Model
         //bu durumda 2. tabloda 3.tablonun bilgisi bulunuyor
         //city_id: address--id:user--id:city--user_id:address
         return $this->hasManyThrough('App\User', 'App\Address','city_id', 'id', 'id','user_id')->distinct()->orderBy('id', 'desc');
+    }
+
+    public function scopeSearch($query, $s)
+    {
+        return $query->where('id', 'like', '%'.$s.'%')
+        ->orwhere('name', 'like', '%'.$s.'%');
     }
 }

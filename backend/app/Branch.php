@@ -5,7 +5,7 @@
  * @Email: info@wedat.org
  * @Date:   2020-06-16 17:52:20
  * @Last Modified by:   @vedatbozkurt
- * @Last Modified time: 2020-06-29 04:54:05
+ * @Last Modified time: 2020-07-05 20:57:24
  */
 namespace App;
 
@@ -34,6 +34,14 @@ class Branch extends Authenticatable
 
     function district() { //şubeye ait birçok ilçe olabilir
         return $this->belongsToMany('App\District');
+    }
+
+    public function scopeSearch($query, $s)
+    {
+        return $query->where('id', 'like', '%'.$s.'%')
+        ->orwhere('name', 'like', '%'.$s.'%')
+        ->orwhere('phone', 'like', '%'.$s.'%')
+        ->orwhere('email', 'like', '%'.$s.'%');
     }
 
 }

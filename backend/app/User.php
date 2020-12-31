@@ -50,4 +50,12 @@ class User extends Authenticatable
     function taskreceiver() { //alıcı user birçok gönderiye sahip olabilir
         return $this->hasMany('App\Task', 'receiver_id', 'id');
     }
+
+    public function scopeSearch($query, $s)
+    {
+        return $query->where('id', 'like', '%'.$s.'%')
+        ->orwhere('name', 'like', '%'.$s.'%')
+        ->orwhere('phone', 'like', '%'.$s.'%')
+        ->orwhere('email', 'like', '%'.$s.'%');
+    }
 }

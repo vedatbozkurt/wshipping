@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class DistrictController extends Controller
 {
 
-    public function getCitiesDistricts(Request $request)
+    public function getCitiesDistricts(Request $request) //citieslerin districtleri
     {
         $request=collect($request)->pluck('id');
         $request=$request->flatten();
@@ -19,7 +19,7 @@ class DistrictController extends Controller
         return response()->json($districts);
     }
 
-    public function getCityDistricts($city)
+    public function getCityDistricts($city) //city district
     {
         $districts = \App\District::where('city_id',$city)->get();
         return response()->json($districts);
@@ -28,6 +28,16 @@ class DistrictController extends Controller
     public function index()
     {
         $district = District::with('city')->orderBy('id', 'desc')->paginate(10);
+        return response()->json($district);
+    }
+
+    public function search($search)
+    {
+        $district = \App\District::with('city')->whereHas("city",function($q) use($search){
+            $q->where('name', 'like', '%'.$search.'%')->orWhere('id', 'like', '%'.$search.'%');
+        })->orWhere('id', 'like', '%'.$search.'%')
+        ->orWhere('name', 'like', '%'.$search.'%')
+        ->orderBy('id', 'desc')->paginate(10);
         return response()->json($district);
     }
 
@@ -100,9 +110,9 @@ class DistrictController extends Controller
 
     public function tasks($district)
     {
-         $task = \App\Task::with('sender:id,name,phone','receiver:id,name,phone','senderaddress:id,district_id',)->whereHas("senderaddress",function($q) use($district){
-            $q->where("district_id","=",$district);
-        })->orderBy('id', 'desc')->paginate(10);
-        return response()->json($task);
-    }
+       $task = \App\Task::with('sender:id,name,phone','receiver:id,name,phone','senderaddress:id,district_id',)->whereHas("senderaddress",function($q) use($district){
+        $q->where("district_id","=",$district);
+    })->orderBy('id', 'desc')->paginate(10);
+       return response()->json($task);
+   }
 }

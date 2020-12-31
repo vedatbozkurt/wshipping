@@ -15,6 +15,30 @@ class TaskController extends Controller
         return response()->json($task);
     }
 
+    public function search($search)
+    {
+        $task = Task::withTrashed()->with('courier:id,name,phone','sender:id,name,phone','receiver:id,name,phone')
+        ->whereHas("courier",function($q) use($search){
+            $q->where('id', 'like', '%'.$search.'%')
+            ->orWhere('name', 'like', '%'.$search.'%')
+            ->orWhere('phone', 'like', '%'.$search.'%');
+        })
+        ->orWhereHas("sender",function($q) use($search){
+            $q->where('id', 'like', '%'.$search.'%')
+            ->orWhere('name', 'like', '%'.$search.'%')
+            ->orWhere('phone', 'like', '%'.$search.'%');
+        })
+        ->orWhereHas("receiver",function($q) use($search){
+            $q->where('id', 'like', '%'.$search.'%')
+            ->orWhere('name', 'like', '%'.$search.'%')
+            ->orWhere('phone', 'like', '%'.$search.'%');
+        })
+        ->orWhere('id', 'like', '%'.$search.'%')
+        ->orWhere('price', 'like', '%'.$search.'%')
+        ->orderBy('description', 'desc')->paginate(2);
+        return response()->json($task);
+    }
+
     public function store(TaskRequest $request)
     {
         $form_data = array(

@@ -8,22 +8,29 @@ use App\User;
 
 class UserController extends Controller
 {
-/**
+    public function all()
+    {
+        $user = User::select('id', 'name')->withTrashed()->get();
+        return response()->json($user);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-public function index()
-{
-    $user = User::withTrashed()->orderBy('id', 'desc')->paginate(10);
-        // $user = User::with('address.city')->orderBy('id','desc')->paginate(10);
-    return response()->json($user);
-}
-public function all()
-{
-    $user = User::select('id', 'name')->withTrashed()->get();
-    return response()->json($user);
-}
+    public function index()
+    {
+        $user = User::withTrashed()->orderBy('id', 'desc')->paginate(10);
+            // $user = User::with('address.city')->orderBy('id','desc')->paginate(10);
+        return response()->json($user);
+    }
+
+    public function search($search)
+    {
+        $user = User::search($search)->orderBy('id', 'desc')->paginate(10);
+        return response()->json($user);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -83,7 +90,7 @@ public function all()
         return response()->json('success');
     }
 
-public function allAddresses($user)
+    public function allAddresses($user)
     {
          // $addresses = \App\User::with('address')->where('id',$user)->orderBy('id', 'desc')->paginate(10);
         // $user->address()->orderBy('id', 'desc')->paginate(10);

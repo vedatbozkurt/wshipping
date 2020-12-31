@@ -1,4 +1,11 @@
 <?php
+/*
+ * @Author: @vedatbozkurt
+ * @Email: info@wedat.org
+ * @Date: 2020-12-31 15:31:54
+ * @LastEditors: @vedatbozkurt
+ * @LastEditTime: 2020-12-31 15:31:54
+ */
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

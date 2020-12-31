@@ -18,9 +18,15 @@ class CityController extends Controller
         return response()->json($cities);
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $city = City::orderBy('id', 'desc')->paginate(10);
+        return response()->json($city);
+    }
+
+    public function search($search)
+    {
+        $city = City::search($search)->orderBy('id', 'desc')->paginate(10);
         return response()->json($city);
     }
 

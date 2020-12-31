@@ -32,4 +32,14 @@ class Courier extends Authenticatable
     function task() { //kurye birçok gönderiye sahip olabilir
         return $this->hasMany('App\Task');
     }
+
+    public function scopeSearch($query, $s)
+    {
+        return $query->where('id', 'like', '%'.$s.'%')
+        ->orwhere('name', 'like', '%'.$s.'%')
+        ->orwhere('phone', 'like', '%'.$s.'%')
+        ->orwhere('vehicle', 'like', '%'.$s.'%')
+        ->orwhere('plate', 'like', '%'.$s.'%')
+        ->orwhere('email', 'like', '%'.$s.'%');
+    }
 }

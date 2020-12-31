@@ -60,6 +60,7 @@ Route::prefix('v1')->group(function ()
                 Route::get('citytasks/{city}', 'Api\Admin\BranchController@citytasks');
                 //şubenin ilçelerinin gönderileri //branch->district->tasks
                 Route::get('districttasks/{district}', 'Api\Admin\BranchController@districttasks');
+                Route::post('{branch}', 'Api\Admin\BranchController@search');
                 Route::get('{branch}', 'Api\Admin\BranchController@edit');
                 Route::put('{branch}', 'Api\Admin\BranchController@update');
                 Route::delete('{branch}', 'Api\Admin\BranchController@destroy');
@@ -76,6 +77,7 @@ Route::prefix('v1')->group(function ()
             {
             Route::get('/', 'Api\Admin\CourierController@index'); // courier
             Route::post('store', 'Api\Admin\CourierController@store');
+            Route::post('{courier}', 'Api\Admin\CourierController@search');
             Route::get('{courier}', 'Api\Admin\CourierController@edit'); //courier,cities,districts
             Route::put('{courier}', 'Api\Admin\CourierController@update');
             Route::delete('{courier}', 'Api\Admin\CourierController@destroy');
@@ -97,6 +99,7 @@ Route::prefix('v1')->group(function ()
             Route::get('/', 'Api\Admin\UserController@index'); // user
             Route::get('/all', 'Api\Admin\UserController@all'); // user
             Route::post('store', 'Api\Admin\UserController@store');
+            Route::post('{user}', 'Api\Admin\UserController@search');
             Route::get('{user}', 'Api\Admin\UserController@edit'); // user
             Route::put('{user}', 'Api\Admin\UserController@update');
             Route::delete('{user}', 'Api\Admin\UserController@destroy');
@@ -116,6 +119,7 @@ Route::prefix('v1')->group(function ()
                 // task->courier,sender,receiver,senderaddress(city,district),receiveraddress(city,district)
                 Route::get('/', 'Api\Admin\TaskController@index');
                 Route::post('store', 'Api\Admin\TaskController@store');
+                Route::post('{task}', 'Api\Admin\TaskController@search');
                 // task->courier,sender,receiver,senderaddress(city,district),receiveraddress(city,district)
                 Route::get('{task}', 'Api\Admin\TaskController@edit');
                 Route::put('{task}', 'Api\Admin\TaskController@update');
@@ -139,6 +143,7 @@ Route::prefix('v1')->group(function ()
             Route::get('/', 'Api\Admin\CityController@index'); // all cities for pagination
             Route::get('allcities', 'Api\Admin\CityController@getAllCities'); // all cities for dropdown
             Route::post('store', 'Api\Admin\CityController@store');
+            Route::post('{city}', 'Api\Admin\CityController@search');
             Route::get('{city}', 'Api\Admin\CityController@edit');
             Route::put('{city}', 'Api\Admin\CityController@update');
             Route::delete('{city}', 'Api\Admin\CityController@destroy');
@@ -156,10 +161,11 @@ Route::prefix('v1')->group(function ()
                Route::post('citiesalldistricts', 'Api\Admin\DistrictController@getCitiesDistricts');//cities all districts for dropdown
                Route::get('cityalldistricts/{city}', 'Api\Admin\DistrictController@getCityDistricts');//city all districts for dropdown
                Route::post('cityalldistricts', 'Api\Admin\DistrictController@getCitiesDistricts');//city all districts for dropdown
-                Route::post('store', 'Api\Admin\DistrictController@store');
-                Route::get('{district}', 'Api\Admin\DistrictController@edit');
-                Route::put('{district}', 'Api\Admin\DistrictController@update');
-                Route::delete('{district}', 'Api\Admin\DistrictController@destroy');
+               Route::post('store', 'Api\Admin\DistrictController@store');
+               Route::post('{district}', 'Api\Admin\DistrictController@search');
+               Route::get('{district}', 'Api\Admin\DistrictController@edit');
+               Route::put('{district}', 'Api\Admin\DistrictController@update');
+               Route::delete('{district}', 'Api\Admin\DistrictController@destroy');
             Route::get('{district}/couriers', 'Api\Admin\DistrictController@couriers'); //district->couriers
             Route::get('{district}/branches', 'Api\Admin\DistrictController@branches'); //district->branches
             Route::get('{district}/users', 'Api\Admin\DistrictController@users');// district->users
