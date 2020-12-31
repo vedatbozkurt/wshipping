@@ -6,6 +6,7 @@ use App\Courier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CourierRequest;
+use File;
 
 class CourierController extends Controller
 {
@@ -37,13 +38,36 @@ class CourierController extends Controller
      */
     public function store(CourierRequest $request)
     {
-        $request['password'] = bcrypt($request['password']);
-        $courier = Courier::create($request->all());
+        $image_name='';
+        $image = $request->file('image');
+        if($image != '')
+        {
+            $image_name = rand(10000000,99999999) . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images/courier'), $image_name);
+        }
 
-        $city=collect($request->city)->pluck('id');
+        $form_data = array(
+            'name'        =>   $request->name,
+            'phone'        =>   $request->phone,
+            'email'        =>   $request->email,
+            'vehicle'        =>   $request->vehicle,
+            'plate'        =>   $request->plate,
+            'color'        =>   $request->color,
+            'password'        =>   bcrypt($request->password),
+            'image'       =>   $image_name,
+        );
+        if(!empty($request['status'])){
+            $form_data['status'] = ($request['status']);
+        }
+        $courier = Courier::create($form_data);
+
+        $city=json_decode($request->city);
+        $city=collect($city)->pluck('id');
         $city=$city->flatten();
         $courier->city()->sync($city);
-        $district=collect($request->district)->pluck('id');
+
+        $district=json_decode($request->district);
+        $district=collect($district)->pluck('id');
         $district=$district->flatten();
         $courier->district()->sync($district);
         return response()->json('success');
@@ -64,20 +88,45 @@ class CourierController extends Controller
      */
     public function update(CourierRequest $request, Courier $courier)
     {
-        if(!empty($request['password'])){
-            $request['password'] = bcrypt($request['password']);
+        $image_name = $request->previous_image;
+        $image = $request->file('image');
+        if($image != '')
+        {
+          $image_path = "images/courier/".$image_name;
+          if(File::exists($image_path)) {
+            File::delete($image_path);
         }
-        $courier->update($request->all());
-
-        $city=collect($request->city)->pluck('id');
-        $city=$city->flatten();
-        $courier->city()->sync($city);
-        $district=collect($request->district)->pluck('id');
-        $district=$district->flatten();
-        $courier->district()->sync($district);
-
-        return response()->json('success');
+        $image_name = rand() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('images/courier'), $image_name);
     }
+
+    $form_data = array(
+       'name'        =>   $request->name,
+       'phone'        =>   $request->phone,
+       'email'        =>   $request->email,
+       'vehicle'        =>   $request->vehicle,
+       'plate'        =>   $request->plate,
+       'color'        =>   $request->color,
+       'image'       =>   $image_name,
+   );
+    if(!empty($request['password'])){
+      $form_data['password'] = bcrypt($request['password']);
+  }
+
+  $courier->update($form_data);
+
+  $city=json_decode($request->city);
+  $city=collect($city)->pluck('id');
+  $city=$city->flatten();
+  $courier->city()->sync($city);
+
+  $district=json_decode($request->district);
+  $district=collect($district)->pluck('id');
+  $district=$district->flatten();
+  $courier->district()->sync($district);
+
+  return response()->json('success');
+}
 
     /**
      * Remove the specified resource from storage.
@@ -106,16 +155,16 @@ class CourierController extends Controller
 
     public function getCourierCities($courier) //city e ait branchleri bulmak için gerekiyor
     {
-       $cities =  Courier::find($courier)->city;
+     $cities =  Courier::find($courier)->city;
        // $cities = $cities->toArray();
-       return response()->json($cities);
-   }
+     return response()->json($cities);
+ }
 
  public function getCourierDistricts($courier) //district e ait branchleri bulmak için gerekiyor
  {
-   $districts =  Courier::find($courier)->district;
-   return response()->json($districts);
-}
+     $districts =  Courier::find($courier)->district;
+     return response()->json($districts);
+ }
 
     // kuryenin çalıştıgı illerin şubeleri
     // kuryenin çalıştıgı ilde şube olmadığından şube boş gelmesi normal
@@ -137,7 +186,7 @@ class CourierController extends Controller
     public function tasks($courier) //kuryenin sorumlu olduğu illerdeki şubeler
     {
      // $tasks = $courier->task()->orderBy('id', 'desc')->paginate(10);
-       $tasks = \App\Task::with('sender:id,name,phone','receiver:id,name,phone')->where('courier_id',$courier)->orderBy('id', 'desc')->paginate(10);
-       return response()->json($tasks);
-   }
+     $tasks = \App\Task::with('sender:id,name,phone','receiver:id,name,phone')->where('courier_id',$courier)->orderBy('id', 'desc')->paginate(10);
+     return response()->json($tasks);
+ }
 }

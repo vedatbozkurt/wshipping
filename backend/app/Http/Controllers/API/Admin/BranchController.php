@@ -177,7 +177,7 @@ class BranchController extends Controller
         $couriers= $couriers->flatten()->toArray();
 
         $page = isset($request->page) ? $request->page : 1;
-        $perPage = 2;
+        $perPage = 10;
         $offset = ($page * $perPage) - $perPage;
 
         $current_page_orders = array_slice($couriers, $offset, $perPage);
@@ -198,7 +198,7 @@ class BranchController extends Controller
         array_push($citycouriers,$courier->courier);
     }
     $citycouriers=collect($citycouriers)->flatten();*/
-    $citycouriers = \App\City::findorFail($city)->courier()->orderBy('id','desc')->paginate(2);
+    $citycouriers = \App\City::findorFail($city)->courier()->orderBy('id','desc')->paginate(10);
     return response()->json($citycouriers);
 }
 
@@ -208,7 +208,7 @@ class BranchController extends Controller
        $districts->map(function ($district) {
         return $district->courier;
     });*/
-    $districtcouriers = \App\District::findorFail($district)->courier()->orderBy('id','desc')->paginate(1);
+    $districtcouriers = \App\District::findorFail($district)->courier()->orderBy('id','desc')->paginate(10);
     return response()->json($districtcouriers);
 }
 
@@ -225,7 +225,7 @@ public function users(Request $request, Branch $branch){
     $users= $users->flatten()->toArray();
 
     $page = isset($request->page) ? $request->page : 1;
-    $perPage = 2;
+    $perPage = 10;
     $offset = ($page * $perPage) - $perPage;
 
     $current_page_orders = array_slice($users, $offset, $perPage);
@@ -241,7 +241,7 @@ public function users(Request $request, Branch $branch){
        $cities->map(function ($city) {
         return $city->users;
     });*/
-    $cityusers = \App\City::findorFail($city)->users()->orderBy('id','desc')->paginate(2);
+    $cityusers = \App\City::findorFail($city)->users()->orderBy('id','desc')->paginate(10);
     return response()->json($cityusers);
 }
 
@@ -252,7 +252,7 @@ public function users(Request $request, Branch $branch){
        $districts->map(function ($district) {
         return $district->users;
     });*/
-    $districtusers = \App\District::findorFail($district)->users()->orderBy('id','desc')->paginate(2);
+    $districtusers = \App\District::findorFail($district)->users()->orderBy('id','desc')->paginate(10);
     return response()->json($districtusers);
 }
 
@@ -268,7 +268,7 @@ public function tasks(Request $request, Branch $branch){
     $tasks= $tasks->flatten()->toArray();
 
     $page = isset($request->page) ? $request->page : 1;
-    $perPage = 2;
+    $perPage = 10;
     $offset = ($page * $perPage) - $perPage;
 
     $current_page_orders = array_slice($tasks, $offset, $perPage);
@@ -283,7 +283,7 @@ public function tasks(Request $request, Branch $branch){
        $cities->map(function ($city) {
         return $city->tasks;
     });*/
-    $citytasks = \App\City::findorFail($city)->tasks()->orderBy('id','desc')->paginate(2);
+    $citytasks = \App\City::findorFail($city)->tasks()->orderBy('id','desc')->paginate(10);
     return response()->json($citytasks);
 }
 
@@ -293,7 +293,7 @@ public function tasks(Request $request, Branch $branch){
        $districts->map(function ($district) {
         return $district->tasks;
     });*/
-    $districttasks = \App\District::findorFail($district)->tasks()->orderBy('id','desc')->paginate(2);
+    $districttasks = \App\District::findorFail($district)->tasks()->orderBy('id','desc')->paginate(10);
     return response()->json($districttasks);
 }
 }
