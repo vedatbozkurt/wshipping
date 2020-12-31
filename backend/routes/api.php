@@ -31,7 +31,7 @@ Route::prefix('v1')->group(function ()
         Route::middleware(['auth:admin', 'scope:admin'])->group( function () {
             Route::post('/logout', 'API\Admin\AuthController@logout');
             //dashboard
-            Route::get('/', 'API\Admin\DashboardController@show');
+            Route::get('/dashboard', 'API\Admin\DashboardController@show');
             //setting
             Route::get('/setting', 'API\Admin\SettingController@edit');
             Route::put('/setting', 'API\Admin\SettingController@update');

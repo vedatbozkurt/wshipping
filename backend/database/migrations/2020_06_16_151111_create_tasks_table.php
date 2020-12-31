@@ -32,8 +32,8 @@ class CreateTasksTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-        \DB::statement('ALTER TABLE tasks AUTO_INCREMENT = 10000;');
-        //status
+            \DB::statement('ALTER TABLE tasks AUTO_INCREMENT = 10000;');
+            //status
             //0:onay bekliyor
             //1:onaylandı-Kurye Ataması Bekleniyor
             //2:Kurye atandı-Kurye Kabul Etmesi Bekleniyor

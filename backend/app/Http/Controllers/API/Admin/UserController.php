@@ -40,17 +40,37 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $request['password'] = bcrypt($request['password']);
-        $user = User::create($request->all());
-        return response()->json('success');
+        $image_name='no-image.png';
+        $image = $request->file('image');
+        if($image != '')
+        {
+          $image_name = rand() . '.' . $image->getClientOriginalExtension();
+          $image->move(public_path('images/user'), $image_name);
+      }
+
+      $form_data = array(
+          'name'       =>   $request->name,
+          'phone'       =>   $request->phone,
+          'email'       =>   $request->email,
+          'password'        =>   bcrypt($request['password']),
+          'image'       =>   $image_name,
+      );
+
+
+      if(!empty($request['status'])){
+        $form_data['status'] = $request['status'];
     }
 
-    public function edit($user)
-    {
-        $user = User::withTrashed()->find($user);
+    User::create($form_data);
+    return response()->json('success');
+}
+
+public function edit($user)
+{
+    $user = User::withTrashed()->find($user);
         //il ilçeyi adreste eklediği için burada gerek yok
-        return response()->json($user);
-    }
+    return response()->json($user);
+}
     /**
      * Update the specified resource in storage.
      *
@@ -60,13 +80,35 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        if(!empty($request['password'])){
-            $request['password'] = bcrypt($request['password']);
-        }
-        $user->update($request->all());
-
-        return response()->json('success');
+        $image_name = $request->previous_image;
+        $image = $request->file('image');
+        if($image != '')
+        {
+      $image_path = "images/".$image_name;  // delete previous image
+      if(File::exists($image_path)) {
+        File::delete($image_path);
     }
+    $image_name = rand() . '.' . $image->getClientOriginalExtension();
+    $image->move(public_path('images'), $image_name);
+}
+
+$form_data = array(
+  'name'       =>   $request->name,
+  'phone'       =>   $request->phone,
+  'email'       =>   $request->email,
+  'status'       =>   $request->status,
+  'image'       =>   $image_name,
+
+);
+
+
+if(!empty($request['password'])){
+    $form_data['password'] = bcrypt($request['password']);
+}
+$user->update($form_data);
+
+return response()->json('success');
+}
 
     /**
      * Remove the specified resource from storage.

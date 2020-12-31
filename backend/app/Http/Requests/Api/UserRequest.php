@@ -30,11 +30,9 @@ class UserRequest extends FormRequest
       {
         return [
           'name' => 'required',
-          // 'image' => 'required',
           'phone' => 'required',
           'email' => 'required|email|unique:users',
           'password'  => 'required|min:3',
-          // 'status'  => 'required'
         ];
       }
       case 'PATCH':
@@ -42,7 +40,6 @@ class UserRequest extends FormRequest
       {
         $rules = [
           'name' => 'required',
-          'image' => 'required',
           'phone' => 'required',
           'password'  => 'sometimes|required|min:3',
           // 'status'  => 'required'
