@@ -19,14 +19,22 @@ class DashboardController extends Controller
         $expense=Expense::get()->sum('price');
         $tasks = Task::orderBy('created_at','desc')->limit(5)->get();
         $events = Event::orderBy('created_at','desc')->limit(5)->get();*/
-/*
+
         $i=1;
-        $months = array();
+        $tasksmonth = array();
+        $usersmonth = array();
+        $couriersmonth = array();
         while($i <= 12) {
-        $month=DB::table('companies')->whereMonth('created_at', '=', $i)->get()->count();
-        array_push($months, $month);
+            $tasks=\App\Task::withTrashed()->whereMonth('created_at', '=', $i)->get()->count();
+            array_push($tasksmonth, $tasks);
+            $users=\App\User::withTrashed()->whereMonth('created_at', '=', $i)->get()->count();
+            array_push($usersmonth, $users);
+            $courier=\App\Courier::withTrashed()->whereMonth('created_at', '=', $i)->get()->count();
+            array_push($couriersmonth, $courier);
             $i++;
-        }*/
-        return response()->json(['branch' => $branch,'courier' => $courier,'user' => $user,'task' => $task]);
+        }
+
+
+        return response()->json(['branch' => $branch,'courier' => $courier,'user' => $user,'task' => $task,'tasksmonth' => $tasksmonth,'usersmonth' => $usersmonth,'couriersmonth' => $couriersmonth]);
     }
 }
