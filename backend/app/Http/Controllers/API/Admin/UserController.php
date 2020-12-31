@@ -83,7 +83,7 @@ class UserController extends Controller
       if($image != '')
       {
       $image_path = "images/user/".$image_name;
-      if(File::exists($image_path)) {
+      if(($image_name != 'no-image.png') && (File::exists($image_path))) {
         File::delete($image_path);
       }
       $image_name = rand() . '.' . $image->getClientOriginalExtension();

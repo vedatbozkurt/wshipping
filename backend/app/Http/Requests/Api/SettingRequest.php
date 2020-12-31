@@ -30,7 +30,7 @@ class SettingRequest extends FormRequest
           'company_name' => 'required',
           'description' => 'required',
           'keywords' => 'required',
-          'logo' => 'required',
+          // 'logo' => 'required',
           'email' => 'required',
           'currency' => 'required',
         ];

@@ -35,7 +35,7 @@ Route::prefix('v1')->group(function ()
             //setting
             Route::get('/setting', 'API\Admin\SettingController@edit');
             Route::put('/setting', 'API\Admin\SettingController@update');
-            Route::get('/currency', 'API\Admin\SettingController@currency');
+            Route::get('/initialdata', 'API\Admin\SettingController@initialdata');
             //profile
             Route::get('profile', 'API\Admin\AuthController@getProfile');
             Route::put('profile', 'API\Admin\AuthController@updateProfile');
