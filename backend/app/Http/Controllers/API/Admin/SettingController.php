@@ -8,6 +8,13 @@ use App\Http\Controllers\Controller;
 
 class SettingController extends Controller
 {
+    public function currency()
+    {
+        // $flight = App\Flight::where('number', 'FR 900')->first();
+        $currency = Setting::select('currency')->where('id', 1)->first();
+        return response()->json($currency->currency);
+    }
+
     public function edit()
     {
         // $flight = App\Flight::where('number', 'FR 900')->first();

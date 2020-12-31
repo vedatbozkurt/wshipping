@@ -22,6 +22,7 @@ class CreateSettingsTable extends Migration
             $table->string('keywords');
             $table->string('address');
             $table->string('email');
+            $table->string('currency');
         });
     }
     /**

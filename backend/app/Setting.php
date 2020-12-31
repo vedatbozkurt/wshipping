@@ -9,6 +9,6 @@ class Setting extends Model
    public $timestamps = false;
 
    protected $fillable = [
-     'address', 'phone', 'company_name', 'description', 'keywords', 'logo', 'email',
+     'address', 'phone', 'company_name', 'description', 'keywords', 'logo', 'email', 'currency',
  ];
 }

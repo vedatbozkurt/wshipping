@@ -32,6 +32,7 @@ class SettingRequest extends FormRequest
           'keywords' => 'required',
           'logo' => 'required',
           'email' => 'required',
+          'currency' => 'required',
         ];
 
     }

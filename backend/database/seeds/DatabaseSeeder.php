@@ -612,6 +612,7 @@ class DatabaseSeeder extends Seeder
             'description' => 'Best company on the world',
             'keywords' => 'my,company',
             'logo' => 'a.png',
+            'currency' => 'TL',
             'email' => 'my@compony.com',
         ]);
 
