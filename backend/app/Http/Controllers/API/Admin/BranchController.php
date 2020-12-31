@@ -5,8 +5,9 @@ namespace App\Http\Controllers\API\Admin;
 use App\Branch;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\BranchRequest;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
+
 
 class BranchController extends Controller
 {
@@ -136,8 +137,8 @@ public function all() //paginate olmadan tümü, dropdown için
        $districts =  Branch::find($branch)->district;
        return response()->json($districts);
    }
-    // şubenin sorumlu olduğu ilde courier olmadığından courier boş gelmesi normal
-    public function couriers(Branch $branch) //şubenin sorumlu olduğu illerdeki kuryeler
+
+    public function allCouriers(Request $request, Branch $branch) //şubenin sorumlu olduğu illerdeki kuryeler
     {
     // $courier = \App\Branch::with('city.courier','district.courier')->where('id',$branch)->orderBy('id', 'desc')->paginate(10);
 
@@ -149,13 +150,37 @@ public function all() //paginate olmadan tümü, dropdown için
             array_push($courier,$district->courier);
         }
         $couriers=collect($courier)->flatten();
-        $couriers = $couriers->unique('id');
-        $couriers = $couriers->flatten();
-        // let paginator to regonize page number automaticly
+        $couriers = $couriers->sortByDesc('id')->unique('id');
+        $couriers= $couriers->flatten();
 
         return response()->json($couriers);
     }
 
+    // şubenin sorumlu olduğu ilde courier olmadığından courier boş gelmesi normal
+    public function couriers(Request $request, Branch $branch) //şubenin sorumlu olduğu illerdeki kuryeler
+    {
+    // $courier = \App\Branch::with('city.courier','district.courier')->where('id',$branch)->orderBy('id', 'desc')->paginate(10);
+
+        //şubenin il veya ilçelerindeki kuryeleri çekersen tüm kuryelerini çekmiş olursun
+        $districts = $branch->district;
+
+        $courier = [];
+        foreach ($districts as $district) {
+            array_push($courier,$district->courier);
+        }
+        $couriers=collect($courier)->flatten();
+        $couriers = $couriers->sortByDesc('id')->unique('id');
+        $couriers= $couriers->flatten()->toArray();
+
+        $page = isset($request->page) ? $request->page : 1;
+        $perPage = 2;
+        $offset = ($page * $perPage) - $perPage;
+
+        $current_page_orders = array_slice($couriers, $offset, $perPage);
+        $orders_to_show = new \Illuminate\Pagination\LengthAwarePaginator($current_page_orders, count($couriers), $perPage);
+        $orders_to_show->setPath($request->url());
+        return response()->json($orders_to_show);
+    }
 // şubenin sorumlu olduğu ilde courier olmadığından courier boş gelmesi normal
     public function citycouriers($city) //şubenin sorumlu olduğu illerdeki kuryeler
     {
@@ -169,7 +194,7 @@ public function all() //paginate olmadan tümü, dropdown için
         array_push($citycouriers,$courier->courier);
     }
     $citycouriers=collect($citycouriers)->flatten();*/
-    $citycouriers = \App\City::findorFail($city)->courier;
+    $citycouriers = \App\City::findorFail($city)->courier()->orderBy('id','desc')->paginate(2);
     return response()->json($citycouriers);
 }
 
@@ -179,11 +204,11 @@ public function all() //paginate olmadan tümü, dropdown için
        $districts->map(function ($district) {
         return $district->courier;
     });*/
-    $districtcouriers = \App\District::findorFail($district)->courier;
+    $districtcouriers = \App\District::findorFail($district)->courier()->orderBy('id','desc')->paginate(1);
     return response()->json($districtcouriers);
 }
 
-public function users(Branch $branch){
+public function users(Request $request, Branch $branch){
     // $users = \App\Branch::with('city.users')->where('id',$branch)->orderBy('id', 'desc')->paginate(10);
 
     $districts = $branch->district;
@@ -192,9 +217,17 @@ public function users(Branch $branch){
         array_push($user, $district->users);
     }
     $users=collect($user)->flatten();
-    $users = $users->unique('id');
-    $users = $users->flatten();
-    return response()->json($users);
+    $users = $users->sortByDesc('id')->unique('id');
+    $users= $users->flatten()->toArray();
+
+    $page = isset($request->page) ? $request->page : 1;
+    $perPage = 2;
+    $offset = ($page * $perPage) - $perPage;
+
+    $current_page_orders = array_slice($users, $offset, $perPage);
+    $orders_to_show = new \Illuminate\Pagination\LengthAwarePaginator($current_page_orders, count($users), $perPage);
+        $orders_to_show->setPath($request->url());
+    return response()->json($orders_to_show);
 }
 
     // şubenin sorumlu olduğu ilde user olmadığından users boş gelmesi normal
@@ -204,7 +237,7 @@ public function users(Branch $branch){
        $cities->map(function ($city) {
         return $city->users;
     });*/
-    $cityusers = \App\City::findorFail($city)->users;
+    $cityusers = \App\City::findorFail($city)->users()->orderBy('id','desc')->paginate(2);
     return response()->json($cityusers);
 }
 
@@ -215,11 +248,11 @@ public function users(Branch $branch){
        $districts->map(function ($district) {
         return $district->users;
     });*/
-    $districtusers = \App\District::findorFail($district)->users;
+    $districtusers = \App\District::findorFail($district)->users()->orderBy('id','desc')->paginate(2);
     return response()->json($districtusers);
 }
 
-public function tasks(Branch $branch){
+public function tasks(Request $request, Branch $branch){
 
     $districts = $branch->district;
     $task = [];
@@ -227,9 +260,17 @@ public function tasks(Branch $branch){
         array_push($task, $district->tasks);
     }
     $tasks=collect($task)->flatten();
-    $tasks = $tasks->unique('id');
-    $tasks = $tasks->flatten();
-    return response()->json($tasks);
+    $tasks = $tasks->sortByDesc('id')->unique('id');
+    $tasks= $tasks->flatten()->toArray();
+
+    $page = isset($request->page) ? $request->page : 1;
+    $perPage = 2;
+    $offset = ($page * $perPage) - $perPage;
+
+    $current_page_orders = array_slice($tasks, $offset, $perPage);
+    $orders_to_show = new \Illuminate\Pagination\LengthAwarePaginator($current_page_orders, count($tasks), $perPage);
+        $orders_to_show->setPath($request->url());
+    return response()->json($orders_to_show);
 }
 
    public function citytasks($city) //şubenin sorumlu olduğu illerdeki gönderiler
@@ -238,7 +279,7 @@ public function tasks(Branch $branch){
        $cities->map(function ($city) {
         return $city->tasks;
     });*/
-    $citytasks = \App\City::findorFail($city)->tasks;
+    $citytasks = \App\City::findorFail($city)->tasks()->orderBy('id','desc')->paginate(2);
     return response()->json($citytasks);
 }
 
@@ -248,7 +289,7 @@ public function tasks(Branch $branch){
        $districts->map(function ($district) {
         return $district->tasks;
     });*/
-    $districttasks = \App\District::findorFail($district)->tasks;
+    $districttasks = \App\District::findorFail($district)->tasks()->orderBy('id','desc')->paginate(2);
     return response()->json($districttasks);
 }
 }

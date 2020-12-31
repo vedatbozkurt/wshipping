@@ -83,12 +83,25 @@ public function all()
         return response()->json('success');
     }
 
+public function allAddresses($user)
+    {
+         // $addresses = \App\User::with('address')->where('id',$user)->orderBy('id', 'desc')->paginate(10);
+        // $user->address()->orderBy('id', 'desc')->paginate(10);
+        $addresses =  \App\User::find($user)->address;
+        // $addresses = \App\Address::where('user_id',$user)->get();
+
+       /* $addresses =  \App\Address::with(['user' => function ($q) use ($user) {
+            $q->where('id', $user);
+        }])->orderBy('id', 'desc')->paginate(10);*/
+        return response()->json($addresses);
+    }
+
     public function addresses($user)
     {
          // $addresses = \App\User::with('address')->where('id',$user)->orderBy('id', 'desc')->paginate(10);
         // $user->address()->orderBy('id', 'desc')->paginate(10);
         // $addresses =  \App\User::find($user)->address;
-        $addresses = \App\Address::with('city','district')->where('user_id',$user)->orderBy('id', 'desc')->paginate(1);
+        $addresses = \App\Address::with('city','district')->where('user_id',$user)->orderBy('id', 'desc')->paginate(10);
 
        /* $addresses =  \App\Address::with(['user' => function ($q) use ($user) {
             $q->where('id', $user);
@@ -100,7 +113,7 @@ public function all()
     public function sendertasks($user)
     {
         // $tasks = \App\User::with('tasksender')->where('id',$user)->orderBy('id', 'desc')->paginate(10);
-        $tasks = \App\Task::with('courier:id,name,phone','receiver:id,name,phone')->where('sender_id',$user)->orderBy('id', 'desc')->paginate(1);
+        $tasks = \App\Task::with('courier:id,name,phone','receiver:id,name,phone')->where('sender_id',$user)->orderBy('id', 'desc')->paginate(10);
         return response()->json($tasks);
     }
 
@@ -108,7 +121,7 @@ public function all()
     public function receivertasks($user)
     {
         // $tasks = \App\User::with('taskreceiver')->where('id',$user)->orderBy('id', 'desc')->paginate(10);
-        $tasks = \App\Task::with('courier:id,name,phone','sender:id,name,phone')->where('receiver_id',$user)->orderBy('id', 'desc')->paginate(1);
+        $tasks = \App\Task::with('courier:id,name,phone','sender:id,name,phone')->where('receiver_id',$user)->orderBy('id', 'desc')->paginate(10);
         return response()->json($tasks);
     }
 }

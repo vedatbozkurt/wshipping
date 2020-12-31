@@ -65,6 +65,7 @@ Route::prefix('v1')->group(function ()
                 Route::delete('{branch}', 'Api\Admin\BranchController@destroy');
                 // Route::post('{branch}/restore', 'Api\Admin\BranchController@restore');
                 //şubenin il ve ilçelerinin tümünün kuryeleri yani şubenin tüm kuryeleri
+                Route::get('{branch}/allcouriers', 'Api\Admin\BranchController@allCouriers');//sadece courier bilgisi göster yeterli
                 Route::get('{branch}/couriers', 'Api\Admin\BranchController@couriers');//sadece courier bilgisi göster yeterli
                 Route::get('{branch}/users', 'Api\Admin\BranchController@users');//sadece müşteri bilgisi göster yeterli
                 Route::get('{branch}/tasks', 'Api\Admin\BranchController@tasks');//sadece gönderi bilgisi göster yeterli
@@ -102,6 +103,7 @@ Route::prefix('v1')->group(function ()
             Route::post('{user}/restore', 'Api\Admin\UserController@restore');
              // userın adres defteri //user->addresses
             Route::get('{user}/addresses', 'Api\Admin\UserController@addresses');
+            Route::get('{user}/alladdresses', 'Api\Admin\UserController@allAddresses');
              // userın gönderdikleri // user->tasksender
             Route::get('{user}/sendertasks', 'Api\Admin\UserController@sendertasks');
              // userın aldıkları // user->taskreceiver

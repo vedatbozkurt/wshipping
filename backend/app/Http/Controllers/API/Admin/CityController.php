@@ -7,6 +7,7 @@ use App\Address;
 use App\Task;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CityRequest;
+use Illuminate\Http\Request;
 
 class CityController extends Controller
 {
@@ -66,10 +67,23 @@ class CityController extends Controller
         return response()->json($courier);
     }
 
-    public function users(City $city)
+    public function users(Request $request, City $city)
     {
-        $user = $city->users()->paginate(10);
-        return response()->json($user);
+        $users = $city->users;
+        $users=collect($users)->flatten();
+        $users = $users->sortByDesc('id')->unique('id');
+        $users= $users->flatten()->toArray();
+
+        $page = isset($request->page) ? $request->page : 1;
+        $perPage = 10;
+        $offset = ($page * $perPage) - $perPage;
+
+        $current_page_orders = array_slice($users, $offset, $perPage);
+        $orders_to_show = new \Illuminate\Pagination\LengthAwarePaginator($current_page_orders, count($users), $perPage);
+        $orders_to_show->setPath($request->url());
+
+
+        return response()->json($orders_to_show);
     }
 
     public function tasks($city)

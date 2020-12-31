@@ -78,13 +78,24 @@ class DistrictController extends Controller
         return response()->json($branch);
     }
 
-    public function users(District $district)
+    public function users(Request $request, District $district)
     {
         /*$user = Address::with('user:id,name','district:id,name')->where('district_id', $district)->orderBy('id', 'desc')->paginate(10);*/
 
         // $user = \App\District::with('users')->where('id',$district)->orderBy('id', 'desc')->paginate(10);
-        $user = $district->users()->orderBy('id', 'desc')->paginate(10);
-        return response()->json($user);
+        $user = $district->users;
+        $users=collect($user)->flatten();
+        $users = $users->sortByDesc('id')->unique('id');
+        $users= $users->flatten()->toArray();
+
+        $page = isset($request->page) ? $request->page : 1;
+        $perPage = 10;
+        $offset = ($page * $perPage) - $perPage;
+
+        $current_page_orders = array_slice($users, $offset, $perPage);
+        $orders_to_show = new \Illuminate\Pagination\LengthAwarePaginator($current_page_orders, count($users), $perPage);
+        $orders_to_show->setPath($request->url());
+        return response()->json($orders_to_show);
     }
 
     public function tasks($district)
