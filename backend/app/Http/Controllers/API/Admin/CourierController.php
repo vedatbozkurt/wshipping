@@ -131,7 +131,7 @@ class CourierController extends Controller
     public function tasks($courier) //kuryenin sorumlu olduğu illerdeki şubeler
     {
      // $tasks = $courier->task()->orderBy('id', 'desc')->paginate(10);
-     $tasks = \App\Task::with('sender:id,name,phone','receiver:id,name,phone')->where('courier_id',$courier)->orderBy('id', 'desc')->paginate(1);
+     $tasks = \App\Task::with('sender:id,name,phone','receiver:id,name,phone')->where('courier_id',$courier)->orderBy('id', 'desc')->paginate(10);
        return response()->json($tasks);
    }
 }
