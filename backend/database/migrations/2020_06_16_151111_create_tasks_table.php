@@ -1,11 +1,4 @@
 <?php
-/*
- * @Author: @vedatbozkurt
- * @Email: info@wedat.org
- * @Date: 2020-12-31 15:32:03
- * @LastEditors: @vedatbozkurt
- * @LastEditTime: 2020-12-31 15:32:03
- */
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -39,7 +32,7 @@ class CreateTasksTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-        \DB::statement('ALTER TABLE tasks AUTO_INCREMENT = 1000;');
+        \DB::statement('ALTER TABLE tasks AUTO_INCREMENT = 10000;');
         //status
             //0:onay bekliyor
             //1:onaylandı-Kurye Ataması Bekleniyor

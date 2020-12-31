@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+        \DB::statement('ALTER TABLE users AUTO_INCREMENT = 15000;');
     }
 
     /**
