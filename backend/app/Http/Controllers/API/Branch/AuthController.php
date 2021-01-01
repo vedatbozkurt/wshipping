@@ -14,11 +14,11 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-     $email = $request->input('email');
-     $password = $request->input('password');
+       $email = $request->input('email');
+       $password = $request->input('password');
 
-     $user = Branch::where('email', '=', $email)->first();
-     if (!$user) {
+       $user = Branch::where('email', '=', $email)->first();
+       if (!$user) {
         return response()->json(['errors' => ['email' => ['Login Fail, please check email']]], 422);
     }
     if (!Hash::check($password, $user->password)) {
@@ -54,5 +54,14 @@ public function updateProfile(BranchRequest $request)
     }
     Branch::whereId($userid)->update($input);
     return response()->json('success');
+}
+
+public function logout(Request $request)
+{
+    Auth::user()->token()->revoke();
+    return response()->json([
+        'status' => 'success',
+        'msg' => 'Logged out Successfully.'
+    ], 200);
 }
 }
