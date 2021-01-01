@@ -103,7 +103,7 @@ class UserController extends Controller
     $user->update($form_data);
     // Post::whereId($id)->update($form_data);
 
-    return response()->json($request);
+    return response()->json('success');
   }
 
     /**

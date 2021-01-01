@@ -38,7 +38,7 @@ class CourierController extends Controller
      */
     public function store(CourierRequest $request)
     {
-        $image_name='';
+        $image_name='no-image.png';
         $image = $request->file('image');
         if($image != '')
         {

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Courier;
 use App\Http\Requests\Api\CourierRequest;
 use Illuminate\Support\Facades\Auth;
+use File;
 
 class CourierController extends Controller
 {
@@ -33,21 +34,21 @@ class CourierController extends Controller
         $orders_to_show->setPath($request->url());
         return response()->json($orders_to_show);
     }
-
-    public function citycouriers()
+    public function allCouriers(Request $request) //şubenin sorumlu olduğu illerdeki kuryeler
     {
-        // $courier = Auth::user()::with('city.courier')->orderBy('id', 'desc')->paginate(10);
-        $courier = \App\Branch::with('city.courier')->where('id',Auth::user()->id)->orderBy('id', 'desc')->paginate(10);
-    // Courier::whereHas(‘branch’, ...)->whereHas(‘city’...)...
-        return response()->json($courier);
-    }
+        $branch = Auth::user();
+        $districts = $branch->district;
 
-    public function districtcouriers()
-    {
-        $courier = \App\Branch::with('district.courier')->where('id',Auth::user()->id)->orderBy('id', 'desc')->paginate(10);
-        return response()->json($courier);
-    }
+        $courier = [];
+        foreach ($districts as $district) {
+            array_push($courier,$district->courier);
+        }
+        $couriers=collect($courier)->flatten();
+        $couriers = $couriers->sortByDesc('id')->unique('id');
+        $couriers= $couriers->flatten();
 
+        return response()->json($couriers);
+    }
 
     public function store(CourierRequest $request)
     {
@@ -111,15 +112,15 @@ class CourierController extends Controller
     }
 
     $form_data = array(
-     'name'        =>   $request->name,
-     'phone'        =>   $request->phone,
-     'email'        =>   $request->email,
-     'vehicle'        =>   $request->vehicle,
-     'plate'        =>   $request->plate,
-     'color'        =>   $request->color,
-     'status'        =>   $request->status,
-     'image'       =>   $image_name,
- );
+       'name'        =>   $request->name,
+       'phone'        =>   $request->phone,
+       'email'        =>   $request->email,
+       'vehicle'        =>   $request->vehicle,
+       'plate'        =>   $request->plate,
+       'color'        =>   $request->color,
+       'status'        =>   $request->status,
+       'image'       =>   $image_name,
+   );
     if(!empty($request['password'])){
       $form_data['password'] = bcrypt($request['password']);
   }
@@ -151,7 +152,7 @@ class CourierController extends Controller
     {
         abort_unless(\Gate::allows('branch-own-couriers',$courier), 403); //kurye şubeninse dburdan devam
         $tasks = \App\Task::with('sender:id,name,phone','receiver:id,name,phone')->where('courier_id',$courier)->orderBy('id', 'desc')->paginate(10);
-     return response()->json($tasks);
+        return response()->json($tasks);
     }
 
 }
