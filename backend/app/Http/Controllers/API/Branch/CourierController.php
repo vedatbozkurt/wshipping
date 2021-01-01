@@ -92,7 +92,7 @@ class CourierController extends Controller
     public function edit($courier)
     {
         abort_unless(\Gate::allows('branch-own-couriers',$courier), 403);
-        $courier = \App\Courier::with('city','district')->withTrashed()->findOrFail($courier);
+        $courier = \App\Courier::with('city','district')->findOrFail($courier);
         return response()->json($courier);
     }
 

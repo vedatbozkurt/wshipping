@@ -38,10 +38,12 @@ class CreateTasksTable extends Migration
             //1:onaylandı-Kurye Ataması Bekleniyor
             //2:Kurye atandı-Kurye Kabul Etmesi Bekleniyor
             //3:Kurye Kabul etti
-            //4:Kurye yola çıktı
-            //5:Kurye hedefe vardı
-            //6:Gönderi teslim edildi
-            //7:İptal edildi-Kurye vazgeçti,yeni Kurye Kabul Etmesi Bekleniyor
+            //4:Kurye gönderiyi teslim aldı
+            //5:Kurye yola çıktı
+            //6:Kurye hedefe vardı
+            //7:Gönderi teslim edildi
+            //8:Kurye vazgeçti,yeni Kurye Kabul Etmesi Bekleniyor
+            //9:İptal edildi
     }
 
     /**

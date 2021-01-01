@@ -101,15 +101,15 @@ class CourierController extends Controller
     }
 
     $form_data = array(
-       'name'        =>   $request->name,
-       'phone'        =>   $request->phone,
-       'email'        =>   $request->email,
-       'vehicle'        =>   $request->vehicle,
-       'plate'        =>   $request->plate,
-       'color'        =>   $request->color,
-       'status'        =>   $request->status,
-       'image'       =>   $image_name,
-   );
+     'name'        =>   $request->name,
+     'phone'        =>   $request->phone,
+     'email'        =>   $request->email,
+     'vehicle'        =>   $request->vehicle,
+     'plate'        =>   $request->plate,
+     'color'        =>   $request->color,
+     'status'        =>   $request->status,
+     'image'       =>   $image_name,
+ );
     if(!empty($request['password'])){
       $form_data['password'] = bcrypt($request['password']);
   }
@@ -156,16 +156,16 @@ class CourierController extends Controller
 
     public function getCourierCities($courier) //city e ait branchleri bulmak için gerekiyor
     {
-     $cities =  Courier::find($courier)->city;
+       $cities =  Courier::find($courier)->city;
        // $cities = $cities->toArray();
-     return response()->json($cities);
- }
+       return response()->json($cities);
+   }
 
  public function getCourierDistricts($courier) //district e ait branchleri bulmak için gerekiyor
  {
-     $districts =  Courier::find($courier)->district;
-     return response()->json($districts);
- }
+   $districts =  Courier::find($courier)->district;
+   return response()->json($districts);
+}
 
     // kuryenin çalıştıgı illerin şubeleri
     // kuryenin çalıştıgı ilde şube olmadığından şube boş gelmesi normal
@@ -187,7 +187,7 @@ class CourierController extends Controller
     public function tasks($courier) //kuryenin sorumlu olduğu illerdeki şubeler
     {
      // $tasks = $courier->task()->orderBy('id', 'desc')->paginate(10);
-     $tasks = \App\Task::with('sender:id,name,phone','receiver:id,name,phone')->where('courier_id',$courier)->orderBy('id', 'desc')->paginate(10);
-     return response()->json($tasks);
- }
+       $tasks = \App\Task::with('sender:id,name,phone','receiver:id,name,phone')->where('courier_id',$courier)->orderBy('id', 'desc')->paginate(10);
+       return response()->json($tasks);
+   }
 }

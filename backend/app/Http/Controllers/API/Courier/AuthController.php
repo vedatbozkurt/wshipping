@@ -8,16 +8,41 @@ use App\Http\Requests\Api\CourierRequest;
 use App\Courier;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use File;
 
 class AuthController extends Controller
 {
     public function register(CourierRequest $request)
     {
-        $input = $request->validated();
-        $input['password'] = bcrypt($input['password']);
-        $courier = Courier::create($input);
-        $courier->city()->attach($request->city);
-        $courier->district()->attach($request->district);
+        $image_name='no-image.png';
+        $image = $request->file('image');
+        if($image != '')
+        {
+            $image_name = rand(10000000,99999999) . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images/courier'), $image_name);
+        }
+
+        $form_data = array(
+            'name'        =>   $request->name,
+            'phone'        =>   $request->phone,
+            'email'        =>   $request->email,
+            'vehicle'        =>   $request->vehicle,
+            'plate'        =>   $request->plate,
+            'color'        =>   $request->color,
+            'password'        =>   bcrypt($request->password),
+            'image'       =>   $image_name,
+        );
+        $courier = Courier::create($form_data);
+
+        $city=json_decode($request->city);
+        $city=collect($city)->pluck('id');
+        $city=$city->flatten();
+        $courier->city()->sync($city);
+
+        $district=json_decode($request->district);
+        $district=collect($district)->pluck('id');
+        $district=$district->flatten();
+        $courier->district()->sync($district);
         return response()->json('success');
     }
 
@@ -34,33 +59,72 @@ class AuthController extends Controller
         return response()->json(['errors' => ['password' => ['Login Fail, please check password']]], 422);
     }
     if(!$user->status){
-        return response()->json(['success'=>false, 'message' => 'Login Fail, your membership is not yet approved']);
+        return response()->json(['errors' => ['notapproved' => ['Login Fail, your membership is not yet approved']]], 422);
     }
     $success['token'] =  $user->createToken('MyApp', ['courier'])->accessToken;
     $success['name'] =  $user->name;
 
     return response()->json(['status'=> 'success', 'data' => $success, 'message' => 'Login successfully.']);
-    }
-    public function getProfile()
-    {
+}
+public function getProfile()
+{
         // $user = Auth::user()->id;
-        $user = Auth::user();
-        $courier = Courier::with('city','district')->findOrFail($user->id);
-        return response()->json($courier);
-    }
+    $user = Auth::user();
+    $courier = Courier::with('city','district')->findOrFail($user->id);
+    return response()->json($courier);
+}
 
-    public function updateProfile(CourierRequest $request)
-    {
+public function updateProfile(CourierRequest $request)
+{
         // $user = Auth::user()->token();
-        $userid = Auth::user()->id;
+    $courier = Auth::user();
 
-        $input = $request->validated();
-        if(!empty($input['password'])){
-            $input['password'] = bcrypt($input['password']);
-        }
-        $courier = Courier::whereId($userid)->update($input);
-        $courier->city()->sync($request->city);
-        $courier->district()->sync($request->district);
-        return response()->json('success');
+    $image_name = $request->previous_image;
+    $image = $request->file('image');
+    if($image != '')
+    {
+      $image_path = "images/courier/".$image_name;
+      if(($image_name != 'no-image.png') && (File::exists($image_path))) {
+        File::delete($image_path);
     }
+    $image_name = rand() . '.' . $image->getClientOriginalExtension();
+    $image->move(public_path('images/courier'), $image_name);
+}
+
+$form_data = array(
+   'name'        =>   $request->name,
+   'phone'        =>   $request->phone,
+   'email'        =>   $request->email,
+   'vehicle'        =>   $request->vehicle,
+   'plate'        =>   $request->plate,
+   'color'        =>   $request->color,
+   'image'       =>   $image_name,
+);
+if(!empty($request['password'])){
+  $form_data['password'] = bcrypt($request['password']);
+}
+
+$courier->update($form_data);
+
+$city=json_decode($request->city);
+$city=collect($city)->pluck('id');
+$city=$city->flatten();
+$courier->city()->sync($city);
+
+$district=json_decode($request->district);
+$district=collect($district)->pluck('id');
+$district=$district->flatten();
+$courier->district()->sync($district);
+
+return response()->json(['status'=> 'success', 'data' => $courier, 'message' => 'Courier updated successfully.']);
+}
+
+public function logout(Request $request)
+{
+    Auth::user()->token()->revoke();
+    return response()->json([
+        'status' => 'success',
+        'msg' => 'Logged out Successfully.'
+    ], 200);
+}
 }

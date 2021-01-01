@@ -5,7 +5,7 @@
  * @Email: info@wedat.org
  * @Date:   2020-07-11 02:02:56
  * @Last Modified by:   @vedatbozkurt
- * @Last Modified time: 2020-07-11 02:04:16
+ * @Last Modified time: 2020-07-17 00:02:57
  */
 
 use Illuminate\Support\Facades\Route;
@@ -29,10 +29,21 @@ Route::prefix('v1')->group(function ()
     {
         Route::post('/register', 'API\Courier\AuthController@register');
         Route::post('/login', 'API\Courier\AuthController@login');
+         //city
+        Route::prefix('city')->group(function ()
+        {
+            Route::get('allcities', 'API\Courier\CityController@getAllCities'); // all cities for dropdown
+        });
+            //district
+        Route::prefix('district')->group(function ()
+        {
+            Route::get('citiesalldistricts/{cities}', 'API\Courier\DistrictController@getCitiesDistricts');//cities all districts for dropdown
+        });
 
         Route::middleware(['auth:courier', 'scope:courier'])->group( function ()
         {
-        //dashboard
+            Route::post('/logout', 'API\Courier\AuthController@logout');
+             //dashboard
             Route::get('/', 'API\Courier\DashboardController@show');
             Route::get('profile', 'API\Courier\AuthController@getProfile');
             Route::put('profile', 'API\Courier\AuthController@updateProfile');
@@ -41,12 +52,15 @@ Route::prefix('v1')->group(function ()
             //sadece il ilçesindeki gönderi bilgilerini görsün-durumunu değiştirebilsin
             //store ve edit işlemlerinde sadece şubenin il ve ilçelerini göster
                 Route::get('/', 'API\Courier\TaskController@index');
+                Route::get('/mytasks', 'API\Courier\TaskController@courierTasks');
                 Route::get('{task}', 'API\Courier\TaskController@edit');
             // sadece gönderi durumunu değiştirebilsin
                 Route::put('{task}', 'API\Courier\TaskController@update');
                 Route::put('{task}/cancel', 'API\Courier\TaskController@cancel');
+                Route::put('{task}/approved', 'API\Courier\TaskController@approved');
 
             });
+
 
         });
     });
