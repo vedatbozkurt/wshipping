@@ -25,10 +25,10 @@ class AuthController extends Controller
 
      $user = User::where('email', '=', $email)->first();
      if (!$user) {
-        return response()->json(['success'=>false, 'message' => 'Login Fail, please check email']);
+        return response()->json(['errors' => ['email' => ['Login Fail, please check email']]], 422);
     }
     if (!Hash::check($password, $user->password)) {
-        return response()->json(['success'=>false, 'message' => 'Login Fail, please check password']);
+        return response()->json(['errors' => ['password' => ['Login Fail, please check password']]], 422);
     }
     if(!$user->status){
         return response()->json(['success'=>false, 'message' => 'Login Fail, your membership is not yet approved']);

@@ -29,8 +29,8 @@ class DashboardController extends Controller
             array_push($tasksmonth, $tasks);
             $users=\App\User::withTrashed()->whereMonth('created_at', '=', $i)->get()->count();
             array_push($usersmonth, $users);
-            $courier=\App\Courier::withTrashed()->whereMonth('created_at', '=', $i)->get()->count();
-            array_push($couriersmonth, $courier);
+            $couriers=\App\Courier::withTrashed()->whereMonth('created_at', '=', $i)->get()->count();
+            array_push($couriersmonth, $couriers);
             $i++;
         }
 

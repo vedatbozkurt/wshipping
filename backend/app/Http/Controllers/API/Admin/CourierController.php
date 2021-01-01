@@ -107,6 +107,7 @@ class CourierController extends Controller
        'vehicle'        =>   $request->vehicle,
        'plate'        =>   $request->plate,
        'color'        =>   $request->color,
+       'status'        =>   $request->status,
        'image'       =>   $image_name,
    );
     if(!empty($request['password'])){
