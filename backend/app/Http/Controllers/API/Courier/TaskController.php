@@ -17,7 +17,7 @@ class TaskController extends Controller
 
   public function index(Request $request){ //kurye bölgesine ait atanmamış gönderiler
     $districts=collect(Auth::user()->district)->pluck('id');
-    $task = \App\Task::with('sender:id,name,phone','receiver:id,name,phone','senderaddress:id,district_id',)->whereHas("senderaddress",function($q) use($districts){
+    $task = \App\Task::with('sender:id,name','receiver:id,name','senderaddress:id,user_id,city_id,district_id,name,description','senderaddress.city:id,name', 'senderaddress.district', 'receiveraddress:id,user_id,city_id,district_id,name,description', 'receiveraddress.city', 'receiveraddress.district')->whereHas("senderaddress",function($q) use($districts){
       $q->whereIn("district_id",$districts);
     })->where('status',1)->orWhere('status',8)->orderBy('id', 'desc')->paginate(10);
     return response()->json($task);

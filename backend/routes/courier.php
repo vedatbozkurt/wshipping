@@ -5,7 +5,7 @@
  * @Email: info@wedat.org
  * @Date:   2020-07-11 02:02:56
  * @Last Modified by:   @vedatbozkurt
- * @Last Modified time: 2020-07-17 00:02:57
+ * @Last Modified time: 2020-07-20 00:22:06
  */
 
 use Illuminate\Support\Facades\Route;
@@ -44,9 +44,10 @@ Route::prefix('v1')->group(function ()
         {
             Route::post('/logout', 'API\Courier\AuthController@logout');
              //dashboard
-            Route::get('/', 'API\Courier\DashboardController@show');
+            Route::get('dashboard', 'API\Courier\DashboardController@show');
             Route::get('profile', 'API\Courier\AuthController@getProfile');
             Route::put('profile', 'API\Courier\AuthController@updateProfile');
+            Route::get('initialdata', 'API\Courier\DashboardController@initialdata');
             Route::prefix('task')->group(function ()
             {
             //sadece il ilçesindeki gönderi bilgilerini görsün-durumunu değiştirebilsin
