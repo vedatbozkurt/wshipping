@@ -69,10 +69,16 @@
 
           <li class="nav-header">MISCELLANEOUS</li>
           <li class="nav-item">
-            <a href="https://adminlte.io/docs/3.0" class="nav-link">
+           <router-link to="/profile" class="nav-link">
               <i class="nav-icon fas fa-file text-primary"></i>
-              <p>Documentation</p>
-            </a>
+              <p>Profile</p>
+            </router-link>
+            </li>
+          <li class="nav-item">
+            <router-link to="/setting" class="nav-link">
+              <i class="nav-icon fas fa-file text-primary"></i>
+              <p>Settings</p>
+            </router-link>
           </li>
           <li class="nav-header">LABELS</li>
           <li class="nav-item">

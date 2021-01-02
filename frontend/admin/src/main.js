@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from "./router";
 import store from './store';
 import axios from "axios";
+import Swal from 'sweetalert2'
+import './mixins/sweetAlerts'
 
 Vue.config.productionTip = false;
 
@@ -23,7 +25,7 @@ axios.interceptors.response.use(
       return Promise.reject(error);
     }
   }
-);
+  );
 
 axios.interceptors.request.use(function(config) {
   config.headers.common = {
@@ -34,8 +36,23 @@ axios.interceptors.request.use(function(config) {
   return config;
 });
 
+window.Swal = Swal
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  onOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+window.Toast = Toast
+
+
 new Vue({
-    router,
-    store,
+  router,
+  store,
   render: h => h(App),
 }).$mount('#app')

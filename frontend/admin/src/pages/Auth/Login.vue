@@ -22,9 +22,9 @@
                   <span class="fas fa-envelope"></span>
                 </div>
               </div>
-            <div class="invalid-feedback" v-if="errors.email">
-              {{ errors.email[0] }}
-            </div>
+              <div class="invalid-feedback" v-if="errors.email">
+                {{ errors.email[0] }}
+              </div>
             </div>
             <div class="input-group mb-3">
               <input type="password"
@@ -37,9 +37,9 @@
                   <span class="fas fa-lock"></span>
                 </div>
               </div>
-            <div class="invalid-feedback" v-if="errors.password">
-              {{ errors.password[0] }}
-            </div>
+              <div class="invalid-feedback" v-if="errors.password">
+                {{ errors.password[0] }}
+              </div>
             </div>
             <div class="row">
               <!-- /.col -->
@@ -86,6 +86,7 @@
 
       login: function() {
         this.sendLoginRequest(this.details).then(() => {
+          this.myToast('success','Success Login.');
           this.$router.push({ name: "Dashboard" });
         });
       }
