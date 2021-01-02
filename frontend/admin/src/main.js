@@ -15,6 +15,10 @@ axios.interceptors.response.use(
       store.commit("auth/setUserData", null);
       localStorage.removeItem("authToken");
       router.push({ name: "Login" });
+    } else if (error.response.status === 403) {
+      store.commit("auth/setUserData", null);
+      localStorage.removeItem("authToken");
+      router.push({ name: "Login" });
     } else {
       return Promise.reject(error);
     }
