@@ -52,7 +52,7 @@ export default {
   data: function() {
     return {
       details: {
-        email: 'a',
+        email: null,
         password: null
       }
     };
