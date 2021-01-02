@@ -66,6 +66,12 @@
               <p>Branches</p>
             </router-link>
           </li>
+          <li class="nav-item">
+            <router-link to="/courier" class="nav-link">
+              <i class="nav-icon fas fa-biking olive"></i>
+              <p>Couriers</p>
+            </router-link>
+          </li>
           <li class="nav-header">CUSTOMIZATION</li>
           <li class="nav-item">
            <router-link to="/profile" class="nav-link">
@@ -119,5 +125,7 @@
 .red { color:#ff0000; }
 .blue { color:#99eaff; }
 .green { color:#93e993 ; }
+.green { color:#93e993 ; }
+.olive { color:#808000 ; }
 
 </style>

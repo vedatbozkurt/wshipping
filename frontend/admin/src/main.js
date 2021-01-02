@@ -6,6 +6,7 @@ import axios from "axios";
 import './mixins/sweetAlerts'
 import Multiselect from 'vue-multiselect'
   Vue.component('multiselect', Multiselect)
+Vue.use(require('vue-moment'));
 
 
 Vue.component('pagination', require('laravel-vue-pagination'));
@@ -33,9 +34,9 @@ axios.interceptors.response.use(
 
 axios.interceptors.request.use(function(config) {
   config.headers.common = {
-    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+    "Authorization": `Bearer ${localStorage.getItem("authToken")}`,
     "Content-Type": "application/json",
-    Accept: "application/json"
+    "Accept": "application/json"
   };
   return config;
 });

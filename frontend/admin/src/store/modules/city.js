@@ -3,15 +3,15 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-27 20:29:22
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-06-29 01:57:04
+* @Last Modified time: 2020-06-30 22:22:48
 */
 import axios from "axios";
 const namespaced= true;
 const state = {
-  citiesAdminData: [],
+  citiesData: [],
 };
 const getters = {
- citiesAdmin: state => state.citiesAdminData,
+ cities: state => state.citiesData,
 /* citiesAdmin(){
   array.push(objectName)
  } */
@@ -21,13 +21,13 @@ const actions =  {
 async getCities({ commit }) {
     await axios.get(process.env.VUE_APP_API_URL + "branch/cities")
     .then(response => {
-      commit("setAdminCities", response.data);
+      commit("setCities", response.data);
     })
   },
 }
 
 const mutations =  {
-  setAdminCities(state, data) { state.citiesAdminData = data },
+  setCities(state, data) { state.citiesData = data },
 }
 
 

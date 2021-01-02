@@ -35,14 +35,10 @@
         <!-- form start -->
         <form>
           <div class="card-body">
-
-
-
-
             <div class="form-group row">
               <label for="inputPassword3" class="col-sm-2 col-form-label">City</label>
               <div class="col-sm-10">
-                <multiselect v-model="branch.city" :options="citiesAdmin" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name" track-by="name" :preselect-first="true"  @input='getCityDistricts'>
+                <multiselect v-model="branch.city" :options="cities" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name" track-by="name" :preselect-first="true"  @input='getCitiesDistricts'>
                 </multiselect>
                 <span class="text-danger" v-if="errors.city"> {{ errors.city[0] }}</span>
               </div>
@@ -51,7 +47,7 @@
             <div class="form-group row">
               <label for="inputPassword3" class="col-sm-2 col-form-label">District</label>
               <div class="col-sm-10">
-                <multiselect v-model="branch.district" :options="districtsAdmin" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name" track-by="name" :preselect-first="true">
+                <multiselect v-model="branch.district" :options="citiesDistricts" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name" track-by="name" :preselect-first="true">
                 </multiselect>
 
                 <span class="text-danger" v-if="errors.district"> {{ errors.district[0] }}</span>
@@ -129,8 +125,8 @@
   computed: {
     ...mapGetters(["errors"]),
     ...mapGetters("branch", ["branch"]),
-    ...mapGetters("city", ["citiesAdmin"]),
-    ...mapGetters("district", ["districtsAdmin"])
+    ...mapGetters("city", ["cities"]),
+    ...mapGetters("district", ["citiesDistricts"])
   },
   mounted() {
     this.$store.commit("setErrors", {});
@@ -142,10 +138,10 @@
   methods: {
     ...mapActions("branch", ["createBranch"]),
     ...mapActions("city", ["getCities"]),
-    ...mapActions("district", ["getDistricts"]),
+    ...mapActions("district", ["getCitiesDistricts"]),
 
     getCityDistricts: function() {
-      this.getDistricts(this.branch.city).then(() => {
+      this.getCitiesDistricts(this.branch.city).then(() => {
       });
     },
     addBranch: function() {

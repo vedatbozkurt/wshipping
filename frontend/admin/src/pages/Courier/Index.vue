@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12">
-            <h1>Branches</h1>
+            <h1>Couriers</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -17,18 +17,19 @@
 
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Branches List</h3>
+          <h3 class="card-title">Couriers List</h3>
           <div class="card-tools">
-           <router-link to="/branch/create" class="btn btn-outline-success btn-sm btn-flat">
+           <router-link to="/courier/create" class="btn btn-outline-success btn-sm btn-flat">
             <i class="fas fa-plus"></i> New </router-link>
           </div>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-          <table class="table table-striped">
+          <table class="table table-striped projects">
             <thead>
               <tr>
                 <th style="width: 10px">#</th>
+                <th>Photo</th>
                 <th>Name</th>
                 <th>Phone</th>
                 <th>Email</th>
@@ -37,18 +38,19 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="branch in branches.data" :key="branch.id">
-                <td>{{ branch.id }}</td>
-                <td>{{ branch.name }}</td>
-                <td>{{ branch.phone }}</td>
-                <td>{{ branch.email }}</td>
-                <td><span class="badge " :class="branch.status ? 'badge-success' : 'badge-warning'" >{{ branch.status === 1 ? 'active' : 'inactive'}}</span></td>
+              <tr v-for="courier in couriers.data" :key="courier.id">
+                <td>{{ courier.id }}</td>
+                <td><img alt="Avatar" class="table-avatar" src="https://adminlte.io/themes/dev/AdminLTE/dist/img/avatar.png"></td>
+                <td>{{ courier.name }}</td>
+                <td>{{ courier.phone }}</td>
+                <td>{{ courier.email }}</td>
+                <td><span class="badge " :class="courier.status ? 'badge-success' : 'badge-warning'" >{{ courier.status === 1 ? 'active' : 'inactive'}}</span></td>
                 <td>
-                  <router-link style="margin-right: 11px"  :to="{name: 'BranchDetails', params: { id: branch.id, branch: { branch } }}"  class="btn btn-outline-primary btn-xs btn-flat"><i class="fas fa-info-circle"></i></router-link>
+                  <router-link style="margin-right: 11px"  :to="{name: 'CourierDetails', params: { id: courier.id, courier: { courier } }}"  class="btn btn-outline-primary btn-xs btn-flat"><i class="fas fa-info-circle"></i></router-link>
 
-                  <router-link style="margin-right: 11px"  :to="{name: 'EditBranch', params: { id: branch.id }}" class="btn btn-outline-info btn-xs btn-flat"><i class="fas fa-edit"></i></router-link>
+                  <router-link style="margin-right: 11px"  :to="{name: 'EditCourier', params: { id: courier.id }}" class="btn btn-outline-info btn-xs btn-flat"><i class="fas fa-edit"></i></router-link>
 
-                  <button class="btn btn-outline-danger btn-xs btn-flat" @click.prevent="deleteBranchConfirm(branch.id)">
+                  <button class="btn btn-outline-danger btn-xs btn-flat" @click.prevent="deleteCourierConfirm(courier.id)">
                     <i class="fas fa-trash-alt"></i>
                   </button>
                 </td>
@@ -58,9 +60,8 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer clearfix">
-          l
           <ul class="pagination pagination-sm m-0 float-right">
-            <pagination class="float-right" :data="branches" @pagination-change-page="getBranches"></pagination>
+            <pagination class="float-right" :data="couriers" @pagination-change-page="getCouriers"></pagination>
           </ul>
         </div>
       </div>
@@ -83,15 +84,15 @@
   },
 
   computed: {
-    ...mapGetters("branch", ["branches"])
+    ...mapGetters("courier", ["couriers"])
   },
   created() {
-    this.getBranches();
+    this.getCouriers();
   },
   methods: {
-    ...mapActions("branch", ["getBranches","deleteBranch"]),
+    ...mapActions("courier", ["getCouriers","deleteCourier"]),
 
-    deleteBranchConfirm(id){
+    deleteCourierConfirm(id){
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -102,13 +103,13 @@
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.value) {
-          this.deleteBranchConfirmed(id)
+          this.deleteCourierConfirmed(id)
         }
       });
     },
-    deleteBranchConfirmed: function(id) {
-      this.deleteBranch(id).then(() => {
-        this.myToast('success','Branch has been deleted.');
+    deleteCourierConfirmed: function(id) {
+      this.deleteCourier(id).then(() => {
+        this.myToast('success','Courier has been deleted.');
       });
     }
   }
