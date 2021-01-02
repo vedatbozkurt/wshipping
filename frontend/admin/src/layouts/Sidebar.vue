@@ -30,19 +30,8 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
-          <li class="nav-item">
-            <router-link to="/" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt text-primary"></i>
-              <p>Dashboard</p>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/branches" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt text-primary"></i>
-              <p>Branches</p>
-            </router-link>
-          </li>
-          <li class="nav-item has-treeview">
+
+           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt text-primary"></i>
               <p>
@@ -65,35 +54,43 @@
               </li>
             </ul>
           </li>
-
-
-          <li class="nav-header">MISCELLANEOUS</li>
+          <li class="nav-item">
+            <router-link to="/" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt text-primary"></i>
+              <p>Dashboard</p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/branch" class="nav-link">
+              <i class="nav-icon fas fa-code-branch blue"></i>
+              <p>Branches</p>
+            </router-link>
+          </li>
+          <li class="nav-header">CUSTOMIZATION</li>
           <li class="nav-item">
            <router-link to="/profile" class="nav-link">
-              <i class="nav-icon fas fa-file text-primary"></i>
-              <p>Profile</p>
-            </router-link>
-            </li>
-          <li class="nav-item">
-            <router-link to="/setting" class="nav-link">
-              <i class="nav-icon fas fa-file text-primary"></i>
-              <p>Settings</p>
-            </router-link>
-          </li>
-          <li class="nav-header">LABELS</li>
-          <li class="nav-item">
-            <a href="#" class="nav-link" @click="logout">
-              <i class="nav-icon far fa-circle text-danger"></i>
-              <p class="text">Logout</p>
-            </a>
-
-          </li>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+            <i class="nav-icon fas fa-user blue"></i>
+            <p>Profile</p>
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/setting" class="nav-link">
+            <i class="nav-icon fas fa-cog green"></i>
+            <p>Settings</p>
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" @click="logout">
+            <i class="nav-icon far fa-circle text-danger"></i>
+            <p class="text">Logout</p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>
 </template>
 <script>
   import { mapGetters, mapActions } from "vuex";
@@ -119,6 +116,8 @@
   };
 </script>
 <style scoped>
-.red {color:#ff0000;}
+.red { color:#ff0000; }
+.blue { color:#99eaff; }
+.green { color:#93e993 ; }
 
 </style>

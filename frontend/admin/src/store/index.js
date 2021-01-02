@@ -2,6 +2,10 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import auth from './modules/auth';
 import profile from './modules/profile';
+import setting from './modules/setting';
+import branch from './modules/branch';
+import city from './modules/city';
+import district from './modules/district';
 
 // Load Vuex
 Vue.use(Vuex);
@@ -26,5 +30,9 @@ export default new Vuex.Store({
   modules: {
     auth,
     profile,
+    setting,
+    branch,
+    city,
+    district,
   }
 });

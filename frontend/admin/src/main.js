@@ -3,8 +3,12 @@ import App from './App.vue'
 import router from "./router";
 import store from './store';
 import axios from "axios";
-import Swal from 'sweetalert2'
 import './mixins/sweetAlerts'
+import Multiselect from 'vue-multiselect'
+  Vue.component('multiselect', Multiselect)
+
+
+Vue.component('pagination', require('laravel-vue-pagination'));
 
 Vue.config.productionTip = false;
 
@@ -36,19 +40,6 @@ axios.interceptors.request.use(function(config) {
   return config;
 });
 
-window.Swal = Swal
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true,
-  onOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
-  }
-})
-window.Toast = Toast
 
 
 new Vue({

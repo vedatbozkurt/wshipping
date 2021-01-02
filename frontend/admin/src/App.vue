@@ -11,12 +11,14 @@
   require('admin-lte/dist/css/adminlte.min.css');
   require('admin-lte/plugins/fontawesome-free/css/all.min.css');
 
+
   export default {
     name: 'App',
     components: {
     },
   }
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
 <style>
 </style>

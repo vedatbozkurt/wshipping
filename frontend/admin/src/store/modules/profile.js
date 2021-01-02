@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-26 14:42:53
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-06-27 01:30:56
+* @Last Modified time: 2020-06-27 20:31:14
 */
 import axios from "axios";
 const namespaced= true;
@@ -17,9 +17,10 @@ const state = {
 
   const getters = {
   // allPosts: state => state.posts,
-  admin(state){
+  /*admin(state){
     return state.adminData
-  }
+  }*/
+   admin: state => state.adminData
 };
 
 const actions =  {

@@ -12,7 +12,9 @@
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
     "jquery": "^3.5.1",
+    "laravel-vue-pagination": "^2.3.1",
     "vue": "^2.6.11",
+    "vue-multiselect": "^2.1.6",
     "vue-router": "^3.3.4",
     "vue-sweetalert2": "^3.0.5",
     "vuex": "^3.4.0"

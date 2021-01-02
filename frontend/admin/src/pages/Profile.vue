@@ -72,9 +72,9 @@
 
  export default {
   data() {
-      return {
-      }
-    },
+    return {
+    }
+  },
 
   computed: {
     ...mapGetters(["errors"]),
@@ -84,14 +84,14 @@
     this.$store.commit("setErrors", {});
   },
   created() {
-      this.getAdminData();
-    },
+    this.getAdminData();
+  },
   methods: {
     ...mapActions("profile", ["getAdminData","uploadAdminData"]),
 
     updateProfile: function() {
       this.uploadAdminData(this.admin).then(() => {
-      this.myToast('success','Profile has been updated.');
+        this.myToast('success','Profile has been updated.');
       });
     }
   }
