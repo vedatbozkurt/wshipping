@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-16 01:37:20
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-01 02:23:59
+* @Last Modified time: 2020-07-01 15:27:45
 */
 import Vue from "vue";
 import VueRouter from 'vue-router'
@@ -59,6 +59,17 @@ const routes = [
   { path: 'citybranch', component: () => import("./pages/Courier/Info/CityBranch"), name: 'CourierCityBranch'},
   { path: 'districtbranch', component: () => import("./pages/Courier/Info/DistrictBranch"), name: 'CourierDistrictBranch'},
   ]},//courier pages end
+  { path: 'user', component: () => import("./pages/User/Index"),name: 'Users'}, //user pages start
+  { path: 'user/create', component: () => import("./pages/User/Create"), name: 'CreateUser'},
+  { path: 'user/:id', component: () => import("./pages/User/Edit"), name: 'EditUser'},
+  { path: 'user/:id', component: () => import("./pages/User/Info"),
+  children: [
+  { path: 'info', component: () => import("./pages/User/Info/Details"), name: 'UserDetails'},
+  { path: 'sendertasks', component: () => import("./pages/User/Info/SenderTask"), name: 'UserSenderTask'},
+  { path: 'receivertasks', component: () => import("./pages/User/Info/ReceiverTask"), name: 'UserReceiverTask'},
+  { path: 'addresses', component: () => import("./pages/User/Info/Address"), name: 'UserAddress'},
+  ]},//User pages end
+
   { path: 'setting', component: () => import("./pages/Setting"), name: 'Setting'},
   { path: 'profile', component: () => import("./pages/Profile"), name: 'Profile'},
   ]

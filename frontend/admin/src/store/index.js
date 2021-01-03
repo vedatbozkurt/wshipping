@@ -7,6 +7,7 @@ import city from './modules/city';
 import district from './modules/district';
 import branch from './modules/branch';
 import courier from './modules/courier';
+import user from './modules/user';
 
 // Load Vuex
 Vue.use(Vuex);
@@ -41,5 +42,6 @@ export default new Vuex.Store({
     district,
     branch,
     courier,
+    user,
   }
 });

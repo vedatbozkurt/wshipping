@@ -72,6 +72,12 @@
               <p>Couriers</p>
             </router-link>
           </li>
+          <li class="nav-item">
+            <router-link to="/user" class="nav-link">
+              <i class="nav-icon fas fa-users pink"></i>
+              <p>Users</p>
+            </router-link>
+          </li>
           <li class="nav-header">CUSTOMIZATION</li>
           <li class="nav-item">
            <router-link to="/profile" class="nav-link">
@@ -127,5 +133,6 @@
 .green { color:#93e993 ; }
 .green { color:#93e993 ; }
 .olive { color:#808000 ; }
+.pink { color:#ba76ad ; }
 
 </style>

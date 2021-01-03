@@ -1,11 +1,11 @@
 <template>
   <div class="card card-primary card-outline">
     <div class="card-header">
-      <h3 class="card-title">Courier Tasks</h3>
+      <h3 class="card-title">User Addresses</h3>
 
       <div class="card-tools">
         <div class="input-group input-group-sm">
-          <input type="text" class="form-control" placeholder="Search Task">
+          <input type="text" class="form-control" placeholder="Search Address">
           <div class="input-group-append">
             <div class="btn btn-primary">
               <i class="fas fa-search"></i>
@@ -22,27 +22,21 @@
         <thead>
           <tr>
             <th style="width: 10px">#ID</th>
-            <th>Sender Name</th>
-            <th>Sender Phone</th>
-            <th>Receiver Name</th>
-            <th>Receiver Phone</th>
-            <th>Price</th>
+            <th>Name</th>
+            <th>City</th>
+            <th>District</th>
             <th>Created At</th>
-            <th>Status</th>
             <th style="width: 70px">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="task in courierTasks" :key="task.id">
-            <td>{{ task.id }}</td>
-            <td>{{ task.sender.name}}</td>
-            <td>{{ task.sender.phone}}</td>
-            <td>{{ task.receiver.name}}</td>
-            <td>{{ task.receiver.phone}}</td>
-            <td>{{ task.price}}</td>
-            <td>{{ task.created_at | moment("MMMM Do YYYY") }}</td>
-            <td><span class="badge " :class="task.status == 1 ? 'badge-success' : 'badge-warning'" >{{ task.status == 1 ? 'active' : 'inactive'}}</span></td>
-            <td>
+          <tr v-for="address in userAddress" :key="address.id">
+            <td>{{ address.id }}</td>
+            <td>{{ address.name}}</td>
+            <td>{{ address.city.name}}</td>
+            <td>{{ address.district.name}}</td>
+            <td>{{ address.created_at | moment("MMMM Do YYYY") }}</td>
+             <td>
               <button style="margin-right: 11px" class="btn btn-outline-info btn-xs btn-flat">
                 <i class="fas fa-edit"></i>
               </button>
@@ -55,7 +49,7 @@
       </table>
     </div>
     <div class="card-footer">
-      <small v-show="courierTasks == ''"><center>Not Found.</center></small>
+     <small v-show="userAddress == ''"><center>Not Found.</center></small>
     </div>
   </div>
   <!-- /.card -->
@@ -67,15 +61,14 @@
     return {
     }
   },
-
   computed: {
-    ...mapGetters("courier", ["courierTasks"]),
+    ...mapGetters("user", ["userAddress"]),
   },
   created() {
-    this.getCourierTask(this.$route.params.id);
+    this.getUserAddress(this.$route.params.id);
   },
   methods: {
-    ...mapActions("courier", ["getCourierTask"]),
+    ...mapActions("user", ["getUserAddress"]),
   }
 }
 </script>

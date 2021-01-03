@@ -35,7 +35,7 @@
             <td>{{ task.description}}</td>
             <td>{{ task.price}}</td>
             <td>{{ task.created_at | moment("MMMM Do YYYY") }}</td>
-            <td><span class="badge " :class="task.status ? 'badge-success' : 'badge-warning'" >{{ task.status == 1 ? 'active' : 'inactive'}}</span></td>
+            <td><span class="badge " :class="task.status == 1 ? 'badge-success' : 'badge-warning'" >{{ task.status == 1 ? 'active' : 'inactive'}}</span></td>
             <td>
               <button style="margin-right: 11px" class="btn btn-outline-info btn-xs btn-flat">
                 <i class="fas fa-edit"></i>

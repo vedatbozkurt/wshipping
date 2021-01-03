@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-01 02:42:30
+* @Last Modified time: 2020-07-01 13:08:46
 */
 import axios from "axios";
 const namespaced= true;
@@ -69,6 +69,14 @@ const actions =  {
   },
   async deleteCourierFromEdit({ commit }, id) {
     await axios.delete(process.env.VUE_APP_API_URL + "courier/" + id)
+    .then(response => {
+      if (response.data === 'success') {
+        commit("setErrors", {}, { root: true });
+      }
+    });
+  },
+  async restoreCourier({ commit }, id) {
+    await axios.post(process.env.VUE_APP_API_URL + "courier/" + id + "/restore")
     .then(response => {
       if (response.data === 'success') {
         commit("setErrors", {}, { root: true });

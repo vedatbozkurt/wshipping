@@ -1,7 +1,7 @@
 <template>
   <div class="card card-primary card-outline">
     <div class="card-header">
-      <h3 class="card-title">Courier Tasks</h3>
+      <h3 class="card-title">Sent Tasks by User</h3>
 
       <div class="card-tools">
         <div class="input-group input-group-sm">
@@ -22,8 +22,8 @@
         <thead>
           <tr>
             <th style="width: 10px">#ID</th>
-            <th>Sender Name</th>
-            <th>Sender Phone</th>
+            <th>Courier Name</th>
+            <th>Courier Phone</th>
             <th>Receiver Name</th>
             <th>Receiver Phone</th>
             <th>Price</th>
@@ -33,10 +33,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="task in courierTasks" :key="task.id">
+          <tr v-for="task in userSenderTask" :key="task.id">
             <td>{{ task.id }}</td>
-            <td>{{ task.sender.name}}</td>
-            <td>{{ task.sender.phone}}</td>
+            <td>{{ task.courier ? task.courier.name : 'No Courier'}}</td>
+            <td>{{ task.courier ? task.courier.phone : 'No Courier'}}</td>
             <td>{{ task.receiver.name}}</td>
             <td>{{ task.receiver.phone}}</td>
             <td>{{ task.price}}</td>
@@ -55,7 +55,7 @@
       </table>
     </div>
     <div class="card-footer">
-      <small v-show="courierTasks == ''"><center>Not Found.</center></small>
+      <small v-show="userSenderTask == ''"><center>Not Found.</center></small>
     </div>
   </div>
   <!-- /.card -->
@@ -69,13 +69,14 @@
   },
 
   computed: {
-    ...mapGetters("courier", ["courierTasks"]),
+    ...mapGetters("user", ["userSenderTask"]),
   },
   created() {
-    this.getCourierTask(this.$route.params.id);
+    this.$store.commit("user/setUser", {}); //bu olmazsa detailsden birden fazla district id gelir district task hata verir
+    this.getUserSenderTasks(this.$route.params.id);
   },
   methods: {
-    ...mapActions("courier", ["getCourierTask"]),
+    ...mapActions("user", ["getUserSenderTasks"]),
   }
 }
 </script>
