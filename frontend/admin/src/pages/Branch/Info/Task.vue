@@ -30,7 +30,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="task in branchTask" :key="task.id">
+          <tr v-for="task in branchTask.data" :key="task.id">
             <td>{{ task.id }}</td>
             <td>{{ task.description}}</td>
             <td>{{ task.price}}</td>
@@ -45,6 +45,7 @@
     </div>
     <div class="card-footer">
      <small v-show="branchTask == ''"><center>Not Found.</center></small>
+     <pagination class="float-right" :data="branchTask" @pagination-change-page="getBranchTask"></pagination>
     </div>
   </div>
   <!-- /.card -->
@@ -61,7 +62,8 @@
     ...mapGetters("branch", ["branchTask"]),
   },
   created() {
-    this.getBranchTask(this.$route.params.id);
+    this.$store.commit('branch/setBranchID', this.$route.params.id);
+    this.getBranchTask();
   },
   methods: {
     ...mapActions("branch", ["getBranchTask"]),

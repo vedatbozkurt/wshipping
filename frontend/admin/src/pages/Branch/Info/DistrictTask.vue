@@ -3,7 +3,7 @@
     <div class="card-header">
       <h3 class="card-title">Branch District Tasks</h3>
       <div class=" float-right col-sm-6" >
-        <multiselect v-model="branch.district" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Şube İlçesi Seçin" :options="branchDistrict" :searchable="false" :allow-empty="false" @input='getDistrictTasks'>
+        <multiselect v-model="branch.district" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Şube İlçesi Seçin" :options="branchDistrict" :searchable="true" :allow-empty="false" @input='getDistrictTasks'>
           <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> ilçesindeki kuryeler<strong>  {{ option.language }}</strong></template>
         </multiselect>
       </div>
@@ -24,7 +24,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="task in branchDistrictTasks" :key="task.id">
+          <tr v-for="task in branchDistrictTasks.data" :key="task.id">
             <td>{{ task.id }}</td>
             <td>{{ task.description}}</td>
             <td>{{ task.price}}</td>
@@ -40,6 +40,7 @@
     <div class="card-footer">
      <small v-show="empty"><center>Select a district to view tasks</center></small>
      <small v-show="!empty && branchDistrictTasks == ''"><center>Not Found.</center></small>
+      <pagination class="float-right" :data="branchDistrictTasks" @pagination-change-page="getBranchDistrictTasks"></pagination>
    </div>
  </div>
  <!-- /.card -->
@@ -68,7 +69,8 @@
       });
     },
     getDistrictTasks: function() {
-      this.getBranchDistrictTasks(this.branch.district.id).then(() => {
+      this.$store.commit("branch/setBranchDistrictID", this.branch.district.id);
+      this.getBranchDistrictTasks().then(() => {
         this.empty = false;
       });
     },

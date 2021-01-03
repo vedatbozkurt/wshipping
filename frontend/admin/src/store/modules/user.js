@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-04 01:07:42
+* @Last Modified time: 2020-07-04 13:10:57
 */
 import axios from "axios";
 const namespaced= true;
@@ -117,7 +117,7 @@ const actions =  {
 
   async getUserSenderAddress({ commit }, id) {
     commit("setLoader", true, { root: true });
-    await axios.get(process.env.VUE_APP_API_URL + "user/" + id + "/addresses")
+    await axios.get(process.env.VUE_APP_API_URL + "user/" + id + "/alladdresses")
     .then(response => {
       commit("setUserSenderAddress", response.data);
       commit("setLoader", false, { root: true });
@@ -126,7 +126,7 @@ const actions =  {
 
   async getUserReceiverAddress({ commit }, id) {
     commit("setLoader", true, { root: true });
-    await axios.get(process.env.VUE_APP_API_URL + "user/" + id + "/addresses")
+    await axios.get(process.env.VUE_APP_API_URL + "user/" + id + "/alladdresses")
     .then(response => {
       commit("setUserReceiverAddress", response.data);
       commit("setLoader", false, { root: true });

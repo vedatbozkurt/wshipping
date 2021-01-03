@@ -3,7 +3,7 @@
     <div class="card-header">
       <h3 class="card-title">Branch District Users</h3>
       <div class=" float-right col-sm-6" >
-        <multiselect v-model="branch.district" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Şube İlçesi Seçin" :options="branchDistrict" :searchable="false" :allow-empty="false" @input='getDistrictUsers'>
+        <multiselect v-model="branch.district" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Şube İlçesi Seçin" :options="branchDistrict" :searchable="true" :allow-empty="false" @input='getDistrictUsers'>
           <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> ilçesindeki kuryeler<strong>  {{ option.language }}</strong></template>
         </multiselect>
       </div>
@@ -25,7 +25,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in branchDistrictUsers" :key="user.id">
+          <tr v-for="user in branchDistrictUsers.data" :key="user.id">
             <td>{{ user.id }}</td>
             <td><img alt="Avatar" class="table-avatar" src="https://adminlte.io/themes/dev/AdminLTE/dist/img/avatar.png"></td>
             <td>
@@ -48,7 +48,7 @@
      <small v-show="empty"><center>Select a district to view users</center></small>
      <small v-show="!empty && branchDistrictUsers == ''"><center>Not Found.</center></small>
      <ul class="pagination pagination-sm m-0 float-right">
-       <!--  <pagination class="float-right" :data="branchCourier" @pagination-change-page="getBranchCourier"></pagination> -->
+      <pagination class="float-right" :data="branchDistrictUsers" @pagination-change-page="getBranchDistrictUsers"></pagination>
      </ul>
    </div>
  </div>
@@ -78,7 +78,8 @@
       });
     },
     getDistrictUsers: function() {
-      this.getBranchDistrictUsers(this.branch.district.id).then(() => {
+      this.$store.commit("branch/setBranchDistrictID", this.branch.district.id);
+      this.getBranchDistrictUsers().then(() => {
         this.empty = false;
       });
     },

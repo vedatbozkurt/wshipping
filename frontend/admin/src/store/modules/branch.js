@@ -2,14 +2,15 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-03 21:11:48
+* @Last Modified time: 2020-07-04 20:09:01
 */
 import axios from "axios";
 const namespaced= true;
 const state = {
   branchesData: {},
   branchData: {},
-  branchCourierData: [],
+  branchAllCourierData: [], //task create-edit
+  branchCourierData: {},
   branchUserData: {},
   branchTaskData: {},
   branchCityData: [],
@@ -21,27 +22,33 @@ const state = {
   branchCityTasksData: {},
   branchDistrictTasksData: {},
   allBranchesData: [],
+  branchIDData: null, //branch:info(courier,task,user) sayfalarında kullanıldı
+  branchCityIDData: null, //branch:info(citycourier,citytask,cityuser)sayfalarında kullanıldı
+  branchDistrictIDData: null, //branch:info(districtcourier,districttask,districtuser)sayfalarında kullanıldı
 };
 
 const getters = {
+ allBranches: state => state.allBranchesData, //task:create,edit
  branches: state => state.branchesData, //Branch:index
   //Branch:info:CityCourier-Branch:info:CityTask-Branch:info:CityUser-Branch:info:Details
   //Branch:info:DistrictCourier-Branch:info:DistrictTask-Branch:info:DistrictUser
   //Branch:create,edit
   //task:create,edit
- branch: state => state.branchData,
- branchCourier: state => state.branchCourierData, //Branch:info:Courier-task:create,edit
+branch: state => state.branchData,
+ branchAllCourier: state => state.branchAllCourierData, //task:create,edit
+ branchCourier: state => state.branchCourierData, //Branch:info:Courier
  branchUser: state => state.branchUserData, //Branch:info:User
  branchTask: state => state.branchTaskData, //Branch:info:Task
- branchCity: state => state.branchCityData, //Branch:info:CityCourier-Branch:info:CityTask-Branch:info:CityUser
+ branchCity: state => state.branchCityData, //Branch:info:CityCourier,CityTask,CityUser
  branchDistrict: state => state.branchDistrictData, //Branch:info:DistrictCourier-Branch:info:DistrictTask-Branch:info:DistrictUser
  branchCityCouriers: state => state.branchCityCouriersData, //Branch:info:CityCourier
  branchDistrictCouriers: state => state.branchDistrictCouriersData, //Branch:info:DistrictCourier
- branchCityUsers: state => state.branchCityUsersData, //Branch:info:CityUser
+ branchCityUsers: state => state.branchCityUsersData, //Branch:info:CityUserstate.branchIDData
  branchDistrictUsers: state => state.branchDistrictUsersData, //Branch:info:DistrictUser
  branchCityTasks: state => state.branchCityTasksData,//-Branch:info:CityTask
  branchDistrictTasks: state => state.branchDistrictTasksData, //Branch:info:DistrictTask
- allBranches: state => state.allBranchesData, //task:create,edit
+ branchCityID: state => state.branchCityIDData,//branch:info(citycourier,citytask,cityuser)
+ branchDistrictID: state => state.branchDistrictIDData,//branch:info(districtcourier,districttask,districtuser)
 }
 
 const actions =  {
@@ -99,25 +106,33 @@ const actions =  {
       }
     });
   },
-  async getBranchCourier({ commit }, id) {
+  async getBranchAllCourier({ commit }, id) {
     commit("setLoader", true, { root: true });
-    await axios.get(process.env.VUE_APP_API_URL + "branch/" + id + "/couriers")
+    await axios.get(process.env.VUE_APP_API_URL + "branch/" + id + "/allcouriers")
+    .then(response => {
+      commit("setBranchAllCourier", response.data);
+      commit("setLoader", false, { root: true });
+    })
+  },
+  async getBranchCourier({ commit },  page = 1) {
+    commit("setLoader", true, { root: true });
+    await axios.get(process.env.VUE_APP_API_URL + "branch/" + state.branchIDData + "/couriers?page="+page)
     .then(response => {
       commit("setBranchCourier", response.data);
       commit("setLoader", false, { root: true });
     })
   },
-  async getBranchUser({ commit }, id) {
+  async getBranchUser({ commit },  page = 1) {
     commit("setLoader", true, { root: true });
-    await axios.get(process.env.VUE_APP_API_URL + "branch/" + id + "/users")
+    await axios.get(process.env.VUE_APP_API_URL + "branch/" + state.branchIDData + "/users?page="+page)
     .then(response => {
       commit("setBranchUser", response.data);
       commit("setLoader", false, { root: true });
     })
   },
-  async getBranchTask({ commit }, id) {
+  async getBranchTask({ commit },  page = 1) {
     commit("setLoader", true, { root: true });
-    await axios.get(process.env.VUE_APP_API_URL + "branch/" + id + "/tasks")
+    await axios.get(process.env.VUE_APP_API_URL + "branch/" + state.branchIDData + "/tasks?page="+page)
     .then(response => {
       commit("setBranchTask", response.data);
       commit("setLoader", false, { root: true });
@@ -135,38 +150,38 @@ const actions =  {
       commit("setBranchDistrict", response.data);
     })
   },
-  async getBranchCityCouriers({ commit }, id) {
-    await axios.get(process.env.VUE_APP_API_URL + "branch/citycouriers/" + id)
+  async getBranchCityCouriers({ commit }, page = 1) {
+    await axios.get(process.env.VUE_APP_API_URL + "branch/citycouriers/" + state.branchCityIDData + "?page="+page)
     .then(response => {
       commit("setBranchCityCouriers", response.data);
     })
   },
-  async getBranchDistrictCouriers({ commit }, id) {
-    await axios.get(process.env.VUE_APP_API_URL + "branch/districtcouriers/" + id)
+  async getBranchDistrictCouriers({ commit }, page = 1) {
+    await axios.get(process.env.VUE_APP_API_URL + "branch/districtcouriers/" + state.branchDistrictIDData + "?page="+page)
     .then(response => {
       commit("setBranchDistrictCouriers", response.data);
     })
   },
-  async getBranchCityUsers({ commit }, id) {
-    await axios.get(process.env.VUE_APP_API_URL + "branch/cityusers/" + id)
+  async getBranchCityUsers({ commit }, page = 1) {
+    await axios.get(process.env.VUE_APP_API_URL + "branch/cityusers/" + state.branchCityIDData + "?page="+page)
     .then(response => {
       commit("setBranchCityUsers", response.data);
     })
   },
-  async getBranchDistrictUsers({ commit }, id) {
-    await axios.get(process.env.VUE_APP_API_URL + "branch/districtusers/" + id)
+  async getBranchDistrictUsers({ commit }, page = 1) {
+    await axios.get(process.env.VUE_APP_API_URL + "branch/districtusers/" + state.branchDistrictIDData + "?page="+page)
     .then(response => {
       commit("setBranchDistrictUsers", response.data);
     })
   },
-  async getBranchCityTasks({ commit }, id) {
-    await axios.get(process.env.VUE_APP_API_URL + "branch/citytasks/" + id)
+  async getBranchCityTasks({ commit }, page = 1) {
+    await axios.get(process.env.VUE_APP_API_URL + "branch/citytasks/" + state.branchCityIDData + "?page="+page)
     .then(response => {
       commit("setBranchCityTasks", response.data);
     })
   },
-  async getBranchDistrictTasks({ commit }, id) {
-    await axios.get(process.env.VUE_APP_API_URL + "branch/districttasks/" + id)
+  async getBranchDistrictTasks({ commit }, page = 1) {
+    await axios.get(process.env.VUE_APP_API_URL + "branch/districttasks/" + state.branchDistrictIDData + "?page="+page)
     .then(response => {
       commit("setBranchDistrictTasks", response.data);
     })
@@ -179,6 +194,7 @@ const mutations =  {
   removeBranch: (state, id) => (state.branchesData.data = state.branchesData.data.filter(todo => todo.id !== id)),
         /*{ let i = state.branchesData.data.map(item => item.id).indexOf(id);
           state.branchesData.data.splice(i, 1) }*/
+          setBranchAllCourier(state, data) { state.branchAllCourierData = data },
           setBranchCourier(state, data) { state.branchCourierData = data },
           setBranchUser(state, data) { state.branchUserData = data },
           setBranchTask(state, data) { state.branchTaskData = data },
@@ -191,6 +207,9 @@ const mutations =  {
           setBranchCityTasks(state, data) { state.branchCityTasksData = data },
           setBranchDistrictTasks(state, data) { state.branchDistrictTasksData = data },
           setAllBranches(state, data) { state.allBranchesData = data },
+          setBranchID(state, data) { state.branchIDData = data },
+          setBranchCityID(state, data) { state.branchCityIDData = data },
+          setBranchDistrictID(state, data) { state.branchDistrictIDData = data },
         }
 
 

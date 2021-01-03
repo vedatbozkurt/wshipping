@@ -3,7 +3,7 @@
     <div class="card-header">
       <h3 class="card-title">Branch City User</h3>
       <div class=" float-right col-sm-6" >
-        <multiselect v-model="branch.city" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Şube İli Seçin" :options="branchCity" :searchable="false" :allow-empty="false" @input='getCityUsers'>
+        <multiselect v-model="branch.city" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Şube İli Seçin" :options="branchCity" :searchable="true" :allow-empty="false" @input='getCityUsers'>
           <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> ilindeki kullanıcılar<strong>  {{ option.language }}</strong></template>
         </multiselect>
       </div>
@@ -25,7 +25,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in branchCityUsers" :key="user.id">
+          <tr v-for="user in branchCityUsers.data" :key="user.id">
             <td>{{ user.id }}</td>
             <td><img alt="Avatar" class="table-avatar" src="https://adminlte.io/themes/dev/AdminLTE/dist/img/avatar.png"></td>
             <td>
@@ -46,8 +46,9 @@
     </div>
     <div class="card-footer">
      <small v-show="empty"><center>Select a city to view users</center></small>
+     <small v-show="!empty && branchCityUsers == ''"><center>Not Found.</center></small>
      <ul class="pagination pagination-sm m-0 float-right">
-       <!--  <pagination class="float-right" :data="branchCourier" @pagination-change-page="getBranchCourier"></pagination> -->
+      <pagination class="float-right" :data="branchCityUsers" @pagination-change-page="getBranchCityUsers"></pagination>
      </ul>
    </div>
  </div>
@@ -78,7 +79,8 @@
       });
     },
     getCityUsers: function() {
-      this.getBranchCityUsers(this.branch.city.id).then(() => {
+      this.$store.commit("branch/setBranchCityID", this.branch.city.id);
+      this.getBranchCityUsers().then(() => {
         this.empty = false;
       });
     },

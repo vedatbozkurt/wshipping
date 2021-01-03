@@ -31,7 +31,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in branchUser" :key="user.id">
+          <tr v-for="user in branchUser.data" :key="user.id">
             <td>{{ user.id }}</td>
             <td><img alt="Avatar" class="table-avatar" src="https://adminlte.io/themes/dev/AdminLTE/dist/img/avatar.png"></td>
             <td>
@@ -52,6 +52,7 @@
     </div>
     <div class="card-footer">
      <small v-show="branchUser == ''"><center>Not Found.</center></small>
+     <pagination class="float-right" :data="branchUser" @pagination-change-page="getBranchUser"></pagination>
     </div>
   </div>
   <!-- /.card -->
@@ -68,7 +69,8 @@
     ...mapGetters("branch", ["branchUser"]),
   },
   created() {
-    this.getBranchUser(this.$route.params.id);
+    this.$store.commit('branch/setBranchID', this.$route.params.id);
+    this.getBranchUser();
   },
   methods: {
     ...mapActions("branch", ["getBranchUser"]),

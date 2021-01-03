@@ -39,7 +39,7 @@
               <label for="inputEmail3" class="col-sm-2 col-form-label">City</label>
               <div class="col-sm-10">
 
-                <multiselect v-model="district.city" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="İl Seçin" :options="cities" :searchable="false" :allow-empty="false">
+                <multiselect v-model="district.city" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="İl Seçin" :options="cities" :searchable="true" :allow-empty="false">
                   <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> il olarak seçildi<strong>  {{ option.language }}</strong></template>
                 </multiselect>
 

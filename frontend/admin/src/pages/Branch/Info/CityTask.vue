@@ -3,7 +3,7 @@
     <div class="card-header">
       <h3 class="card-title">Branch City Tasks</h3>
       <div class=" float-right col-sm-6" >
-        <multiselect v-model="branch.city" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Şube İli Seçin" :options="branchCity" :searchable="false" :allow-empty="false" @input='getCityTasks'>
+        <multiselect v-model="branch.city" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Şube İli Seçin" :options="branchCity" :searchable="true" :allow-empty="false" @input='getCityTasks'>
           <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> ilindeki kuryeler<strong>  {{ option.language }}</strong></template>
         </multiselect>
       </div>
@@ -24,7 +24,7 @@
           </tr>
         </thead>
         <tbody>
-         <tr v-for="task in branchCityTasks" :key="task.id">
+         <tr v-for="task in branchCityTasks.data" :key="task.id">
             <td>{{ task.id }}</td>
             <td>{{ task.description}}</td>
             <td>{{ task.price}}</td>
@@ -40,6 +40,7 @@
     <div class="card-footer">
      <small v-show="empty"><center>Select a city to view tasks</center></small>
      <small v-show="!empty && branchCityTasks == ''"><center>Not Found.</center></small>
+      <pagination class="float-right" :data="branchCityTasks" @pagination-change-page="getBranchCityTasks"></pagination>
    </div>
  </div>
  <!-- /.card -->
@@ -69,7 +70,8 @@
       });
     },
     getCityTasks: function() {
-      this.getBranchCityTasks(this.branch.city.id).then(() => {
+      this.$store.commit("branch/setBranchCityID", this.branch.city.id);
+      this.getBranchCityTasks().then(() => {
         this.empty = false;
       });
     },

@@ -3,7 +3,7 @@
     <div class="card-header">
       <h3 class="card-title">Branch District Couriers</h3>
       <div class=" float-right col-sm-6" >
-        <multiselect v-model="branch.district" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Şube İlçesi Seçin" :options="branchDistrict" :searchable="false" :allow-empty="false" @input='getDistrictCouriers'>
+        <multiselect v-model="branch.district" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Şube İlçesi Seçin" :options="branchDistrict" :searchable="true" :allow-empty="false" @input='getDistrictCouriers'>
           <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> ilçesindeki kuryeler<strong>  {{ option.language }}</strong></template>
         </multiselect>
       </div>
@@ -25,7 +25,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="courier in branchDistrictCouriers" :key="courier.id">
+          <tr v-for="courier in branchDistrictCouriers.data" :key="courier.id">
             <td>{{ courier.id }}</td>
             <td><img alt="Avatar" class="table-avatar" src="https://adminlte.io/themes/dev/AdminLTE/dist/img/avatar.png"></td>
             <td>
@@ -48,7 +48,7 @@
      <small v-show="empty"><center>Select a district to view couriers</center></small>
      <small v-show="!empty && branchDistrictCouriers == ''"><center>Not Found.</center></small>
      <ul class="pagination pagination-sm m-0 float-right">
-       <!--  <pagination class="float-right" :data="branchCourier" @pagination-change-page="getBranchCourier"></pagination> -->
+      <pagination class="float-right" :data="branchDistrictCouriers" @pagination-change-page="getBranchDistrictCouriers"></pagination>
      </ul>
    </div>
  </div>
@@ -78,7 +78,8 @@
       });
     },
     getDistrictCouriers: function() {
-      this.getBranchDistrictCouriers(this.branch.district.id).then(() => {
+      this.$store.commit("branch/setBranchDistrictID", this.branch.district.id);
+      this.getBranchDistrictCouriers().then(() => {
         this.empty = false;
       });
     },

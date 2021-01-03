@@ -40,7 +40,7 @@
             <div class="form-group row">
               <label for="inputPassword3" class="col-sm-2 col-form-label">City</label>
               <div class="col-sm-10">
-                <multiselect v-model="address.city" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="İl Seçin" :options="cities" :searchable="false" :allow-empty="false" @input='getThisCityDistricts'>
+                <multiselect v-model="address.city" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="İl Seçin" :options="cities" :searchable="true" :allow-empty="false" @input='getThisCityDistricts'>
                   <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> il olarak seçildi<strong>  {{ option.language }}</strong></template>
                 </multiselect>
 
@@ -52,7 +52,7 @@
               <label for="inputPassword3" class="col-sm-2 col-form-label">District</label>
               <div class="col-sm-10">
 
-                <multiselect v-model="address.district" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="İlçe Seçin" :options="cityDistricts" :searchable="false" :allow-empty="false">
+                <multiselect v-model="address.district" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="İlçe Seçin" :options="cityDistricts" :searchable="true" :allow-empty="false">
                   <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> il olarak seçildi<strong>  {{ option.language }}</strong></template>
                 </multiselect>
                 <span class="text-danger" v-if="errors.district"> {{ errors.district[0] }}</span>
@@ -63,7 +63,7 @@
               <label for="inputEmail3" class="col-sm-2 col-form-label">User</label>
               <div class="col-sm-10">
 
-                <multiselect v-model="address.user" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Adres Sahibi" :options="allUsers" :searchable="false" :allow-empty="false">
+                <multiselect v-model="address.user" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Adres Sahibi" :options="allUsers" :searchable="true" :allow-empty="false">
                   <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> adres sahibi olarak seçildi<strong>  {{ option.language }}</strong></template>
                 </multiselect>
                 <span class="text-danger" v-if="errors.name"> {{ errors.user[0] }}</span>

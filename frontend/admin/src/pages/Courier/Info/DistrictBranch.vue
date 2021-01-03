@@ -3,7 +3,7 @@
     <div class="card-header">
       <h3 class="card-title">Courier District Branches</h3>
       <div class=" float-right col-sm-6" >
-        <multiselect v-model="courier.district" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Şube İlçesi Seçin" :options="courierDistrict" :searchable="false" :allow-empty="false" @input='getDistrictBranches'>
+        <multiselect v-model="courier.district" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Şube İlçesi Seçin" :options="courierDistrict" :searchable="true" :allow-empty="false" @input='getDistrictBranches'>
           <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> ilçesindeki kuryeler<strong>  {{ option.language }}</strong></template>
         </multiselect>
       </div>

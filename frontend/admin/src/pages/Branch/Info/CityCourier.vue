@@ -3,7 +3,7 @@
     <div class="card-header">
       <h3 class="card-title">Branch City Couriers</h3>
       <div class=" float-right col-sm-6" >
-        <multiselect v-model="branch.city" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Şube İli Seçin" :options="branchCity" :searchable="false" :allow-empty="false" @input='getCityCouriers'>
+        <multiselect v-model="branch.city" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Şube İli Seçin" :options="branchCity" :searchable="true" :allow-empty="false" @input='getCityCouriers'>
           <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> ilindeki kuryeler<strong>  {{ option.language }}</strong></template>
         </multiselect>
       </div>
@@ -25,7 +25,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="courier in branchCityCouriers" :key="courier.id">
+          <tr v-for="courier in branchCityCouriers.data" :key="courier.id">
             <td>{{ courier.id }}</td>
             <td><img alt="Avatar" class="table-avatar" src="https://adminlte.io/themes/dev/AdminLTE/dist/img/avatar.png"></td>
             <td>
@@ -48,11 +48,11 @@
      <small v-show="empty"><center>Select a city to view couriers</center></small>
      <small v-show="!empty && branchCityCouriers == ''"><center>Not Found.</center></small>
      <ul class="pagination pagination-sm m-0 float-right">
-       <!--  <pagination class="float-right" :data="branchCourier" @pagination-change-page="getBranchCourier"></pagination> -->
-     </ul>
-   </div>
- </div>
- <!-- /.card -->
+      <pagination class="float-right" :data="branchCityCouriers" @pagination-change-page="getBranchCityCouriers"></pagination>
+    </ul>
+  </div>
+</div>
+<!-- /.card -->
 </template>
 <script>
  import { mapGetters, mapActions} from "vuex";
@@ -79,7 +79,8 @@
       });
     },
     getCityCouriers: function() {
-      this.getBranchCityCouriers(this.branch.city.id).then(() => {
+      this.$store.commit("branch/setBranchCityID", this.branch.city.id);
+      this.getBranchCityCouriers().then(() => {
         this.empty = false;
       });
     },

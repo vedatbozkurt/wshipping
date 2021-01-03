@@ -31,7 +31,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="courier in branchCourier" :key="courier.id">
+          <tr v-for="courier in branchCourier.data" :key="courier.id">
             <td>{{ courier.id }}</td>
             <td><img alt="Avatar" class="table-avatar" src="https://adminlte.io/themes/dev/AdminLTE/dist/img/avatar.png"></td>
             <td>
@@ -53,7 +53,7 @@
     <div class="card-footer">
      <small v-show="branchCourier == ''"><center>Not Found.</center></small>
       <ul class="pagination pagination-sm m-0 float-right">
-       <!--  <pagination class="float-right" :data="branchCourier" @pagination-change-page="getBranchCourier"></pagination> -->
+     <pagination class="float-right" :data="branchCourier" @pagination-change-page="getBranchCourier"></pagination>
       </ul>
     </div>
   </div>
@@ -71,7 +71,8 @@
     ...mapGetters("branch", ["branchCourier"]),
   },
   created() {
-    this.getBranchCourier(this.$route.params.id);
+    this.$store.commit('branch/setBranchID', this.$route.params.id);
+    this.getBranchCourier();
   },
   methods: {
     ...mapActions("branch", ["getBranchCourier"]),

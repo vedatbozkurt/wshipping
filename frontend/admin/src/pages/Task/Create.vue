@@ -39,7 +39,7 @@
               <label for="inputEmail3" class="col-sm-2 col-form-label">Sender
               </label>
               <div class="col-sm-10">
-                <multiselect v-model="task.sender" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Gönderici" :options="allUsers" :searchable="false" :allow-empty="false" @input='getSenderUserAddress'>
+                <multiselect v-model="task.sender" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Gönderici" :options="allUsers" :searchable="true" :allow-empty="false" @input='getSenderUserAddress'>
                   <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> gönderici olarak seçildi<strong>  {{ option.language }}</strong></template>
                 </multiselect>
                 <span class="text-danger" v-if="errors.sender"> {{ errors.sender[0] }}</span>
@@ -49,7 +49,7 @@
             <div class="form-group row">
               <label for="inputEmail3" class="col-sm-2 col-form-label">Sender Address</label>
               <div class="col-sm-10">
-                <multiselect v-model="task.senderaddress" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Gönderici Adresi" :options="userSenderAddress" :searchable="false" :allow-empty="false" noOptions="Select Sender">
+                <multiselect v-model="task.senderaddress" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Gönderici Adresi" :options="userSenderAddress" :searchable="true" :allow-empty="false" noOptions="Select Sender">
                   <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> gönderici adresi olarak seçildi<strong>  {{ option.language }}</strong></template>
                 </multiselect>
                 <span class="text-danger" v-if="errors.senderaddress"> {{ errors.senderaddress[0] }}</span>
@@ -59,7 +59,7 @@
             <div class="form-group row">
               <label for="inputEmail3" class="col-sm-2 col-form-label">Receiver</label>
               <div class="col-sm-10">
-                <multiselect v-model="task.receiver" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Alıcı" :options="allUsers" :searchable="false" :allow-empty="false" @input='getReceiverUserAddress'>
+                <multiselect v-model="task.receiver" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Alıcı" :options="allUsers" :searchable="true" :allow-empty="false" @input='getReceiverUserAddress'>
                   <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> alıcı olarak seçildi<strong>  {{ option.language }}</strong></template>
                 </multiselect>
                 <span class="text-danger" v-if="errors.receiver"> {{ errors.receiver[0] }}</span>
@@ -69,7 +69,7 @@
             <div class="form-group row">
               <label for="inputEmail3" class="col-sm-2 col-form-label">Receiver Address</label>
               <div class="col-sm-10">
-                <multiselect v-model="task.receiveraddress" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Alıcı Adresi" :options="allAddresses" :searchable="false" :allow-empty="false">
+                <multiselect v-model="task.receiveraddress" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Alıcı Adresi" :options="allAddresses" :searchable="true" :allow-empty="false">
                   <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> alıcı adresi olarak seçildi<strong>  {{ option.language }}</strong></template>
                 </multiselect>
                 <span class="text-danger" v-if="errors.receiveraddress"> {{ errors.receiveraddress[0] }}</span>
@@ -81,13 +81,13 @@
               <label for="inputEmail3" class="col-sm-2 col-form-label">Courier</label>
               <div class="row col-sm-10">
                 <div class="col-sm-6">
-                  <multiselect v-model="branch.id" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Select Courier Branch" :options="allBranches" :searchable="false" :allow-empty="false" @input='getBranchCouriers'>
+                  <multiselect v-model="branch.id" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Select Courier Branch" :options="allBranches" :searchable="true" :allow-empty="false" @input='getBranchAllCouriers'>
                     <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> seçildi<strong>  {{ option.language }}</strong></template>
                   </multiselect>
                   <!-- <span class="text-danger" v-if="errors.courier_id"> {{ errors.courier_id[0] }}</span> -->
                 </div>
                 <div class="col-sm-6">
-                  <multiselect v-model="task.courier" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Select Courier Branch" :options="branchCourier" :searchable="false" :allow-empty="false">
+                  <multiselect v-model="task.courier" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Select Courier Branch" :options="branchAllCourier" :searchable="true" :allow-empty="false">
                     <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> kurye olarak seçildi<strong>  {{ option.language }}</strong></template>
                   </multiselect>
                 </div>
@@ -150,7 +150,7 @@
   computed: {
     ...mapGetters(["errors"]),
     ...mapGetters("task", ["task"]),
-    ...mapGetters("branch", ["branch","allBranches","branchCourier"]),
+    ...mapGetters("branch", ["branch","allBranches","branchAllCourier"]),
     ...mapGetters("user", ["allUsers","userSenderAddress","userReceiverAddress"])
   },
   mounted() {
@@ -166,7 +166,7 @@
   },
   methods: {
     ...mapActions("task", ["createTask"]),
-    ...mapActions("branch", ["getAllBranches","getBranchCourier"]),
+    ...mapActions("branch", ["getAllBranches","getBranchAllCourier"]),
     ...mapActions("user", ["getAllUsers","getUserSenderAddress","getUserReceiverAddress"]),
 
     getSenderUserAddress: function() {
@@ -178,8 +178,8 @@
         this.allAddresses = this.userReceiverAddress.concat(this.userSenderAddress); //receiver için sender + receiver adresleri birleştirildi
       });
     },
-    getBranchCouriers: function() {
-      this.getBranchCourier(this.branch.id.id);
+    getBranchAllCouriers: function() {
+      this.getBranchAllCourier(this.branch.id.id);
     },
     addTask: function() {
       this.createTask(this.task).then(() => {
