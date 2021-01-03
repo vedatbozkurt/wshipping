@@ -2,13 +2,13 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-26 14:42:53
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-06-26 18:11:23
+* @Last Modified time: 2020-07-05 15:57:42
 */
 import axios from "axios";
 const namespaced= true;
 
 const state = {
-  userData: null
+  userData: null,
 };
 
 /*getters: {
@@ -17,22 +17,10 @@ const state = {
 
   const getters = {
   // allPosts: state => state.posts,
-  user(state){
-    return state.userData
-  }
+  user: state => state.userData,
 };
 
 const actions =  {
-  getUserData({ commit }) {
-    axios
-    .get(process.env.VUE_APP_API_URL + "profile")
-    .then(response => {
-      commit("setUserData", response.data);
-    })
-    .catch(() => {
-      localStorage.removeItem("authToken");
-    });
-  },
   sendLoginRequest({ commit }, data) {
     commit("setErrors", {}, { root: true });
     return axios
@@ -60,9 +48,7 @@ const actions =  {
 }
 
 const  mutations =  {
-  setUserData(state, user) {
-    state.userData = user;
-  }
+  setUserData(state, user) { state.userData = user; },
 }
 
 

@@ -5,8 +5,18 @@
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-12">
+          <div class="col-sm-9">
             <h1>Branches</h1>
+          </div>
+          <div class="col-sm-3">
+            <div class="input-group input-group-sm float-sm-right">
+              <input type="text" class="form-control" placeholder="Search Branch">
+              <div class="input-group-append">
+                <div class="btn btn-primary">
+                  <i class="fas fa-search"></i>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div><!-- /.container-fluid -->

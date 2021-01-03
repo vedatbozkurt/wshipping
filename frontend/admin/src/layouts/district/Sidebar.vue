@@ -1,8 +1,6 @@
 <template>
-        <div class="col-md-3">
-  <a href="compose.html" class="btn btn-primary btn-block mb-3">Compose</a>
-
-          <div class="card">
+        <div class="col-md-2">
+          <div class="card card-warning card-outline">
             <div class="card-header">
               <h3 class="card-title">District Details</h3>
 
@@ -45,3 +43,6 @@
           <!-- /.card -->
         </div>
 </template>
+<style scoped>
+  .router-link-exact-active { background-color:#FFC107; }
+</style>

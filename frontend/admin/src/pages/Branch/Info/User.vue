@@ -2,18 +2,6 @@
   <div class="card card-primary card-outline">
     <div class="card-header">
       <h3 class="card-title">Branch Users</h3>
-
-      <div class="card-tools">
-        <div class="input-group input-group-sm">
-          <input type="text" class="form-control" placeholder="Search User">
-          <div class="input-group-append">
-            <div class="btn btn-primary">
-              <i class="fas fa-search"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- /.card-tools -->
     </div>
     <!-- /.card-header -->
     <!-- /.card-header -->

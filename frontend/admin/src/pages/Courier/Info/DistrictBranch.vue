@@ -7,7 +7,6 @@
           <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> ilçesindeki kuryeler<strong>  {{ option.language }}</strong></template>
         </multiselect>
       </div>
-      <!-- /.card-tools -->
     </div>
     <!-- /.card-header -->
     <!-- /.card-header -->
