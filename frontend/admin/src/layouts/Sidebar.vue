@@ -84,6 +84,24 @@
               <p>Tasks</p>
             </router-link>
           </li>
+          <li class="nav-item">
+            <router-link to="/address" class="nav-link">
+              <i class="nav-icon fas fa-tasks red"></i>
+              <p>Addresses</p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/city" class="nav-link">
+              <i class="nav-icon fas fa-tasks red"></i>
+              <p>Cities</p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/district" class="nav-link">
+              <i class="nav-icon fas fa-tasks red"></i>
+              <p>Districts</p>
+            </router-link>
+          </li>
           <li class="nav-header">CUSTOMIZATION</li>
           <li class="nav-item">
            <router-link to="/profile" class="nav-link">

@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-01 19:45:04
+* @Last Modified time: 2020-07-02 15:57:26
 */
 import axios from "axios";
 const namespaced= true;
@@ -19,7 +19,7 @@ const state = {
 
 const getters = {
  users: state => state.usersData,
- allUsers: state => state.allUsersData,
+ allUsers: state => state.allUsersData, //for dropdown
  user: state => state.userData,
  userAddress: state => state.userAddressData,
  userSenderTask: state => state.userSenderTaskData,

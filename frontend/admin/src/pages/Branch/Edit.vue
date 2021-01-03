@@ -37,11 +37,10 @@
 
           <div :class="{'loader': loader}"></div>
           <div class="card-body">
-
             <div class="form-group row">
               <label for="inputPassword3" class="col-sm-2 col-form-label">City</label>
               <div class="col-sm-10">
-                <multiselect v-model="branch.city" :options="cities" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name" track-by="name" :preselect-first="true"  @input='getCitiesDistricts'>
+                <multiselect v-model="branch.city" :options="cities" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name" track-by="name" :preselect-first="true" @input='getCitiesDistricts'>
                 </multiselect>
 
                 <span class="text-danger" v-if="errors.city"> {{ errors.city[0] }}</span>

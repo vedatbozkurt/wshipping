@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-16 01:37:20
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-01 16:12:03
+* @Last Modified time: 2020-07-02 16:04:51
 */
 import Vue from "vue";
 import VueRouter from 'vue-router'
@@ -70,12 +70,25 @@ const routes = [
   { path: 'addresses', component: () => import("./pages/User/Info/Address"), name: 'UserAddress'},
   ]},//User pages end
  { path: 'task', component: () => import("./pages/Task/Index"),name: 'Tasks'}, //Task pages start
-  { path: 'task/create', component: () => import("./pages/Task/Create"), name: 'CreateTask'},
-  { path: 'task/:id', component: () => import("./pages/Task/Edit"), name: 'EditTask'},
+ { path: 'task/create', component: () => import("./pages/Task/Create"), name: 'CreateTask'},
+ { path: 'task/:id', component: () => import("./pages/Task/Edit"), name: 'EditTask'},
 
-  { path: 'setting', component: () => import("./pages/Setting"), name: 'Setting'},
-  { path: 'profile', component: () => import("./pages/Profile"), name: 'Profile'},
-  ]
+ { path: 'address', component: () => import("./pages/Address/Index"),name: 'Addresses'}, //Address pages start
+ { path: 'address/create', component: () => import("./pages/Address/Create"), name: 'CreateAddress'},
+ { path: 'address/:id', component: () => import("./pages/Address/Edit"), name: 'EditAddress'},
+
+
+ { path: 'city', component: () => import("./pages/City/Index"),name: 'Cities'}, //City pages start
+ { path: 'city/create', component: () => import("./pages/City/Create"), name: 'CreateCity'},
+ { path: 'city/:id', component: () => import("./pages/City/Edit"), name: 'EditCity'},
+
+ { path: 'district', component: () => import("./pages/District/Index"),name: 'Districts'}, //District pages start
+ { path: 'district/create', component: () => import("./pages/District/Create"), name: 'CreateDistrict'},
+ { path: 'district/:id', component: () => import("./pages/District/Edit"), name: 'EditDistrict'},
+
+ { path: 'setting', component: () => import("./pages/Setting"), name: 'Setting'},
+ { path: 'profile', component: () => import("./pages/Profile"), name: 'Profile'},
+ ]
 },
 /*{path: "/register", name: "Register", beforeEnter: guest, component: () => import("./pages/Auth/Register.vue") },*/
 { path: '*', name: 'NotFound', component: () => import("./pages/NotFound.vue") },
