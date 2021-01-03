@@ -2,26 +2,18 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-02 01:04:34
+* @Last Modified time: 2020-07-02 02:23:52
 */
 import axios from "axios";
 const namespaced= true;
 const state = {
   tasksData: {},
   taskData: {},
-  newSenderData: {},
-  newReceiverData: {},
-  newSenderAddressData: {},
-  newReceiverAddressData: {},
 };
 
 const getters = {
  tasks: state => state.tasksData,
  task: state => state.taskData,
- newsender: state => state.newSenderData,
- newreceiver: state => state.newReceiverData,
- newSenderAddress: state => state.newSenderAddressData,
- newReceiverAddress: state => state.newReceiverAddressData,
 }
 
 const actions =  {

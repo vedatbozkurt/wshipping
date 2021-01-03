@@ -2,14 +2,14 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-01 00:27:15
+* @Last Modified time: 2020-07-02 02:07:25
 */
 import axios from "axios";
 const namespaced= true;
 const state = {
   branchesData: {},
   branchData: {},
-  branchCourierData: {},
+  branchCourierData: [],
   branchUserData: {},
   branchTaskData: {},
   branchCityData: [],
@@ -20,6 +20,7 @@ const state = {
   branchDistrictUsersData: {},
   branchCityTasksData: {},
   branchDistrictTasksData: {},
+  allBranchesData: [],
 };
 
 const getters = {
@@ -36,6 +37,7 @@ const getters = {
  branchDistrictUsers: state => state.branchDistrictUsersData,
  branchCityTasks: state => state.branchCityTasksData,
  branchDistrictTasks: state => state.branchDistrictTasksData,
+ allBranches: state => state.allBranchesData,
 }
 
 const actions =  {
@@ -43,6 +45,12 @@ const actions =  {
     await axios.get(process.env.VUE_APP_API_URL + "branch?page=" + page)
     .then(response => {
       commit("setBranches", response.data);
+    })
+  },
+  async getAllBranches({ commit }) {
+    await axios.get(process.env.VUE_APP_API_URL + "branch/all")
+    .then(response => {
+      commit("setAllBranches", response.data);
     })
   },
   async createBranch({ commit }, data) {
@@ -178,6 +186,7 @@ const mutations =  {
           setBranchDistrictUsers(state, data) { state.branchDistrictUsersData = data },
           setBranchCityTasks(state, data) { state.branchCityTasksData = data },
           setBranchDistrictTasks(state, data) { state.branchDistrictTasksData = data },
+          setAllBranches(state, data) { state.allBranchesData = data },
         }
 
 
