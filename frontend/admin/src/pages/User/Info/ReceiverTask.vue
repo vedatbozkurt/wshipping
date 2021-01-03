@@ -27,7 +27,7 @@
             <td>{{ task.courier ? task.courier.phone : 'No Courier'}}</td>
             <td>{{ task.sender.name}}</td>
             <td>{{ task.sender.phone}}</td>
-            <td>{{ task.price}}</td>
+            <td>{{ task.price}} {{currency}}</td>
             <td>{{ task.created_at | moment("MMMM Do YYYY") }}</td>
             <td>
               <task-status v-show="!task.deleted_at" :status=task.status />
@@ -59,6 +59,7 @@
     TaskStatus
   },
   computed: {
+    ...mapGetters(["currency"]),
     ...mapGetters("user", ["userReceiverTask"]),
   },
   created() {

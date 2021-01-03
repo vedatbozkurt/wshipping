@@ -77,6 +77,13 @@
                 <span class="text-danger" v-if="errors.email"> {{ errors.email[0] }}</span>
               </div>
             </div>
+            <div class="form-group row">
+              <label for="inputEmail3" class="col-sm-2 col-form-label">Currency</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" v-model="setting.currency" v-bind:class="{ 'is-invalid':errors.currency }">
+                <span class="text-danger" v-if="errors.currency"> {{ errors.currency[0] }}</span>
+              </div>
+            </div>
 
 
           </div>
@@ -121,6 +128,7 @@
 
     updateSettings: function() {
       this.updateSetting(this.setting).then(() => {
+        this.$store.commit("setCurrency", this.setting.currency);
         this.myToast('success','Setting has been updated.');
       });
     }

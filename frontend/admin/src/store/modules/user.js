@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-06 15:52:03
+* @Last Modified time: 2020-07-06 19:12:37
 */
 import axios from "axios";
 const namespaced= true;
@@ -52,15 +52,7 @@ const actions =  {
     })
   },
   async createUser({ commit }, data) {
-      let formData4 = new FormData();
-      formData4.append('image', data.image);
-      formData4.append('name', data.name);
-      formData4.append('phone', data.phone);
-      formData4.append('email', data.email);
-      formData4.append('status', data.status);
-      formData4.append('password', data.password);
-    console.log(formData4.get('email'));
-    await axios.post(process.env.VUE_APP_API_URL + "user/store", formData4)
+    await axios.post(process.env.VUE_APP_API_URL + "user/store", data)
     .then(response => {
       if (response.data === 'success') {
         commit("setErrors", {}, { root: true });
@@ -77,18 +69,8 @@ const actions =  {
     })
   },
   async updateUser({ commit }, data) {
-    var formData3 = new FormData();
-      formData3.append('previous_image', data.previous_image);
-      formData3.append('image', data.image);
-      formData3.append('name', data.name);
-      formData3.append('phone', data.phone);
-      formData3.append('email', data.email);
-      formData3.append('status', data.status);
-      formData3.append('password', data.password);
-    // console.log(formData.get('name'));
-    await axios.put(process.env.VUE_APP_API_URL + `user/${data.id}`, formData3)
+    await axios.put(process.env.VUE_APP_API_URL + `user/${data.id}`, data)
     .then(response => {
-      console.log(response)
       if (response.data === 'success') {
         commit("setErrors", {}, { root: true });
       }
@@ -162,7 +144,7 @@ const actions =  {
 const mutations =  {
   setUsers(state, data) { state.usersData = data },
   setAllUsers(state, data) { state.allUsersData = data },
-  setUser(state, data) { state.userData = data, state.userData.previous_image = data.image },
+  setUser(state, data) { state.userData = data },
   removeUser: (state, id) => (state.usersData.data = state.usersData.data.filter(todo => todo.id !== id)),
   setUserAddress(state, data) { state.userAddressData = data },
   setUserSenderTasks(state, data) { state.userSenderTaskData = data },

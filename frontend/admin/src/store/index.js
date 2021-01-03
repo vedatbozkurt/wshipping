@@ -1,3 +1,4 @@
+import axios from "axios";
 import Vue from 'vue';
 import Vuex from 'vuex';
 import auth from './modules/auth';
@@ -17,31 +18,37 @@ Vue.use(Vuex);
 
 // Create store
 export default new Vuex.Store({
-    state: {
+  state: {
     errors: [],
     loader: true,
     searchData: null,
+    currencyData: null,
   },
 
   getters: {
     errors: state => state.errors,
     loader: state => state.loader,
-    search: state => state.searchData
+    search: state => state.searchData,
+    currency: state => state.currencyData
+  },
+
+  actions: {
+    async getCurrency({ commit }) {
+      commit("setErrors", {}, { root: true });
+      await axios.get(process.env.VUE_APP_API_URL + "currency")
+      .then(response => {
+        commit("setCurrency", response.data);
+      });
+    },
   },
 
   mutations: {
-    setErrors(state, errors) {
-      state.errors = errors;
-    },
-     setLoader(state, loader) {
-      state.loader = loader;
-    },
-    setSearch(state, data) {
-      state.searchData = data;
-    }
+    setErrors(state, errors) { state.errors = errors; },
+    setLoader(state, loader) { state.loader = loader; },
+    setSearch(state, data) { state.searchData = data; },
+    setCurrency(state, data) { state.currencyData = data; }
   },
 
-  actions: {},
   modules: {
     auth,
     profile,

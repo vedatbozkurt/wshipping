@@ -9,6 +9,7 @@
 </template>
 
 <script>
+  import { mapActions } from "vuex";
   import Navbar from '../layouts/Navbar.vue'
   import Footer from '../layouts/Footer.vue'
   import RightSidebar from '../layouts/RightSidebar.vue'
@@ -21,6 +22,12 @@
       RightSidebar,
       Sidebar,
     },
+    created() {
+      this.getCurrency();
+    },
+    methods: {
+      ...mapActions(["getCurrency"]),
+    }
   }
 </script>
 

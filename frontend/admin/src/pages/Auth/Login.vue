@@ -83,9 +83,11 @@
 
     methods: {
       ...mapActions("auth", ["sendLoginRequest"]),
+      ...mapActions(["getCurrency"]),
 
       login: function() {
         this.sendLoginRequest(this.details).then(() => {
+          this.getCurrency();
           this.myToast('success','Success Login.');
           this.$router.push({ name: "Dashboard" });
         });

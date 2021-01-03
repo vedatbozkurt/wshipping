@@ -27,7 +27,7 @@
          <tr v-for="task in branchCityTasks.data" :key="task.id">
             <td>{{ task.id }}</td>
             <td>{{ task.description}}</td>
-            <td>{{ task.price}}</td>
+            <td>{{ task.price}} {{currency}}</td>
             <td>{{ task.created_at | moment("MMMM Do YYYY") }}</td>
             <td>
                  <task-status v-show="!task.deleted_at" :status=task.status />
@@ -61,6 +61,7 @@
     TaskStatus
   },
   computed: {
+    ...mapGetters(["currency"]),
     ...mapGetters("branch", ["branch","branchCity","branchCityTasks"]),
   },
   created() {

@@ -38,7 +38,8 @@
             <div class="form-group row">
               <label for="inputEmail3" class="col-sm-2 col-form-label">Photo</label>
               <div class="col-sm-10">
-                <input type="file" class="form-control" v-on:change="onImageChange">
+                <input type="text" class="form-control" v-model="user.image" v-bind:class="{ 'is-invalid':errors.image }">
+                <span class="text-danger" v-if="errors.image"> {{ errors.image[0] }}</span>
               </div>
             </div>
             <div class="form-group row">
@@ -120,9 +121,7 @@
   },
   methods: {
     ...mapActions("user", ["createUser"]),
-    onImageChange(e) {
-      this.user.image = e.target.files[0];
-    },
+
     addUser: function() {
       this.createUser(this.user).then(() => {
         this.myToast('success','User has been created.');
