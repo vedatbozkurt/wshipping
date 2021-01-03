@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-05 20:59:47
+* @Last Modified time: 2020-07-07 00:00:31
 */
 import axios from "axios";
 const namespaced= true;
@@ -53,15 +53,18 @@ const getters = {
 
 const actions =  {
   async getBranches({ commit }, page = 1) {
+    commit("setLoader", true, { root: true });
     if (this.state.searchData == null ) {
       await axios.get(process.env.VUE_APP_API_URL + "branch?page=" + page)
       .then(response => {
         commit("setBranches", response.data);
+        commit("setLoader", false, { root: true });
       })
     }else {
       await axios.post(process.env.VUE_APP_API_URL + "branch/"+ this.state.searchData +"/?page=" + page)
       .then(response => {
         commit("setBranches", response.data);
+        commit("setLoader", false, { root: true });
       })
     }
   },
@@ -158,39 +161,51 @@ const actions =  {
     })
   },
   async getBranchCityCouriers({ commit }, page = 1) {
+    commit("setLoader", true, { root: true });
     await axios.get(process.env.VUE_APP_API_URL + "branch/citycouriers/" + state.branchCityIDData + "?page="+page)
     .then(response => {
       commit("setBranchCityCouriers", response.data);
+      commit("setLoader", false, { root: true });
     })
   },
   async getBranchDistrictCouriers({ commit }, page = 1) {
+    commit("setLoader", true, { root: true });
     await axios.get(process.env.VUE_APP_API_URL + "branch/districtcouriers/" + state.branchDistrictIDData + "?page="+page)
     .then(response => {
       commit("setBranchDistrictCouriers", response.data);
+      commit("setLoader", false, { root: true });
     })
   },
   async getBranchCityUsers({ commit }, page = 1) {
+    commit("setLoader", true, { root: true });
     await axios.get(process.env.VUE_APP_API_URL + "branch/cityusers/" + state.branchCityIDData + "?page="+page)
     .then(response => {
       commit("setBranchCityUsers", response.data);
+      commit("setLoader", false, { root: true });
     })
   },
   async getBranchDistrictUsers({ commit }, page = 1) {
+    commit("setLoader", true, { root: true });
     await axios.get(process.env.VUE_APP_API_URL + "branch/districtusers/" + state.branchDistrictIDData + "?page="+page)
     .then(response => {
       commit("setBranchDistrictUsers", response.data);
+      commit("setLoader", false, { root: true });
     })
   },
   async getBranchCityTasks({ commit }, page = 1) {
+    commit("setLoader", true, { root: true });
     await axios.get(process.env.VUE_APP_API_URL + "branch/citytasks/" + state.branchCityIDData + "?page="+page)
     .then(response => {
       commit("setBranchCityTasks", response.data);
+      commit("setLoader", false, { root: true });
     })
   },
   async getBranchDistrictTasks({ commit }, page = 1) {
+    commit("setLoader", true, { root: true });
     await axios.get(process.env.VUE_APP_API_URL + "branch/districttasks/" + state.branchDistrictIDData + "?page="+page)
     .then(response => {
       commit("setBranchDistrictTasks", response.data);
+      commit("setLoader", false, { root: true });
     })
   },
 }

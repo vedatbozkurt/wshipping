@@ -3,7 +3,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-27 20:29:22
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-06 21:37:08
+* @Last Modified time: 2020-07-07 00:15:08
 */
 import axios from "axios";
 const namespaced= true;
@@ -28,6 +28,7 @@ const getters = {
 
 const actions =  {
     async getDashboard({ commit }) {
+      commit("setLoader", true, { root: true });
         await axios.get(process.env.VUE_APP_API_URL + "dashboard")
         .then(response => {
           commit("setTasksMonth", response.data.tasksmonth);
@@ -37,6 +38,7 @@ const actions =  {
           commit("setCouriers", response.data.courier);
           commit("setUsers", response.data.user);
           commit("setTasks", response.data.task);
+      commit("setLoader", false, { root: true });
       })
     },
 }

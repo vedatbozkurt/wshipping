@@ -3,7 +3,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-27 20:29:22
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-05 20:34:28
+* @Last Modified time: 2020-07-07 00:16:59
 */
 import axios from "axios";
 const namespaced= true;
@@ -46,15 +46,18 @@ const actions =  {
     })
   },
   async getDistricts({ commit }, page = 1) { // all districts with pagination
+    commit("setLoader", true, { root: true });
     if (this.state.searchData == null ) {
       await axios.get(process.env.VUE_APP_API_URL + "district?page=" + page)
       .then(response => {
         commit("setDistricts", response.data);
+        commit("setLoader", false, { root: true });
       })
     }else {
       await axios.post(process.env.VUE_APP_API_URL + "district/"+ this.state.searchData +"/?page=" + page)
       .then(response => {
         commit("setDistricts", response.data);
+        commit("setLoader", false, { root: true });
       })
     }
   },

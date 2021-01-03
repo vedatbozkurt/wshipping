@@ -5,7 +5,6 @@
     </div>
     <!-- /.card-header -->
     <form>
-      <div :class="{'loader': loader}"></div>
       <div class="card-body">
         <div class="form-group row">
                   <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
@@ -36,7 +35,7 @@
   },
 
   computed: {
-    ...mapGetters(["errors","loader"]),
+    ...mapGetters(["errors"]),
     ...mapGetters("city", ["city"]),
 
   },

@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-05 21:24:31
+* @Last Modified time: 2020-07-07 00:18:45
 */
 import axios from "axios";
 const namespaced= true;
@@ -18,15 +18,18 @@ const getters = {
 
 const actions =  {
   async getTasks({ commit }, page = 1) {
+    commit("setLoader", true, { root: true });
     if (this.state.searchData == null ) {
       await axios.get(process.env.VUE_APP_API_URL + "task?page=" + page)
       .then(response => {
         commit("setTasks", response.data);
+        commit("setLoader", false, { root: true });
       })
     }else {
       await axios.post(process.env.VUE_APP_API_URL + "task/"+ this.state.searchData +"/?page=" + page)
       .then(response => {
         commit("setTasks", response.data);
+        commit("setLoader", false, { root: true });
       })
     }
   },

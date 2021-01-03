@@ -29,7 +29,6 @@
             </div>
             <!-- form start -->
             <form>
-              <div :class="{'loader': loader}"></div>
               <div class="card-body">
                <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">City</label>
@@ -74,7 +73,7 @@
     },
 
     computed: {
-      ...mapGetters(["errors","loader"]),
+      ...mapGetters(["errors"]),
       ...mapGetters("city", ["cities"]),
       ...mapGetters("district", ["district"]),
     },

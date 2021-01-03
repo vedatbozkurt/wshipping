@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12">
-            <h1>Dash Page</h1>
+            <h1>Dashboard</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -81,44 +81,41 @@
               <h3 class="card-title">Montly Tasks</h3>
               <div class="card-tools">
                <router-link to="/task/create" class="btn btn-outline-success btn-sm btn-flat">
-            <i class="fas fa-plus"></i> New </router-link>
+                <i class="fas fa-plus"></i> New </router-link>
+              </div>
             </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <MontlyTasks :data=tasksMonth />
+            </div>
+            <!-- /.card-body -->
           </div>
-          <!-- /.card-header -->
-          <div class="card-body">
-            <MontlyTasks :data=tasksMonth />
+          <!-- /.card -->
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Couriers and Users</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <MontlyCourierUser :user=usersMonth :courier=couriersMonth />
+            </div>
+            <!-- /.card-body -->
           </div>
-          <!-- /.card-body -->
+          <!-- /.card -->
         </div>
-        <!-- /.card -->
       </div>
-      <div class="col-12 col-md-6">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">Couriers and Users</h3>
-        </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-            <MontlyCourierUser :user=usersMonth :courier=couriersMonth />
-        </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
-    </div>
-  </div>
 
-</section>
-<!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
 </template>
 <script>
+  import { mapGetters, mapActions } from "vuex";
   import MontlyTasks from '../components/MontlyTasks'
   import MontlyCourierUser from '../components/MontlyCourierUser'
-
-  import { mapGetters, mapActions } from "vuex";
-  import Swal from 'sweetalert2'
-  window.Swal = Swal
 
   export default {
     components: { MontlyTasks,MontlyCourierUser },
@@ -127,17 +124,17 @@
         search: null,
       }
     },
-mounted() {
-     this.getDashboard();
-  },
+    mounted() {
+
+    },
     computed: {
       ...mapGetters("dashboard", ["branches","couriers","users","tasks","tasksMonth","usersMonth","couriersMonth"])
     },
     created() {
-
-    },
-    methods: {
-      ...mapActions("dashboard", ["getDashboard"]),
-    }
+     this.getDashboard();
+   },
+   methods: {
+    ...mapActions("dashboard", ["getDashboard"]),
   }
+}
 </script>

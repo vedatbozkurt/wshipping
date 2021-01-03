@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-06 19:12:37
+* @Last Modified time: 2020-07-07 00:19:37
 */
 import axios from "axios";
 const namespaced= true;
@@ -33,15 +33,18 @@ const getters = {
 
 const actions =  {
   async getUsers({ commit }, page = 1) {
+    commit("setLoader", true, { root: true });
     if (this.state.searchData === null ) {
       await axios.get(process.env.VUE_APP_API_URL + "user?page=" + page)
       .then(response => {
         commit("setUsers", response.data);
+        commit("setLoader", false, { root: true });
       })
     }else {
       await axios.post(process.env.VUE_APP_API_URL + "user/"+ this.state.searchData +"/?page=" + page)
       .then(response => {
         commit("setUsers", response.data);
+        commit("setLoader", false, { root: true });
       })
     }
   },
@@ -65,7 +68,6 @@ const actions =  {
     .then(response => {
       commit("setUser", response.data);
       commit("setLoader", false, { root: true });
-
     })
   },
   async updateUser({ commit }, data) {
@@ -110,15 +112,19 @@ const actions =  {
     })
   },
   async getUserSenderTasks({ commit }, page = 1) {
+    commit("setLoader", true, { root: true });
     await axios.get(process.env.VUE_APP_API_URL + "user/" + state.UserIDData + "/sendertasks?page=" + page)
     .then(response => {
       commit("setUserSenderTasks", response.data);
+      commit("setLoader", false, { root: true });
     })
   },
   async getUserReceiverTasks({ commit }, page = 1) {
+    commit("setLoader", true, { root: true });
     await axios.get(process.env.VUE_APP_API_URL + "user/" + state.UserIDData + "/receivertasks?page=" + page)
     .then(response => {
       commit("setUserReceiverTasks", response.data);
+      commit("setLoader", false, { root: true });
     })
   },
 

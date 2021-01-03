@@ -1,5 +1,6 @@
 <template>
   <div id="app" class="wrapper">
+    <div :class="{'loader': loader}"></div>
     <router-view></router-view>
   </div>
 </template>
@@ -10,11 +11,15 @@
   require('admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js');
   require('admin-lte/dist/css/adminlte.min.css');
   require('admin-lte/plugins/fontawesome-free/css/all.min.css');
+  import { mapGetters } from "vuex";
 
 
   export default {
     name: 'App',
     components: {
+    },
+    computed: {
+      ...mapGetters(["loader"]),
     },
   }
 </script>

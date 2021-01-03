@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-26 14:42:53
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-06-27 20:31:14
+* @Last Modified time: 2020-07-07 00:17:49
 */
 import axios from "axios";
 const namespaced= true;
@@ -25,12 +25,15 @@ const state = {
 
 const actions =  {
   async getAdminData({ commit }) {
+      commit("setLoader", true, { root: true });
     await axios.get(process.env.VUE_APP_API_URL + "profile")
     .then(response => {
       commit("setAdminData", response.data);
+      commit("setLoader", false, { root: true });
     })
     .catch(() => {
       localStorage.removeItem("authToken");
+      commit("setLoader", false, { root: true });
     });
   },
   async uploadAdminData({ commit }, data) {

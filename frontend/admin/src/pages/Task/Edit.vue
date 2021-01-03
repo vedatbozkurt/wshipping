@@ -34,8 +34,6 @@
             </div>
             <!-- form start -->
             <form>
-
-              <div :class="{'loader': loader}"></div>
               <div class="card-body">
                 <div class="form-group row">
                   <label for="inputEmail3" class="col-sm-2 col-form-label">Sender
@@ -154,7 +152,7 @@
       },
 
       computed: {
-        ...mapGetters(["errors","loader"]),
+        ...mapGetters(["errors"]),
         ...mapGetters("task", ["task"]),
         ...mapGetters("branch", ["branch","allBranches","branchAllCourier"]),
         ...mapGetters("user", ["allUsers","userSenderAddress","userReceiverAddress"])

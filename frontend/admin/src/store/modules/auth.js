@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-26 14:42:53
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-05 15:57:42
+* @Last Modified time: 2020-07-06 23:54:52
 */
 import axios from "axios";
 const namespaced= true;
@@ -23,11 +23,13 @@ const state = {
 const actions =  {
   sendLoginRequest({ commit }, data) {
     commit("setErrors", {}, { root: true });
+    commit("setLoader", true, { root: true });
     return axios
     .post(process.env.VUE_APP_API_URL + "login", data)
     .then(response => {
       commit("setUserData", response.data.data.name);
       localStorage.setItem("authToken", response.data.data.token);
+      commit("setLoader", false, { root: true });
     });
   },
  /* sendRegisterRequest({ commit }, data) {
@@ -40,9 +42,11 @@ const actions =  {
     });
   },*/
   sendLogoutRequest({ commit }) {
+    commit("setLoader", true, { root: true });
     axios.post(process.env.VUE_APP_API_URL + "logout").then(() => {
       commit("setUserData", null);
       localStorage.removeItem("authToken");
+      commit("setLoader", false, { root: true });
     });
   }
 }

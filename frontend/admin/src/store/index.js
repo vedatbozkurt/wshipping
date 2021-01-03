@@ -20,7 +20,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     errors: [],
-    loader: true,
+    loader: false,
     searchData: null,
     currencyData: null,
   },

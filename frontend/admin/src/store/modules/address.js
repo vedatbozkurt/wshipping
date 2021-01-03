@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-03 20:33:36
+* @Last Modified time: 2020-07-06 23:53:12
 */
 import axios from "axios";
 const namespaced= true;
@@ -18,9 +18,11 @@ const getters = {
 
 const actions =  {
   async getAddresses({ commit }, page = 1) {
+    commit("setLoader", true, { root: true });
     await axios.get(process.env.VUE_APP_API_URL + "address?page=" + page)
     .then(response => {
       commit("setAddresses", response.data);
+      commit("setLoader", false, { root: true });
   })
 },
 async createAddress({ commit }, data) {

@@ -34,8 +34,6 @@
             </div>
             <!-- form start -->
             <form>
-
-              <div :class="{'loader': loader}"></div>
               <div class="card-body">
                 <div class="form-group row">
                   <label for="inputPassword3" class="col-sm-2 col-form-label">City</label>

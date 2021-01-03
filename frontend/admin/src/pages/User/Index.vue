@@ -21,10 +21,8 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
     <!-- Main content -->
     <section class="content">
-
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">Users List</h3>

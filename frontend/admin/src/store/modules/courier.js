@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-05 21:08:24
+* @Last Modified time: 2020-07-07 00:14:18
 */
 import axios from "axios";
 const namespaced= true;
@@ -32,15 +32,18 @@ const getters = {
 
 const actions =  {
   async getCouriers({ commit }, page = 1) {
+    commit("setLoader", true, { root: true });
     if (this.state.searchData == null ) {
       await axios.get(process.env.VUE_APP_API_URL + "courier?page=" + page)
       .then(response => {
         commit("setCouriers", response.data);
+        commit("setLoader", false, { root: true });
       })
     }else {
       await axios.post(process.env.VUE_APP_API_URL + "courier/"+ this.state.searchData +"/?page=" + page)
       .then(response => {
         commit("setCouriers", response.data);
+        commit("setLoader", false, { root: true });
       })
     }
   },
@@ -107,15 +110,19 @@ const actions =  {
     })
   },
   async getCourierCityBranches({ commit }, id) {
+    commit("setLoader", true, { root: true });
     await axios.get(process.env.VUE_APP_API_URL + "courier/citybranches/" + id)
     .then(response => {
       commit("setCourierCityBranches", response.data);
+      commit("setLoader", false, { root: true });
     })
   },
   async getCourierDistrictBranches({ commit }, id) {
+    commit("setLoader", true, { root: true });
     await axios.get(process.env.VUE_APP_API_URL + "courier/districtbranches/" + id)
     .then(response => {
       commit("setCourierDistrictBranches", response.data);
+      commit("setLoader", false, { root: true });
     })
   },
   async getCourierTask({ commit }, page = 1) {
