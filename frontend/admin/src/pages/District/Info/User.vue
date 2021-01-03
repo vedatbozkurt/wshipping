@@ -69,7 +69,8 @@
     // this.$store.commit('city/setcityTasks', {});
   },
   created() {
-    this.getDistrictUsers(this.$route.params.id);
+    this.$store.commit('district/setDistrictID', this.$route.params.id);
+    this.getDistrictUsers();
   },
   methods: {
     ...mapActions("district", ["getDistrictUsers"]),

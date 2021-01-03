@@ -3,30 +3,33 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-27 20:29:22
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-03 16:16:57
+* @Last Modified time: 2020-07-04 00:34:07
 */
 import axios from "axios";
 const namespaced= true;
 const state = {
   citiesDistrictsData: [],
   cityDistrictsData: [],
-  districtsData: {}, //pagination için object olmalı
+  districtsData: {},
   districtData: {},
   districtCouriersData: {},
   districtBranchesData: {},
   districtUsersData: {},
   districtTasksData: {},
+  districtIDData: null, //district:info dosyalarında kullanıldı
 };
 
 const getters = {
+  //branch:info:Details-Branch:create(dropdown),edit(dropdown)
+  //courier:info:Details,courier:create(dropdown),courier:edit(dropdown)
  citiesDistricts: state => state.citiesDistrictsData,
- cityDistricts: state => state.cityDistrictsData,
- districts: state => state.districtsData,  //pagination için
- district: state => state.districtData,
- districtCouriers: state => state.districtCouriersData,
- districtBranches: state => state.districtBranchesData,
- districtUsers: state => state.districtUsersData,
- districtTasks: state => state.districtTasksData,
+ cityDistricts: state => state.cityDistrictsData,  //adress:create(dropdown),edit(dropdown)
+ districts: state => state.districtsData,  //district:index
+ district: state => state.districtData, //district:Info:Details,district:create,district:edit
+ districtCouriers: state => state.districtCouriersData, //district:Info:Courier
+ districtBranches: state => state.districtBranchesData, //district:Info:Branch
+ districtUsers: state => state.districtUsersData, //district:Info:User
+ districtTasks: state => state.districtTasksData, //district:Info:Task
 };
 
 const actions =  {
@@ -90,33 +93,33 @@ const actions =  {
       }
     });
   },
-  async getDistrictCouriers({ commit }, id) {
+  async getDistrictCouriers({ commit }, page = 1) {
     commit("setLoader", true, { root: true });
-    await axios.get(process.env.VUE_APP_API_URL + "district/" + id + "/couriers")
+    await axios.get(process.env.VUE_APP_API_URL + "district/" + state.districtIDData + "/couriers?page=" + page)
     .then(response => {
       commit("setDistrictCouriers", response.data);
       commit("setLoader", false, { root: true });
     })
   },
-  async getDistrictBranches({ commit }, id) {
+  async getDistrictBranches({ commit }, page = 1) {
     commit("setLoader", true, { root: true });
-    await axios.get(process.env.VUE_APP_API_URL + "district/" + id + "/branches")
+    await axios.get(process.env.VUE_APP_API_URL + "district/" + state.districtIDData + "/branches?page=" + page)
     .then(response => {
       commit("setDistrictBranches", response.data);
       commit("setLoader", false, { root: true });
     })
   },
-  async getDistrictUsers({ commit }, id) {
+  async getDistrictUsers({ commit }, page = 1) {
     commit("setLoader", true, { root: true });
-    await axios.get(process.env.VUE_APP_API_URL + "district/" + id + "/users")
+    await axios.get(process.env.VUE_APP_API_URL + "district/" + state.districtIDData + "/users?page=" + page)
     .then(response => {
       commit("setDistrictUsers", response.data);
       commit("setLoader", false, { root: true });
     })
   },
-  async getDistrictTasks({ commit }, id) {
+  async getDistrictTasks({ commit }, page = 1) {
     commit("setLoader", true, { root: true });
-    await axios.get(process.env.VUE_APP_API_URL + "district/" + id + "/tasks")
+    await axios.get(process.env.VUE_APP_API_URL + "district/" + state.districtIDData + "/tasks?page=" + page)
     .then(response => {
       commit("setDistrictTasks", response.data);
       commit("setLoader", false, { root: true });
@@ -134,6 +137,7 @@ const mutations =  {
   setDistrictBranches(state, data) { state.districtBranchesData = data },
   setDistrictUsers(state, data) { state.districtUsersData = data },
   setDistrictTasks(state, data) { state.districtTasksData = data },
+  setDistrictID(state, data) { state.districtIDData = data },
 }
 
 

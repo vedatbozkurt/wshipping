@@ -51,6 +51,7 @@
     </div>
     <div class="card-footer">
       <small v-show="courierTasks == ''"><center>Not Found.</center></small>
+     <pagination class="float-right" :data="courierTasks" @pagination-change-page="getCourierTask"></pagination>
     </div>
   </div>
   <!-- /.card -->
@@ -67,7 +68,8 @@
     ...mapGetters("courier", ["courierTasks"]),
   },
   created() {
-    this.getCourierTask(this.$route.params.id);
+    this.$store.commit('courier/setCourierID', this.$route.params.id);
+    this.getCourierTask();
   },
   methods: {
     ...mapActions("courier", ["getCourierTask"]),

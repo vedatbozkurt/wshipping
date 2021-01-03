@@ -55,6 +55,7 @@
     ...mapGetters("courier", ["courier","courierDistrict","courierDistrictBranches"]),
   },
   created() {
+    this.$store.commit("courier/setCourierDistrictBranches", {});
     this.$store.commit("courier/setCourier", {}); //bu olmazsa detailsden birden fazla district id gelir district task hata verir
     this.getCourierDistricts();
   },

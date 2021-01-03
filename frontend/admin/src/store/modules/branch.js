@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-02 02:07:25
+* @Last Modified time: 2020-07-03 21:11:48
 */
 import axios from "axios";
 const namespaced= true;
@@ -24,20 +24,24 @@ const state = {
 };
 
 const getters = {
- branches: state => state.branchesData,
+ branches: state => state.branchesData, //Branch:index
+  //Branch:info:CityCourier-Branch:info:CityTask-Branch:info:CityUser-Branch:info:Details
+  //Branch:info:DistrictCourier-Branch:info:DistrictTask-Branch:info:DistrictUser
+  //Branch:create,edit
+  //task:create,edit
  branch: state => state.branchData,
- branchCourier: state => state.branchCourierData,
- branchUser: state => state.branchUserData,
- branchTask: state => state.branchTaskData,
- branchCity: state => state.branchCityData,
- branchDistrict: state => state.branchDistrictData,
- branchCityCouriers: state => state.branchCityCouriersData,
- branchDistrictCouriers: state => state.branchDistrictCouriersData,
- branchCityUsers: state => state.branchCityUsersData,
- branchDistrictUsers: state => state.branchDistrictUsersData,
- branchCityTasks: state => state.branchCityTasksData,
- branchDistrictTasks: state => state.branchDistrictTasksData,
- allBranches: state => state.allBranchesData,
+ branchCourier: state => state.branchCourierData, //Branch:info:Courier-task:create,edit
+ branchUser: state => state.branchUserData, //Branch:info:User
+ branchTask: state => state.branchTaskData, //Branch:info:Task
+ branchCity: state => state.branchCityData, //Branch:info:CityCourier-Branch:info:CityTask-Branch:info:CityUser
+ branchDistrict: state => state.branchDistrictData, //Branch:info:DistrictCourier-Branch:info:DistrictTask-Branch:info:DistrictUser
+ branchCityCouriers: state => state.branchCityCouriersData, //Branch:info:CityCourier
+ branchDistrictCouriers: state => state.branchDistrictCouriersData, //Branch:info:DistrictCourier
+ branchCityUsers: state => state.branchCityUsersData, //Branch:info:CityUser
+ branchDistrictUsers: state => state.branchDistrictUsersData, //Branch:info:DistrictUser
+ branchCityTasks: state => state.branchCityTasksData,//-Branch:info:CityTask
+ branchDistrictTasks: state => state.branchDistrictTasksData, //Branch:info:DistrictTask
+ allBranches: state => state.allBranchesData, //task:create,edit
 }
 
 const actions =  {

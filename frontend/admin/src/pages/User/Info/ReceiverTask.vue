@@ -33,7 +33,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="task in userReceiverTask" :key="task.id">
+          <tr v-for="task in userReceiverTask.data" :key="task.id">
             <td>{{ task.id }}</td>
             <td>{{ task.courier ? task.courier.name : 'No Courier'}}</td>
             <td>{{ task.courier ? task.courier.phone : 'No Courier'}}</td>
@@ -51,6 +51,7 @@
     </div>
     <div class="card-footer">
       <small v-show="userReceiverTask == ''"><center>Not Found.</center></small>
+      <pagination class="float-right" :data="userReceiverTask" @pagination-change-page="getUserReceiverTasks"></pagination>
     </div>
   </div>
   <!-- /.card -->
@@ -67,7 +68,8 @@
     ...mapGetters("user", ["userReceiverTask"]),
   },
   created() {
-    this.getUserReceiverTasks(this.$route.params.id);
+    this.$store.commit('user/setUserID', this.$route.params.id);
+    this.getUserReceiverTasks();
   },
   methods: {
     ...mapActions("user", ["getUserReceiverTasks"]),

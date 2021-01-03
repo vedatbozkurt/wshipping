@@ -57,6 +57,7 @@
     ...mapGetters("branch", ["branch","branchCity","branchCityTasks"]),
   },
   created() {
+    this.$store.commit("branch/setBranchCityTasks", {});
     this.$store.commit("branch/setBranch", {}); //bu olmazsa detailsden birden fazla city id gelir city task hata verir
     this.getBranchCities();
   },

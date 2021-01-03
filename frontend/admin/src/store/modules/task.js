@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-02 02:23:52
+* @Last Modified time: 2020-07-03 21:12:43
 */
 import axios from "axios";
 const namespaced= true;
@@ -12,8 +12,8 @@ const state = {
 };
 
 const getters = {
- tasks: state => state.tasksData,
- task: state => state.taskData,
+ tasks: state => state.tasksData, //task:index
+ task: state => state.taskData, //task:create,edit
 }
 
 const actions =  {

@@ -71,7 +71,8 @@
     // this.$store.commit('city/setcityTasks', {});
   },
   created() {
-    this.getCityTasks(this.$route.params.id);
+    this.$store.commit('city/setCityID', this.$route.params.id);
+    this.getCityTasks();
   },
   methods: {
     ...mapActions("city", ["getCityTasks"]),

@@ -158,6 +158,7 @@
   mounted() {
     this.$store.commit("setErrors", {});
     this.$store.commit('courier/setCourier', {});
+    this.$store.commit('district/setCitiesDistricts', []);
   },
   created() {
     this.getCities();

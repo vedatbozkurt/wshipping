@@ -130,6 +130,7 @@
     this.$store.commit("setErrors", {});
   },
   created() {
+    this.$store.commit('district/setCitiesDistricts', []);
     this.getBranch(this.$route.params.id);
     this.getCities();
   },

@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-02 15:59:12
+* @Last Modified time: 2020-07-03 20:33:36
 */
 import axios from "axios";
 const namespaced= true;
@@ -12,8 +12,8 @@ const state = {
 };
 
 const getters = {
-   addresses: state => state.addressesData,
-   address: state => state.addressData,
+   addresses: state => state.addressesData,//adress:index-
+   address: state => state.addressData, //adress:create,edit-
 }
 
 const actions =  {

@@ -130,6 +130,7 @@
   },
   mounted() {
     this.$store.commit("setErrors", {});
+    this.$store.commit('district/setCityDistricts', []);
   },
   created() {
     this.getAddress(this.$route.params.id);

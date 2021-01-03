@@ -58,7 +58,6 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer clearfix">
-          l
           <ul class="pagination pagination-sm m-0 float-right">
             <pagination class="float-right" :data="branches" @pagination-change-page="getBranches"></pagination>
           </ul>

@@ -67,6 +67,7 @@
     ...mapGetters("branch", ["branch","branchCity","branchCityCouriers"]),
   },
   created() {
+    this.$store.commit("branch/setBranchCityCouriers", {});
     this.$store.commit("branch/setBranch", {}); //bu olmazsa detailsden birden fazla city id gelir city courier hata verir
     this.getBranchCities();
   },

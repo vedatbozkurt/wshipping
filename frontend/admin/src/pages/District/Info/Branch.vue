@@ -67,7 +67,8 @@
     // this.$store.commit('city/setcityTasks', {});
   },
   created() {
-    this.getDistrictBranches(this.$route.params.id);
+    this.$store.commit('district/setDistrictID', this.$route.params.id);
+    this.getDistrictBranches();
   },
   methods: {
     ...mapActions("district", ["getDistrictBranches"]),

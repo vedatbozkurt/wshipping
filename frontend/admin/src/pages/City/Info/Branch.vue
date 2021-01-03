@@ -67,7 +67,8 @@
     // this.$store.commit('city/setcityTasks', {});
   },
   created() {
-    this.getCityBranches(this.$route.params.id);
+    this.$store.commit('city/setCityID', this.$route.params.id);
+    this.getCityBranches();
   },
   methods: {
     ...mapActions("city", ["getCityBranches"]),

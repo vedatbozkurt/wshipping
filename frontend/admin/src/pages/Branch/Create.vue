@@ -43,7 +43,6 @@
                 <span class="text-danger" v-if="errors.city"> {{ errors.city[0] }}</span>
               </div>
             </div>
-
             <div class="form-group row">
               <label for="inputPassword3" class="col-sm-2 col-form-label">District</label>
               <div class="col-sm-10">
@@ -130,6 +129,7 @@
   },
   mounted() {
     this.$store.commit("setErrors", {});
+    this.$store.commit('district/setCitiesDistricts', []);
     this.$store.commit('branch/setBranch', {});
   },
   created() {

@@ -67,6 +67,7 @@
     ...mapGetters("branch", ["branch","branchDistrict","branchDistrictUsers"]),
   },
   created() {
+    this.$store.commit("branch/setBranchDistrictUsers", {});
     this.$store.commit("branch/setBranch", {}); //bu olmazsa detailsden birden fazla district id gelir district user hata verir
     this.getBranchDistricts();
   },

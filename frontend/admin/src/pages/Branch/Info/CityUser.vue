@@ -66,6 +66,7 @@
     ...mapGetters("branch", ["branch","branchCity","branchCityUsers"]),
   },
   created() {
+    this.$store.commit("branch/setBranchCityUsers", {});
     this.$store.commit("branch/setBranch", {}); //bu olmazsa detailsden birden fazla city id gelir city user hata verir
     this.getBranchCities();
   },

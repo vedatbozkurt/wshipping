@@ -118,6 +118,7 @@
   },
   mounted() {
     this.$store.commit("setErrors", {});
+    this.$store.commit('district/setCitiesDistricts', []);
   },
   created() {
     this.getCourier(this.$route.params.id);

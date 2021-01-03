@@ -30,7 +30,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="address in userAddress" :key="address.id">
+          <tr v-for="address in userAddress.data" :key="address.id">
             <td>{{ address.id }}</td>
             <td>{{ address.name}}</td>
             <td>{{ address.city.name}}</td>
@@ -45,6 +45,7 @@
     </div>
     <div class="card-footer">
      <small v-show="userAddress == ''"><center>Not Found.</center></small>
+     <pagination class="float-right" :data="userAddress" @pagination-change-page="getUserAddress"></pagination>
     </div>
   </div>
   <!-- /.card -->
@@ -60,7 +61,8 @@
     ...mapGetters("user", ["userAddress"]),
   },
   created() {
-    this.getUserAddress(this.$route.params.id);
+    this.$store.commit('user/setUserID', this.$route.params.id);
+    this.getUserAddress();
   },
   methods: {
     ...mapActions("user", ["getUserAddress"]),

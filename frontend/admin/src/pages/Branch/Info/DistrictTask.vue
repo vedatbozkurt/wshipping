@@ -57,6 +57,7 @@
     ...mapGetters("branch", ["branch","branchDistrict","branchDistrictTasks"]),
   },
   created() {
+    this.$store.commit("branch/setBranchDistrictTasks", {});
     this.$store.commit("branch/setBranch", {}); //bu olmazsa detailsden birden fazla district id gelir district task hata verir
     this.getBranchDistricts();
   },

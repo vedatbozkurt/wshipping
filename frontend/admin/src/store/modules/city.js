@@ -3,7 +3,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-27 20:29:22
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-03 14:58:19
+* @Last Modified time: 2020-07-04 00:35:49
 */
 import axios from "axios";
 const namespaced= true;
@@ -16,17 +16,22 @@ const state = {
   cityBranchesData: {},
   cityUsersData: {},
   cityTasksData: {},
+  cidtIDData:null, //city:info dosyalarında kullanıldı
 };
 
 const getters = {
+//adress:create(dropdown),edit(dropdown),Branch:info:Details(dropdown)
+//Branch:create(dropdown),edit(dropdown)
+//courier:info:Details(dropdown),courier:create(dropdown),courier:edit(dropdown)
+//district:Info:Details(droppdown),district:create(dropdown),district:edit(dropdown)
  cities: state => state.citiesData,
- citiesPage: state => state.citiesPageData,
- city: state => state.cityData,
- cityDistricts: state => state.cityDistrictsData,
- cityCouriers: state => state.cityCouriersData,
- cityBranches: state => state.cityBranchesData,
- cityUsers: state => state.cityUsersData,
- cityTasks: state => state.cityTasksData,
+ citiesPage: state => state.citiesPageData, //city:index(paginate)
+ city: state => state.cityData, //city:Info:Details-city:create,edit
+ cityDistricts: state => state.cityDistrictsData, //city:Info:District
+ cityCouriers: state => state.cityCouriersData, //city:Info:Courier
+ cityBranches: state => state.cityBranchesData, //city:Info:Branch
+ cityUsers: state => state.cityUsersData, //city:Info:User
+ cityTasks: state => state.cityTasksData, //city:Info:Task
 };
 
 const actions =  {
@@ -85,46 +90,46 @@ async deleteCityFromEdit({ commit }, id) {
   });
 },
 
-async getCityDistricts({ commit }, id) {
+async getCityDistricts({ commit }, page = 1) {
   commit("setLoader", true, { root: true });
-  await axios.get(process.env.VUE_APP_API_URL + "city/" + id + "/districts")
+  await axios.get(process.env.VUE_APP_API_URL + "city/" + state.CityIDData + "/districts?page=" + page)
   .then(response => {
     commit("setCityDistricts", response.data);
     commit("setLoader", false, { root: true });
 
   })
 },
-async getCityCouriers({ commit }, id) {
+async getCityCouriers({ commit }, page = 1) {
   commit("setLoader", true, { root: true });
-  await axios.get(process.env.VUE_APP_API_URL + "city/" + id + "/couriers")
+  await axios.get(process.env.VUE_APP_API_URL + "city/" + state.CityIDData + "/couriers?page=" + page)
   .then(response => {
     commit("setCityCouriers", response.data);
     commit("setLoader", false, { root: true });
 
   })
 },
-async getCityBranches({ commit }, id) {
+async getCityBranches({ commit }, page = 1) {
   commit("setLoader", true, { root: true });
-  await axios.get(process.env.VUE_APP_API_URL + "city/" + id + "/branches")
+  await axios.get(process.env.VUE_APP_API_URL + "city/" + state.CityIDData + "/branches?page=" + page)
   .then(response => {
     commit("setCityBranches", response.data);
     commit("setLoader", false, { root: true });
 
   })
 },
-async getCityUsers({ commit }, id) {
+async getCityUsers({ commit }, page = 1) {
   commit("setLoader", true, { root: true });
-  await axios.get(process.env.VUE_APP_API_URL + "city/" + id + "/users")
+  await axios.get(process.env.VUE_APP_API_URL + "city/" + state.CityIDData + "/users?page=" + page)
   .then(response => {
     commit("setCityUsers", response.data);
     commit("setLoader", false, { root: true });
 
   })
 },
-async getCityTasks({ commit }, id) {
+async getCityTasks({ commit }, page = 1) {
   commit("setLoader", true, { root: true });
   // await axios.get(process.env.VUE_APP_API_URL + "city/" + id + "/tasks?page="+page)
-  await axios.get(process.env.VUE_APP_API_URL + "city/" + id + "/tasks")
+  await axios.get(process.env.VUE_APP_API_URL + "city/" + state.CityIDData + "/tasks?page=" + page)
   .then(response => {
     commit("setCityTasks", response.data);
     commit("setLoader", false, { root: true });
@@ -142,6 +147,7 @@ const mutations =  {
   setCityBranches(state, data) { state.cityBranchesData = data },
   setCityUsers(state, data) { state.cityUsersData = data },
   setCityTasks(state, data) { state.cityTasksData = data },
+  setCityID(state, data) { state.CityIDData = data },
 }
 
 

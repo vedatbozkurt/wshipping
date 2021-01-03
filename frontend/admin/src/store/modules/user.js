@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-02 15:57:26
+* @Last Modified time: 2020-07-04 01:07:42
 */
 import axios from "axios";
 const namespaced= true;
@@ -15,17 +15,20 @@ const state = {
   allUsersData: [], //paginate olmadan dropdown için
   userSenderAddressData: [], //paginate olmadan dropdown için
   userReceiverAddressData: [], //paginate olmadan dropdown için
+  userIDData: null, //user:info dosyalarında kullanıldı
 };
 
 const getters = {
- users: state => state.usersData,
- allUsers: state => state.allUsersData, //for dropdown
- user: state => state.userData,
- userAddress: state => state.userAddressData,
- userSenderTask: state => state.userSenderTaskData,
- userReceiverTask: state => state.userReceiverTaskData,
- userSenderAddress: state => state.userSenderAddressData,
- userReceiverAddress: state => state.userReceiverAddressData,
+ users: state => state.usersData, //user:index
+  //adress:create(dropdown),edit(dropdown)
+  //task:create(dropdown),edit(dropdown)
+ allUsers: state => state.allUsersData,
+ user: state => state.userData, ////user:info:Details,create,edit
+ userAddress: state => state.userAddressData, //user:info:Address
+ userSenderTask: state => state.userSenderTaskData, //user:info:SenderTask
+ userReceiverTask: state => state.userReceiverTaskData, //user:info:ReceiverTask
+ userSenderAddress: state => state.userSenderAddressData, //task:create,edit
+ userReceiverAddress: state => state.userReceiverAddressData, //task:create,edit
 }
 
 const actions =  {
@@ -91,22 +94,22 @@ const actions =  {
       }
     });
   },
-  async getUserAddress({ commit }, id) {
+  async getUserAddress({ commit }, page = 1) {
     commit("setLoader", true, { root: true });
-    await axios.get(process.env.VUE_APP_API_URL + "user/" + id + "/addresses")
+    await axios.get(process.env.VUE_APP_API_URL + "user/" + state.UserIDData + "/addresses?page=" + page)
     .then(response => {
       commit("setUserAddress", response.data);
       commit("setLoader", false, { root: true });
     })
   },
-  async getUserSenderTasks({ commit }, id) {
-    await axios.get(process.env.VUE_APP_API_URL + "user/" + id + "/sendertasks")
+  async getUserSenderTasks({ commit }, page = 1) {
+    await axios.get(process.env.VUE_APP_API_URL + "user/" + state.UserIDData + "/sendertasks?page=" + page)
     .then(response => {
       commit("setUserSenderTasks", response.data);
     })
   },
-  async getUserReceiverTasks({ commit }, id) {
-    await axios.get(process.env.VUE_APP_API_URL + "user/" + id + "/receivertasks")
+  async getUserReceiverTasks({ commit }, page = 1) {
+    await axios.get(process.env.VUE_APP_API_URL + "user/" + state.UserIDData + "/receivertasks?page=" + page)
     .then(response => {
       commit("setUserReceiverTasks", response.data);
     })
@@ -141,6 +144,7 @@ const mutations =  {
   setUserReceiverTasks(state, data) { state.userReceiverTaskData = data },
   setUserSenderAddress(state, data) { state.userSenderAddressData = data },
   setUserReceiverAddress(state, data) { state.userReceiverAddressData = data },
+  setUserID(state, data) { state.UserIDData = data },
 }
 
 export default {

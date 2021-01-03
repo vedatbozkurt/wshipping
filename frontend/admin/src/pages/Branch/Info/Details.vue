@@ -88,10 +88,10 @@
     ...mapGetters("branch", ["branch"]),
     ...mapGetters("city", ["cities"]),
     ...mapGetters("district", ["citiesDistricts"]),
-
   },
   mounted() {
     this.$store.commit("setErrors", {});
+    this.$store.commit('district/setCitiesDistricts', []);
   },
   created() {
     this.getBranch(this.$route.params.id);

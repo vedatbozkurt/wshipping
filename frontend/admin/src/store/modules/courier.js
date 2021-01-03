@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-03 15:44:03
+* @Last Modified time: 2020-07-04 01:27:13
 */
 import axios from "axios";
 const namespaced= true;
@@ -14,16 +14,20 @@ const state = {
   courierCityBranchesData: {},
   courierDistrictBranchesData: {},
   courierTasksData: {},
+  courierIDData: null, //courier:info dosyalarında kullanıldı
+
 };
 
 const getters = {
- couriers: state => state.couriersData,
+ couriers: state => state.couriersData, //courier:index
+ //courier:info:CityBranch-courier:info:Details-courier:info:DistrictBranch
+ //courier:create,courier:edit
  courier: state => state.courierData,
- courierCity: state => state.courierCityData,
- courierDistrict: state => state.courierDistrictData,
- courierCityBranches: state => state.courierCityBranchesData,
- courierDistrictBranches: state => state.courierDistrictBranchesData,
- courierTasks: state => state.courierTasksData,
+ courierCity: state => state.courierCityData, //courier:info:CityBranch
+ courierDistrict: state => state.courierDistrictData, //courier:info:DistrictBranch
+ courierCityBranches: state => state.courierCityBranchesData, //courier:info:CityBranch
+ courierDistrictBranches: state => state.courierDistrictBranchesData, //courier:info:DistrictBranch
+ courierTasks: state => state.courierTasksData, //courier:info:Task
 }
 
 const actions =  {
@@ -83,14 +87,6 @@ const actions =  {
       }
     });
   },
-  async getCourierTask({ commit }, id) {
-    commit("setLoader", true, { root: true });
-    await axios.get(process.env.VUE_APP_API_URL + "courier/" + id + "/tasks")
-    .then(response => {
-      commit("setCourierTask", response.data);
-      commit("setLoader", false, { root: true });
-    })
-  },
   async getCourierCity({ commit }, id) {
     await axios.get(process.env.VUE_APP_API_URL + "courier/cities/" + id)
     .then(response => {
@@ -115,6 +111,14 @@ const actions =  {
       commit("setCourierDistrictBranches", response.data);
     })
   },
+  async getCourierTask({ commit }, page = 1) {
+    commit("setLoader", true, { root: true });
+    await axios.get(process.env.VUE_APP_API_URL + "courier/" + state.courierIDData + "/tasks?page="+page)
+    .then(response => {
+      commit("setCourierTask", response.data);
+      commit("setLoader", false, { root: true });
+    })
+  },
 }
 
 const mutations =  {
@@ -126,6 +130,7 @@ const mutations =  {
   setCourierDistrict(state, data) { state.courierDistrictData = data },
   setCourierCityBranches(state, data) { state.courierCityBranchesData = data },
   setCourierDistrictBranches(state, data) { state.courierDistrictBranchesData = data },
+  setCourierID(state, data) { state.courierIDData = data },
 }
 
 export default {

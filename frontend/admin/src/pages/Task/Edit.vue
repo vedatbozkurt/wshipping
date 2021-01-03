@@ -44,7 +44,7 @@
                     <multiselect v-model="task.sender" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Gönderici" :options="allUsers" :searchable="false" :allow-empty="false" @input='getSenderUserAddress'>
                       <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> gönderici olarak seçildi<strong>  {{ option.language }}</strong></template>
                     </multiselect>
-                    <span class="text-danger" v-if="errors.sender_id"> {{ errors.sender_id[0] }}</span>
+                    <span class="text-danger" v-if="errors.sender"> {{ errors.sender[0] }}</span>
                   </div>
                 </div>
 
@@ -54,7 +54,7 @@
                     <multiselect v-model="task.senderaddress" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Gönderici Adresi" :options="userSenderAddress" :searchable="false" :allow-empty="false" noOptions="Select Sender">
                       <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> gönderici adresi olarak seçildi<strong>  {{ option.language }}</strong></template>
                     </multiselect>
-                    <span class="text-danger" v-if="errors.sender_address_id"> {{ errors.sender_address_id[0] }}</span>
+                    <span class="text-danger" v-if="errors.senderaddress"> {{ errors.senderaddress[0] }}</span>
                   </div>
                 </div>
 
@@ -64,7 +64,7 @@
                     <multiselect v-model="task.receiver" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Alıcı" :options="allUsers" :searchable="false" :allow-empty="false" @input='getReceiverUserAddress'>
                       <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> alıcı olarak seçildi<strong>  {{ option.language }}</strong></template>
                     </multiselect>
-                    <span class="text-danger" v-if="errors.receiver_id"> {{ errors.receiver_id[0] }}</span>
+                    <span class="text-danger" v-if="errors.receiver"> {{ errors.receiver[0] }}</span>
                   </div>
                 </div>
 
@@ -74,7 +74,7 @@
                     <multiselect v-model="task.receiveraddress" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Alıcı Adresi" :options="allAddresses" :searchable="false" :allow-empty="false">
                       <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> alıcı adresi olarak seçildi<strong>  {{ option.language }}</strong></template>
                     </multiselect>
-                    <span class="text-danger" v-if="errors.receiver_address_id"> {{ errors.receiver_address_id[0] }}</span>
+                    <span class="text-danger" v-if="errors.receiveraddress"> {{ errors.receiveraddress[0] }}</span>
                   </div>
                 </div>
 
@@ -156,6 +156,9 @@
       },
       mounted() {
         this.$store.commit("setErrors", {});
+        this.$store.commit('user/setUserSenderAddress', []);
+        this.$store.commit('user/setUserReceiverAddress', []);
+        this.$store.commit('branch/setBranchCourier', []);
         this.$store.commit('task/setTask', {});
         this.$store.commit('branch/setBranch', {});
         this.getAllUsers();
@@ -182,11 +185,11 @@
           });
         },
         getSenderUserAddress: function() {
-      this.getUserSenderAddress(this.task.sender_id.id).then(() => { //sender addresses
+      this.getUserSenderAddress(this.task.sender.id).then(() => { //sender addresses
       });
     },
     getReceiverUserAddress: function() {
-      this.getUserReceiverAddress(this.task.receiver_id.id).then(() => { //receiver addresses
+      this.getUserReceiverAddress(this.task.receiver.id).then(() => { //receiver addresses
         this.allAddresses = this.userReceiverAddress.concat(this.userSenderAddress); //receiver için sender + receiver adresleri birleştirildi
       });
     },

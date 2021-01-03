@@ -129,6 +129,7 @@
   },
   mounted() {
     this.$store.commit("setErrors", {});
+    this.$store.commit('district/setCityDistricts', []);
     this.$store.commit('address/setAddress', {});
   },
   created() {
