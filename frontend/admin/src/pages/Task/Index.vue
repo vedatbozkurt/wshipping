@@ -52,33 +52,35 @@
                 <td>{{ task.courier ? task.courier.phone : 'No Courier'}}</td>
                 <td>{{ task.price }}</td>
                 <td>{{ task.created_at | moment("MMMM Do YYYY") }}</td>
-                <td><span v-show="!task.deleted_at"  class="badge " :class="task.status == 1 ? 'badge-success' : 'badge-warning'" >{{ task.status == 1 ? 'Active' : 'Inactive'}}</span>
-                  <span v-show="task.deleted_at" class="badge badge-danger">Deleted</span>
-                </td>
                 <td>
-                  <router-link style="margin-right: 11px"  :to="{name: 'EditTask', params: { id: task.id }}" class="btn btn-outline-info btn-xs btn-flat"><i class="fas fa-edit"></i></router-link>
-                  <button class="btn btn-outline-danger btn-xs btn-flat" @click.prevent="deleteTaskConfirm(task.id)">
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <!-- /.card-body -->
-        <div class="card-footer clearfix">
-          <ul class="pagination pagination-sm m-0 float-right">
-            <pagination class="float-right" :data="tasks" @pagination-change-page="getTasks"></pagination>
-          </ul>
-        </div>
+                 <task-status v-show="!task.deleted_at" :status=task.status />
+                 <span v-show="task.deleted_at" class="badge badge-danger">Deleted</span>
+               </td>
+               <td>
+                <router-link style="margin-right: 11px"  :to="{name: 'EditTask', params: { id: task.id }}" class="btn btn-outline-info btn-xs btn-flat"><i class="fas fa-edit"></i></router-link>
+                <button class="btn btn-outline-danger btn-xs btn-flat" @click.prevent="deleteTaskConfirm(task.id)">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <!-- /.card -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+      <!-- /.card-body -->
+      <div class="card-footer clearfix">
+        <ul class="pagination pagination-sm m-0 float-right">
+          <pagination class="float-right" :data="tasks" @pagination-change-page="getTasks"></pagination>
+        </ul>
+      </div>
+    </div>
+    <!-- /.card -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
 </template>
 <script>
+ import TaskStatus from '../../components/TaskStatus.vue'
  import { mapGetters, mapActions } from "vuex";
  import Swal from 'sweetalert2'
  window.Swal = Swal
@@ -88,7 +90,9 @@
     return {
     }
   },
-
+  components: {
+    TaskStatus
+  },
   computed: {
     ...mapGetters("task", ["tasks"])
   },

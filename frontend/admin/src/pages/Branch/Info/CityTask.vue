@@ -29,7 +29,10 @@
             <td>{{ task.description}}</td>
             <td>{{ task.price}}</td>
             <td>{{ task.created_at | moment("MMMM Do YYYY") }}</td>
-            <td><span class="badge " :class="task.status == 1 ? 'badge-success' : 'badge-warning'" >{{ task.status == 1 ? 'active' : 'inactive'}}</span></td>
+            <td>
+                 <task-status v-show="!task.deleted_at" :status=task.status />
+              <span v-show="task.deleted_at" class="badge badge-danger">Deleted</span>
+            </td>
             <td>
               <router-link style="margin-right: 11px"  :to="{name: 'EditTask', params: { id: task.id }}" class="btn btn-outline-info btn-xs btn-flat"><i class="fas fa-edit"></i></router-link>
             </td>
@@ -46,6 +49,7 @@
  <!-- /.card -->
 </template>
 <script>
+ import TaskStatus from '../../../components/TaskStatus.vue'
  import { mapGetters, mapActions} from "vuex";
  export default {
   data() {
@@ -53,7 +57,9 @@
       empty: true,
     }
   },
-
+  components: {
+    TaskStatus
+  },
   computed: {
     ...mapGetters("branch", ["branch","branchCity","branchCityTasks"]),
   },

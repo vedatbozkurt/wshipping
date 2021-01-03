@@ -111,8 +111,14 @@
               <label for="inputPassword3" class="col-sm-2 col-form-label">Status</label>
               <div class="col-sm-10">
                 <select class="form-control" v-bind:class="{ 'is-invalid': errors.status }" v-model="task.status">
-                  <option value="0">Inactive</option>
-                  <option value="1">Active</option>
+                  <option value="0">Onay Bekliyor</option>
+                  <option value="1">Onaylandı - Kurye Ataması Bekleniyor</option>
+                  <option value="2">Kurye atandı-Kurye Kabul Etmesi Bekleniyor</option>
+                  <option value="3">Kurye Kabul etti</option>
+                  <option value="4">Kurye Yolda</option>
+                  <option value="5">Kurye Hedefe Vardı</option>
+                  <option value="6">Gönderi Teslim Edildi</option>
+                  <option value="7">İptal Edildi</option>
                 </select>
                 <span class="text-danger" v-if="errors.status"> {{ errors.status[0] }}</span>
               </div>
