@@ -23,18 +23,13 @@
           </tr>
         </thead>
         <tbody>
-         <tr v-for="branch in courierCityBranches" :key="branch.id">
+         <tr v-for="branch in courierCityBranches.data" :key="branch.id">
             <td>{{ branch.id }}</td>
             <td>{{ branch.name}}</td>
             <td>{{ branch.phone }}</td>
             <td>{{ branch.email }}</td>
             <td>
-              <button style="margin-right: 11px" class="btn btn-outline-info btn-xs btn-flat">
-                <i class="fas fa-edit"></i>
-              </button>
-              <button class="btn btn-outline-danger btn-xs btn-flat">
-                <i class="fas fa-trash-alt"></i>
-              </button>
+              <router-link style="margin-right: 11px"  :to="{name: 'EditBranch', params: { id: branch.id }}" class="btn btn-outline-info btn-xs btn-flat"><i class="fas fa-edit"></i></router-link>
             </td>
           </tr>
         </tbody>

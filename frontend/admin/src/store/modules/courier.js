@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-01 13:08:46
+* @Last Modified time: 2020-07-03 15:44:03
 */
 import axios from "axios";
 const namespaced= true;

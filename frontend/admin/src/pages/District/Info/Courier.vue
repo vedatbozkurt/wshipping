@@ -1,11 +1,11 @@
 <template>
   <div class="card card-primary card-outline">
     <div class="card-header">
-      <h3 class="card-title">Branch Users</h3>
+      <h3 class="card-title">District Couriers</h3>
 
       <div class="card-tools">
         <div class="input-group input-group-sm">
-          <input type="text" class="form-control" placeholder="Search User">
+          <input type="text" class="form-control" placeholder="Search Courier">
           <div class="input-group-append">
             <div class="btn btn-primary">
               <i class="fas fa-search"></i>
@@ -26,35 +26,33 @@
             <th>Name</th>
             <th>Phone</th>
             <th>Email</th>
+            <th>Created At</th>
             <th>Status</th>
             <th style="width: 70px">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in branchUser" :key="user.id">
-            <td>{{ user.id }}</td>
+          <tr v-for="courier in districtCouriers.data" :key="courier.id">
+            <td>{{ courier.id }}</td>
             <td><img alt="Avatar" class="table-avatar" src="https://adminlte.io/themes/dev/AdminLTE/dist/img/avatar.png"></td>
+            <td>{{ courier.name }}</td>
+            <td>{{ courier.phone }}</td>
+            <td>{{ courier.email }}</td>
+            <td>{{ courier.created_at | moment("MMMM Do YYYY") }}</td>
+            <td><span class="badge " :class="courier.status == 1 ? 'badge-success' : 'badge-warning'" >{{ courier.status == 1 ? 'active' : 'inactive'}}</span></td>
             <td>
-              {{ user.name}}<br/>
-              <small>
-                Kayıt: {{ user.created_at | moment("MMMM Do YYYY") }}
-              </small>
-            </td>
-            <td>{{ user.phone}}</td>
-            <td>{{ user.email}}</td>
-            <td><span class="badge " :class="user.status == 1 ? 'badge-success' : 'badge-warning'" >{{ user.status == 1 ? 'active' : 'inactive'}}</span></td>
-            <td>
-              <router-link style="margin-right: 11px"  :to="{name: 'EditUser', params: { id: user.id }}" class="btn btn-outline-info btn-xs btn-flat"><i class="fas fa-edit"></i></router-link>
+              <router-link style="margin-right: 11px"  :to="{name: 'EditCourier', params: { id: courier.id }}" class="btn btn-outline-info btn-xs btn-flat"><i class="fas fa-edit"></i></router-link>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="card-footer">
-     <small v-show="branchUser == ''"><center>Not Found.</center></small>
-    </div>
-  </div>
-  <!-- /.card -->
+     <small v-show="districtCouriers == ''"><center>Not Found.</center></small>
+     <pagination class="float-right" :data="districtCouriers" @pagination-change-page="getDistrictCouriers"></pagination>
+   </div>
+ </div>
+ <!-- /.card -->
 </template>
 <script>
  import { mapGetters, mapActions} from "vuex";
@@ -65,13 +63,16 @@
   },
 
   computed: {
-    ...mapGetters("branch", ["branchUser"]),
+    ...mapGetters("district", ["districtCouriers"]),
+  },
+  mounted() {
+    // this.$store.commit('city/setcityTasks', {});
   },
   created() {
-    this.getBranchUser(this.$route.params.id);
+    this.getDistrictCouriers(this.$route.params.id);
   },
   methods: {
-    ...mapActions("branch", ["getBranchUser"]),
+    ...mapActions("district", ["getDistrictCouriers"]),
   }
 }
 </script>

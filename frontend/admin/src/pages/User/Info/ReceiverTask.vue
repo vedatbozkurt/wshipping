@@ -35,20 +35,15 @@
         <tbody>
           <tr v-for="task in userReceiverTask" :key="task.id">
             <td>{{ task.id }}</td>
-            <td>{{ task.courier.name}}</td>
-            <td>{{ task.courier.phone}}</td>
+            <td>{{ task.courier ? task.courier.name : 'No Courier'}}</td>
+            <td>{{ task.courier ? task.courier.phone : 'No Courier'}}</td>
             <td>{{ task.sender.name}}</td>
             <td>{{ task.sender.phone}}</td>
             <td>{{ task.price}}</td>
             <td>{{ task.created_at | moment("MMMM Do YYYY") }}</td>
             <td><span class="badge " :class="task.status == 1 ? 'badge-success' : 'badge-warning'" >{{ task.status == 1 ? 'active' : 'inactive'}}</span></td>
             <td>
-              <button style="margin-right: 11px" class="btn btn-outline-info btn-xs btn-flat">
-                <i class="fas fa-edit"></i>
-              </button>
-              <button class="btn btn-outline-danger btn-xs btn-flat">
-                <i class="fas fa-trash-alt"></i>
-              </button>
+              <router-link style="margin-right: 11px"  :to="{name: 'EditTask', params: { id: task.id }}" class="btn btn-outline-info btn-xs btn-flat"><i class="fas fa-edit"></i></router-link>
             </td>
           </tr>
         </tbody>

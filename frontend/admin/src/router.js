@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-16 01:37:20
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-02 16:04:51
+* @Last Modified time: 2020-07-03 16:13:56
 */
 import Vue from "vue";
 import VueRouter from 'vue-router'
@@ -77,15 +77,29 @@ const routes = [
  { path: 'address/create', component: () => import("./pages/Address/Create"), name: 'CreateAddress'},
  { path: 'address/:id', component: () => import("./pages/Address/Edit"), name: 'EditAddress'},
 
-
  { path: 'city', component: () => import("./pages/City/Index"),name: 'Cities'}, //City pages start
  { path: 'city/create', component: () => import("./pages/City/Create"), name: 'CreateCity'},
  { path: 'city/:id', component: () => import("./pages/City/Edit"), name: 'EditCity'},
-
+ { path: 'city/:id', component: () => import("./pages/City/Info"),
+ children: [
+ { path: 'info', component: () => import("./pages/City/Info/Details"), name: 'CityDetails'},
+ { path: 'districts', component: () => import("./pages/City/Info/District"), name: 'CityDistrict'},
+ { path: 'couriers', component: () => import("./pages/City/Info/Courier"), name: 'CityCourier'},
+ { path: 'branches', component: () => import("./pages/City/Info/Branch"), name: 'CityBranch'},
+ { path: 'users', component: () => import("./pages/City/Info/User"), name: 'CityUser'},
+ { path: 'tasks', component: () => import("./pages/City/Info/Task"), name: 'CityTask'},
+ ]}, //cİTY pages END
  { path: 'district', component: () => import("./pages/District/Index"),name: 'Districts'}, //District pages start
  { path: 'district/create', component: () => import("./pages/District/Create"), name: 'CreateDistrict'},
  { path: 'district/:id', component: () => import("./pages/District/Edit"), name: 'EditDistrict'},
-
+ { path: 'district/:id', component: () => import("./pages/District/Info"),
+ children: [
+ { path: 'info', component: () => import("./pages/District/Info/Details"), name: 'DistrictDetails'},
+ { path: 'couriers', component: () => import("./pages/District/Info/Courier"), name: 'DistrictCourier'},
+ { path: 'branches', component: () => import("./pages/District/Info/Branch"), name: 'DistrictBranch'},
+ { path: 'users', component: () => import("./pages/District/Info/User"), name: 'DistrictUser'},
+ { path: 'tasks', component: () => import("./pages/District/Info/Task"), name: 'DistrictTask'},
+ ]}, //District pages END
  { path: 'setting', component: () => import("./pages/Setting"), name: 'Setting'},
  { path: 'profile', component: () => import("./pages/Profile"), name: 'Profile'},
  ]

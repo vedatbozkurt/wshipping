@@ -1,11 +1,11 @@
 <template>
   <div class="card card-primary card-outline">
     <div class="card-header">
-      <h3 class="card-title">User Addresses</h3>
+      <h3 class="card-title">City Districts</h3>
 
       <div class="card-tools">
         <div class="input-group input-group-sm">
-          <input type="text" class="form-control" placeholder="Search Address">
+          <input type="text" class="form-control" placeholder="Search District">
           <div class="input-group-append">
             <div class="btn btn-primary">
               <i class="fas fa-search"></i>
@@ -23,31 +23,26 @@
           <tr>
             <th style="width: 10px">#ID</th>
             <th>Name</th>
-            <th>City</th>
-            <th>District</th>
-            <th>Created At</th>
             <th style="width: 70px">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="address in userAddress" :key="address.id">
-            <td>{{ address.id }}</td>
-            <td>{{ address.name}}</td>
-            <td>{{ address.city.name}}</td>
-            <td>{{ address.district.name}}</td>
-            <td>{{ address.created_at | moment("MMMM Do YYYY") }}</td>
-             <td>
-              <router-link style="margin-right: 11px"  :to="{name: 'EditAddress', params: { id: address.id }}" class="btn btn-outline-info btn-xs btn-flat"><i class="fas fa-edit"></i></router-link>
+          <tr v-for="district in cityDistricts.data" :key="district.id">
+            <td>{{ district.id }}</td>
+            <td>{{ district.name}}</td>
+            <td>
+              <router-link style="margin-right: 11px"  :to="{name: 'EditDistrict', params: { id: district.id }}" class="btn btn-outline-info btn-xs btn-flat"><i class="fas fa-edit"></i></router-link>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="card-footer">
-     <small v-show="userAddress == ''"><center>Not Found.</center></small>
-    </div>
-  </div>
-  <!-- /.card -->
+     <small v-show="cityDistricts == ''"><center>Not Found.</center></small>
+     <pagination class="float-right" :data="cityDistricts" @pagination-change-page="getCityDistricts"></pagination>
+   </div>
+ </div>
+ <!-- /.card -->
 </template>
 <script>
  import { mapGetters, mapActions} from "vuex";
@@ -56,14 +51,18 @@
     return {
     }
   },
+
   computed: {
-    ...mapGetters("user", ["userAddress"]),
+    ...mapGetters("city", ["cityDistricts"]),
+  },
+  mounted() {
+    // this.$store.commit('city/setcityTasks', {});
   },
   created() {
-    this.getUserAddress(this.$route.params.id);
+    this.getCityDistricts(this.$route.params.id);
   },
   methods: {
-    ...mapActions("user", ["getUserAddress"]),
+    ...mapActions("city", ["getCityDistricts"]),
   }
 }
 </script>

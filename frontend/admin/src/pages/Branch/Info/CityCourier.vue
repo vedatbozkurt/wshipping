@@ -38,12 +38,7 @@
             <td>{{ courier.email}}</td>
             <td><span class="badge " :class="courier.status == 1 ? 'badge-success' : 'badge-warning'" >{{ courier.status === 1 ? 'active' : 'inactive'}}</span></td>
             <td>
-              <button style="margin-right: 11px" class="btn btn-outline-info btn-xs btn-flat">
-                <i class="fas fa-edit"></i>
-              </button>
-              <button class="btn btn-outline-danger btn-xs btn-flat">
-                <i class="fas fa-trash-alt"></i>
-              </button>
+              <router-link style="margin-right: 11px"  :to="{name: 'EditCourier', params: { id: courier.id }}" class="btn btn-outline-info btn-xs btn-flat"><i class="fas fa-edit"></i></router-link>
             </td>
           </tr>
         </tbody>

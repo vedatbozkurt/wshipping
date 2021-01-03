@@ -31,29 +31,6 @@
           <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
 
-           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt text-primary"></i>
-              <p>
-                Dashboard
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="../../index.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v1</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="../../index2.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v2</p>
-                </a>
-              </li>
-            </ul>
-          </li>
           <li class="nav-item">
             <router-link to="/" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt red"></i>
@@ -68,13 +45,13 @@
           </li>
           <li class="nav-item">
             <router-link to="/courier" class="nav-link">
-              <i class="nav-icon fas fa-biking olive"></i>
+              <i class="nav-icon fas fa-biking yellow"></i>
               <p>Couriers</p>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/user" class="nav-link">
-              <i class="nav-icon fas fa-users pink"></i>
+              <i class="nav-icon fas fa-users acikpink"></i>
               <p>Users</p>
             </router-link>
           </li>
@@ -86,19 +63,19 @@
           </li>
           <li class="nav-item">
             <router-link to="/address" class="nav-link">
-              <i class="nav-icon fas fa-tasks red"></i>
+              <i class="nav-icon fas fa-address-card pink"></i>
               <p>Addresses</p>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/city" class="nav-link">
-              <i class="nav-icon fas fa-tasks red"></i>
+              <i class="nav-icon far fa-dot-circle bordo"></i>
               <p>Cities</p>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/district" class="nav-link">
-              <i class="nav-icon fas fa-tasks red"></i>
+              <i class="nav-icon fas fa-bullseye green2"></i>
               <p>Districts</p>
             </router-link>
           </li>
@@ -117,7 +94,7 @@
         </li>
         <li class="nav-item">
           <a href="#" class="nav-link" @click="logout">
-            <i class="nav-icon far fa-circle text-danger"></i>
+            <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
             <p class="text">Logout</p>
           </a>
         </li>
@@ -154,9 +131,11 @@
 <style scoped>
 .red { color:#ff0000; }
 .blue { color:#99eaff; }
+.blue2 { color:#c6e2ff; }
 .green { color:#93e993 ; }
-.green { color:#93e993 ; }
-.olive { color:#808000 ; }
+.green2 { color:#7fffbf ; }
 .pink { color:#ba76ad ; }
-
+.acikpink { color:#dacdf7 ; }
+.yellow { color:#fcd314 ; }
+.bordo { color:#b60095 ; }
 </style>
