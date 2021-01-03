@@ -93,7 +93,6 @@
             </form>
           </div>
           <!-- /.card -->
-{{editedUser.password}}parola
         </section>
         <!-- /.content -->
       </div>

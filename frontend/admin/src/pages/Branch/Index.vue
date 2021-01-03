@@ -52,7 +52,7 @@
                 <td>{{ branch.name }}</td>
                 <td>{{ branch.phone }}</td>
                 <td>{{ branch.email }}</td>
-                <td><span class="badge " :class="branch.status == 1 ? 'badge-success' : 'badge-warning'" >{{ branch.status === 1 ? $t('form.active') : $t('form.inactive')}}</span></td>
+                <td><span class="badge " :class="branch.status === 1 ? 'badge-success' : 'badge-warning'" >{{ branch.status === 1 ? $t('form.active') : $t('form.inactive')}}</span></td>
                 <td>
                   <router-link style="margin-right: 11px" :to="{name: 'BranchDetails', params: { id: branch.id }}"  class="btn btn-outline-primary btn-xs btn-flat"><i class="fas fa-info-circle"></i></router-link>
 

@@ -38,7 +38,7 @@
             <div class="form-group row">
               <label for="inputPassword3" class="col-sm-2 col-form-label">{{ $t('form.city') }}</label>
               <div class="col-sm-10">
-                <multiselect v-model="courier.city" :options="cities" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('select.selectCity')" label="name" track-by="name" :preselect-first="true"  @input='getCitiesDistricts'>
+                <multiselect v-model="courier.city" :options="cities" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('select.selectCity')" label="name" track-by="name" :preselect-first="true"  @input='getCityDistricts'>
                 </multiselect>
                 <span class="text-danger" v-if="errors.city"> {{ errors.city[0] }}</span>
               </div>
@@ -143,7 +143,8 @@
  export default {
   data() {
     return {
-      courier: {}
+      courier: {},
+      result:''
     }
   },
   computed: {
@@ -168,7 +169,8 @@
       this.courier.image = e.target.files[0];
     },
     getCityDistricts: function() {
-      this.getCitiesDistricts(this.courier.city).then(() => {
+      this.result = this.courier.city.map(a => a.id);
+      this.getCitiesDistricts(this.result).then(() => {
       });
     },
     addCourier: function() {

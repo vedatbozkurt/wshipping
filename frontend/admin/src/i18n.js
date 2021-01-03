@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-04-10 16:28:03
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-07 21:19:59
+* @Last Modified time: 2020-07-08 21:30:11
 */
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
@@ -468,7 +468,7 @@ fr: {
     }
     var locale = localStorage.getItem('userlocale')
     if (!locale) {
-      locale = 'en';
+      locale = 'tr';
     }
     const i18n = new VueI18n({
 locale: locale, // set locale

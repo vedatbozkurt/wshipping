@@ -34,7 +34,7 @@
             <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-biking"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">{{ $t('branches') }}</span>
+              <span class="info-box-text">{{ $t('courier.couriers') }}</span>
               <span class="info-box-number">{{couriers}}</span>
             </div>
             <!-- /.info-box-content -->

@@ -3,7 +3,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-27 20:29:22
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-07 00:16:59
+* @Last Modified time: 2020-07-09 15:15:32
 */
 import axios from "axios";
 const namespaced= true;
@@ -34,7 +34,7 @@ const getters = {
 
 const actions =  {
   async getCitiesDistricts({ commit }, data) {
-    await axios.post(process.env.VUE_APP_API_URL + "district/citiesalldistricts/", data )
+    await axios.get(process.env.VUE_APP_API_URL + "district/citiesalldistricts/"+data  )
     .then(response => {
       commit("setCitiesDistricts", response.data);
     })
