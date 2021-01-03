@@ -4,7 +4,6 @@
     <!-- Brand Logo -->
     <router-link to="/" class="brand-link">
       <img src="../assets/wlogo.png"
-      alt="AdminLTE Logo"
       class="brand-image img-circle elevation-3"
       style="opacity: .8">
       <span class="brand-text font-weight-light">wshipping V1</span>
@@ -14,14 +13,13 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-1 d-flex">
         <div class="image">
-          <img src="../assets/logo.png" class="img-circle elevation-2" alt="User Image">
+          <img v-if="logo" :src="getLogo()" style="width: 50px" class="elevation-2" alt="User Image">
         </div><!--
         <div class="info">
           <router-link to="/profile" class="d-block">{{ user.name }}</router-link>
         </div> -->
         <div class="info">
           <a href="#" class="d-block"> {{ admin.name }}</a>
-
         </div>
       </div>
 
@@ -33,7 +31,7 @@
 
            <li class="nav-item">
             <router-link to="/" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt red"></i>
+              <i class="nav-icon fas fa-tachometer-alt yellowa"></i>
               <p>{{ $t('dashboard') }}</p>
             </router-link>
           </li>
@@ -63,7 +61,7 @@
           </li>
           <li class="nav-item">
             <router-link to="/address" class="nav-link">
-              <i class="nav-icon fas fa-address-card pink"></i>
+              <i class="nav-icon fas fa-address-card orange"></i>
               <p>{{ $t('addresses') }}</p>
             </router-link>
           </li>
@@ -109,6 +107,7 @@
   import { mapGetters,mapActions} from "vuex";
   export default {
     computed: {
+      ...mapGetters(["logo"]),
       ...mapGetters("profile", ["admin"])
     },
 
@@ -123,12 +122,15 @@
       logout() {
         this.sendLogoutRequest();
         this.$router.push({name: 'Login'});
+      },
+      getLogo(){
+        return process.env.VUE_APP_URL+"images/" + this.logo;
       }
     }
-  };
+  }
 </script>
 <style scoped>
-.red { color:#ff0000; }
+.yellowa { color:#F6F6A9; }
 .blue { color:#99eaff; }
 .blue2 { color:#c6e2ff; }
 .green { color:#93e993 ; }
@@ -137,4 +139,6 @@
 .acikpink { color:#dacdf7 ; }
 .yellow { color:#fcd314 ; }
 .bordo { color:#b60095 ; }
+.orange { color:#FD9646 ; }
+
 </style>

@@ -48,7 +48,7 @@
             <tbody>
               <tr v-for="user in users.data" :key="user.id">
                 <td>{{ user.id }}</td>
-                <td><img alt="Avatar" class="table-avatar" src="https://adminlte.io/themes/dev/AdminLTE/dist/img/avatar.png"></td>
+                <td><img alt="Avatar" class="table-avatar" :src="getPhoto('user',user.image)"></td>
                 <td>{{ user.name }}</td>
                 <td>{{ user.phone }}</td>
                 <td>{{ user.email }}</td>
@@ -126,7 +126,8 @@
       this.deleteUser(id).then(() => {
         this.myToast('success',this.$t('user.deletedUser'));
       });
-    }
+    },
+    getPhoto: (owner,image) => { return process.env.VUE_APP_URL+"images/"+ owner+"/"+image }
   }
 }
 </script>

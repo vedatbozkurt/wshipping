@@ -31,21 +31,21 @@
             <div class="form-group row">
               <label for="inputEmail3" class="col-sm-2 col-form-label">{{ $t('form.name') }}</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" v-model="admin.name" v-bind:class="{ 'is-invalid':errors.name }">
+                <input type="text" class="form-control" v-model="profile.name" v-bind:class="{ 'is-invalid':errors.name }">
                 <span class="text-danger" v-if="errors.name"> {{ errors.name[0] }}</span>
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-sm-2 col-form-label">{{ $t('form.email') }}</label>
               <div class="col-sm-10">
-                <input type="email" class="form-control" v-model="admin.email" v-bind:class="{ 'is-invalid': errors.email }">
+                <input type="email" class="form-control" v-model="profile.email" v-bind:class="{ 'is-invalid': errors.email }">
                 <span class="text-danger" v-if="errors.email"> {{ errors.email[0] }}</span>
               </div>
             </div>
             <div class="form-group row">
               <label for="inputPassword3" class="col-sm-2 col-form-label">{{ $t('password') }}</label>
               <div class="col-sm-10">
-                <input type="password" class="form-control" v-model="admin.password" v-bind:class="{ 'is-invalid':errors.password }">
+                <input type="password" class="form-control" v-model="profile.password" v-bind:class="{ 'is-invalid':errors.password }">
                 <span class="text-danger" v-if="errors.password"> {{ errors.password[0] }}</span>
               </div>
             </div>
@@ -73,6 +73,9 @@
  export default {
   data() {
     return {
+      profile:{
+
+      }
     }
   },
 
@@ -84,13 +87,15 @@
     this.$store.commit("setErrors", {});
   },
   created() {
-    this.getAdminData();
+    this.getAdminData().then(() => {
+         this.profile = this.admin
+        });
   },
   methods: {
     ...mapActions("profile", ["getAdminData","uploadAdminData"]),
 
     updateProfile: function() {
-      this.uploadAdminData(this.admin).then(() => {
+      this.uploadAdminData(this.profile).then(() => {
         this.myToast('success',this.$t('updatedProfile'));
       });
     }

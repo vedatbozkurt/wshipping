@@ -23,21 +23,24 @@ export default new Vuex.Store({
     loader: false,
     searchData: null,
     currencyData: null,
+    logoData: null,
   },
 
   getters: {
     errors: state => state.errors,
     loader: state => state.loader,
     search: state => state.searchData,
-    currency: state => state.currencyData
+    currency: state => state.currencyData,
+    logo: state => state.logoData
   },
 
   actions: {
-    async getCurrency({ commit }) {
+    async getInitialData({ commit }) {
       commit("setErrors", {}, { root: true });
-      await axios.get(process.env.VUE_APP_API_URL + "currency")
+      await axios.get(process.env.VUE_APP_API_URL + "initialdata")
       .then(response => {
-        commit("setCurrency", response.data);
+        commit("setCurrency", response.data.currency);
+        commit("setLogo", response.data.logo);
       });
     },
   },
@@ -46,7 +49,8 @@ export default new Vuex.Store({
     setErrors(state, errors) { state.errors = errors; },
     setLoader(state, loader) { state.loader = loader; },
     setSearch(state, data) { state.searchData = data; },
-    setCurrency(state, data) { state.currencyData = data; }
+    setCurrency(state, data) { state.currencyData = data; },
+    setLogo(state, data) { state.logoData = data; }
   },
 
   modules: {

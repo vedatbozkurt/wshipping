@@ -10,7 +10,7 @@
         <thead>
           <tr>
             <th style="width: 10px">#</th>
-           <th>{{ $t('form.photo') }}</th>
+            <th>{{ $t('form.photo') }}</th>
             <th>{{ $t('form.name') }}</th>
             <th>{{ $t('form.phone') }}</th>
             <th>{{ $t('form.email') }}</th>
@@ -22,7 +22,7 @@
         <tbody>
           <tr v-for="user in districtUsers.data" :key="user.id">
             <td>{{ user.id }}</td>
-            <td><img alt="Avatar" class="table-avatar" src="https://adminlte.io/themes/dev/AdminLTE/dist/img/avatar.png"></td>
+            <td><img alt="Avatar" class="table-avatar" :src="getPhoto('user',user.image)"></td>
             <td>{{ user.name}}</td>
             <td>{{ user.phone}}</td>
             <td>{{ user.email}}</td>
@@ -62,6 +62,7 @@
   },
   methods: {
     ...mapActions("district", ["getDistrictUsers"]),
+    getPhoto: (owner,image) => { return process.env.VUE_APP_URL+"images/"+ owner+"/"+image }
   }
 }
 </script>

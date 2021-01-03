@@ -21,7 +21,7 @@
         <tbody>
           <tr v-for="courier in branchCourier.data" :key="courier.id">
             <td>{{ courier.id }}</td>
-            <td><img alt="Avatar" class="table-avatar" src="https://adminlte.io/themes/dev/AdminLTE/dist/img/avatar.png"></td>
+            <td><img alt="Avatar" class="table-avatar" :src="getPhoto('courier',courier.image)"></td>
             <td>
               {{ courier.name}}<br/>
               <small>
@@ -40,12 +40,12 @@
     </div>
     <div class="card-footer">
      <small v-show="branchCourier == ''"><center>{{ $t('notFound') }}</center></small>
-      <ul class="pagination pagination-sm m-0 float-right">
-     <pagination class="float-right" :data="branchCourier" @pagination-change-page="getBranchCourier"></pagination>
-      </ul>
-    </div>
-  </div>
-  <!-- /.card -->
+     <ul class="pagination pagination-sm m-0 float-right">
+       <pagination class="float-right" :data="branchCourier" @pagination-change-page="getBranchCourier"></pagination>
+     </ul>
+   </div>
+ </div>
+ <!-- /.card -->
 </template>
 <script>
  import { mapGetters, mapActions} from "vuex";
@@ -64,6 +64,7 @@
   },
   methods: {
     ...mapActions("branch", ["getBranchCourier"]),
+    getPhoto: (owner,image) => { return process.env.VUE_APP_URL+"images/"+ owner+"/"+image } //show image
   }
 }
 </script>

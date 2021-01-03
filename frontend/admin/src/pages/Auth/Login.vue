@@ -83,11 +83,9 @@
 
     methods: {
       ...mapActions("auth", ["sendLoginRequest"]),
-      ...mapActions(["getCurrency"]),
 
       login: function() {
         this.sendLoginRequest(this.details).then(() => {
-          this.getCurrency();
           this.$router.push({ name: "Dashboard" });
         });
       }

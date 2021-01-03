@@ -22,7 +22,7 @@
         <tbody>
           <tr v-for="courier in cityCouriers.data" :key="courier.id">
             <td>{{ courier.id }}</td>
-            <td><img alt="Avatar" class="table-avatar" src="https://adminlte.io/themes/dev/AdminLTE/dist/img/avatar.png"></td>
+            <td><img alt="Avatar" class="table-avatar" :src="getPhoto('courier',courier.image)"></td>
             <td>{{ courier.name }}</td>
             <td>{{ courier.phone }}</td>
             <td>{{ courier.email }}</td>
@@ -62,6 +62,7 @@
   },
   methods: {
     ...mapActions("city", ["getCityCouriers"]),
+    getPhoto: (owner,image) => { return process.env.VUE_APP_URL+"images/"+ owner+"/"+image }
   }
 }
 </script>

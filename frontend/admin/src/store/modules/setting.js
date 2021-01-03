@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-27 20:29:22
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-07 00:18:05
+* @Last Modified time: 2020-07-08 15:48:56
 */
 import axios from "axios";
 const namespaced= true;
@@ -28,7 +28,7 @@ const actions =  {
 },
 async updateSetting({ commit }, data) {
     commit("setErrors", {}, { root: true });
-    await axios.put(process.env.VUE_APP_API_URL + "setting", data)
+    await axios.post(process.env.VUE_APP_API_URL + "setting", data)
     .then(response => {
       commit("setSetting", response.data);
   });

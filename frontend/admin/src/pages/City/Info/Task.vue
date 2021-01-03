@@ -10,10 +10,10 @@
         <thead>
           <tr>
             <th style="width: 10px">#</th>
-            <th>{{ $t('city.senderName') }}</th>
-            <th>{{ $t('city.senderPhone') }}</th>
-            <th>{{ $t('city.receiverName') }}</th>
-            <th>{{ $t('city.receiverPhone') }}</th>
+            <th>{{ $t('form.senderName') }}</th>
+            <th>{{ $t('form.senderPhone') }}</th>
+            <th>{{ $t('form.receiverName') }}</th>
+            <th>{{ $t('form.receiverPhone') }}</th>
             <th>{{ $t('form.price') }}</th>
             <th>{{ $t('form.createdAt') }}</th>
             <th>{{ $t('form.status') }}</th>

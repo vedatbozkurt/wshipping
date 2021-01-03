@@ -148,7 +148,6 @@
         previous_image:'no-image.png',
         editedCourier: {
           image:'no-image.png',
-          password:''
         }
       }
     },
@@ -167,6 +166,7 @@
         if (this.courier.image == "") { this.courier.image = 'no-image.png';}
         this.previous_image = this.courier.image;
         this.editedCourier = this.courier;
+        this.editedCourier.password = '';
       });
     },
     created() {
@@ -210,9 +210,9 @@
        formData.append('vehicle', this.editedCourier.vehicle);
        formData.append('plate', this.editedCourier.plate);
        formData.append('color', this.editedCourier.color);
-       formData.append('password', this.editedCourier.password);
        formData.append('image', this.editedCourier.image);
        formData.append('status', this.editedCourier.status);
+       if(this.editedCourier.password !== ''){ formData.append('password', this.editedCourier.password); }
        formData.append("_method", "put");
        this.updateCourier(formData).then(() => {
         this.myToast('success',this.$t('courier.updatedCourier'));

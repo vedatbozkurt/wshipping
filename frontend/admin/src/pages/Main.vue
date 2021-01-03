@@ -23,10 +23,10 @@
       Sidebar,
     },
     created() {
-      this.getCurrency();
+      this.getInitialData();
     },
     methods: {
-      ...mapActions(["getCurrency"]),
+      ...mapActions(["getInitialData"]),
     }
   }
 </script>

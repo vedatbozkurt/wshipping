@@ -4,8 +4,10 @@
   export default {
    extends: Line,
    props: ['user', 'courier'],
-   mounted () {
-        // this.renderChart(this.user, this.courier)
+   watch: {
+    courier:{
+      deep: true,
+      handler(){
         this.renderChart({
           labels: [this.$t('month.january'), this.$t('month.february'), this.$t('month.march'), this.$t('month.april'), this.$t('month.may'), this.$t('month.june'), this.$t('month.july'), this.$t('month.august'), this.$t('month.september'), this.$t('month.october'), this.$t('month.november'), this.$t('month.december')],
           datasets: [
@@ -20,7 +22,9 @@
             data: this.user
           }
           ]
-        }, {responsive: true, maintainAspectRatio: false})
+        })
       }
     }
-  </script>
+  },
+}
+</script>

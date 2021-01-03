@@ -93,7 +93,7 @@
             </form>
           </div>
           <!-- /.card -->
-
+{{editedUser.password}}parola
         </section>
         <!-- /.content -->
       </div>
@@ -108,11 +108,6 @@
           previous_image:'no-image.png',
           editedUser: {
             image:'no-image.png',
-            name:'',
-            phone:'',
-            email:'',
-            status:'',
-            password:''
           }
         }
       },
@@ -127,6 +122,7 @@
           if (this.user.image == "") { this.user.image = 'no-image.png';}
           this.previous_image = this.user.image;
           this.editedUser = this.user;
+          this.editedUser.password = '';
         });
       },
       created() {
@@ -142,14 +138,14 @@
           });
         },
         getProfilePhoto(){
-          if (this.user.image) {
+          if (this.editedUser.image) {
             return process.env.VUE_APP_URL+"images/user/" + this.previous_image;
           }else{
             return process.env.VUE_APP_URL+"images/user/"+ this.editedUser.image;
           }
         },
         onImageChanger(e) {
-          this.user.image = e.target.files[0];
+          this.editedUser.image = e.target.files[0];
         },
         updateThisUser: function() {
           let formData2 = new FormData();
@@ -160,7 +156,7 @@
           formData2.append('phone', this.editedUser.phone);
           formData2.append('email', this.editedUser.email);
           formData2.append('status', this.editedUser.status);
-          formData2.append('password', this.editedUser.password);
+          if(this.editedUser.password !== ''){ formData2.append('password', this.editedUser.password); }
           formData2.append("_method", "put");
           this.updateUser(formData2).then(() => {
             this.myToast('success',this.$t('user.updatedUser'));

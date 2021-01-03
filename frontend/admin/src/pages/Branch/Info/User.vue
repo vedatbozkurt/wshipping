@@ -21,7 +21,7 @@
         <tbody>
           <tr v-for="user in branchUser.data" :key="user.id">
             <td>{{ user.id }}</td>
-            <td><img alt="Avatar" class="table-avatar" src="https://adminlte.io/themes/dev/AdminLTE/dist/img/avatar.png"></td>
+            <td><img alt="Avatar" class="table-avatar" :src="getPhoto('user',user.image)"></td>
             <td>
               {{ user.name}}<br/>
               <small>
@@ -41,9 +41,9 @@
     <div class="card-footer">
      <small v-show="branchUser == ''"><center>{{ $t('notFound') }}</center></small>
      <pagination class="float-right" :data="branchUser" @pagination-change-page="getBranchUser"></pagination>
-    </div>
-  </div>
-  <!-- /.card -->
+   </div>
+ </div>
+ <!-- /.card -->
 </template>
 <script>
  import { mapGetters, mapActions} from "vuex";
@@ -62,6 +62,7 @@
   },
   methods: {
     ...mapActions("branch", ["getBranchUser"]),
+    getPhoto: (owner,image) => { return process.env.VUE_APP_URL+"images/"+ owner+"/"+image }
   }
 }
 </script>
