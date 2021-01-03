@@ -6,13 +6,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Create City</h1>
+            <h1>{{ $t('city.createCity') }}</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><router-link to="/">Home</router-link>
-                <li class="breadcrumb-item"><router-link to="/city">Cities</router-link>
-                  <li class="breadcrumb-item active">Create City</li>
+              <li class="breadcrumb-item"><router-link to="/">{{ $t('home') }}</router-link>
+                <li class="breadcrumb-item"><router-link to="/city">{{ $t('city.cities') }}</router-link>
+                  <li class="breadcrumb-item active">{{ $t('city.createCity') }}</li>
                 </ol>
               </div>
             </div>
@@ -25,8 +25,7 @@
           <!-- Default box -->
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">New City Form</h3>
-
+              <h3 class="card-title">{{ $t('city.newCityForm') }}</h3>
               <div class="card-tools">
            <!--  <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
             <i class="fas fa-minus"></i></button> -->
@@ -36,7 +35,7 @@
         <form>
           <div class="card-body">
             <div class="form-group row">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+              <label for="inputEmail3" class="col-sm-2 col-form-label">{{ $t('form.name') }}</label>
               <div class="col-sm-10">
                 <input type="text" class="form-control" v-model="city.name" v-bind:class="{ 'is-invalid':errors.name }">
                 <span class="text-danger" v-if="errors.name"> {{ errors.name[0] }}</span>
@@ -45,9 +44,9 @@
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
-            <button type="button" @click="addCity()" class="btn btn-info">Save</button>
+            <button type="button" @click="addCity()" class="btn btn-info">{{ $t('save') }}</button>
             <router-link to="/city" class="btn btn-default float-right">
-              Cancel
+              {{ $t('cancel') }}
             </router-link>
           </div>
           <!-- /.card-footer -->
@@ -86,7 +85,7 @@
 
     addCity: function() {
       this.createCity(this.city).then(() => {
-        this.myToast('success','City has been created.');
+        this.myToast('success',this.$t('city.createdCity'));
         this.$router.push({ name: "Cities" });
       });
     }

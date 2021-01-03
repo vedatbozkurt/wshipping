@@ -6,13 +6,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>City Details</h1>
+            <h1>{{ $t('city.cityDetails') }}</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><router-link to="/">Home</router-link>
-                <li class="breadcrumb-item"><router-link to="/city">Cities</router-link>
-                  <li class="breadcrumb-item active">City Details</li>
+              <li class="breadcrumb-item"><router-link to="/">{{ $t('home') }}</router-link>
+                <li class="breadcrumb-item"><router-link to="/city">{{ $t('city.cities') }}</router-link>
+                  <li class="breadcrumb-item active">{{ $t('city.cityDetails') }}</li>
             </ol>
           </div>
         </div>

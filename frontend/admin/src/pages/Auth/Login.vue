@@ -16,7 +16,7 @@
               class="form-control"
               :class="{ 'is-invalid': errors.email }"
               v-model="details.email"
-              :placeholder="$t('email')">
+              :placeholder="$t('form.email')">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-envelope"></span>
@@ -88,7 +88,6 @@
       login: function() {
         this.sendLoginRequest(this.details).then(() => {
           this.getCurrency();
-          this.myToast('success',this.$t('signinSuccess'));
           this.$router.push({ name: "Dashboard" });
         });
       }

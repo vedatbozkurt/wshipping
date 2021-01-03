@@ -1,13 +1,13 @@
 <template>
   <div class="card card-primary card-outline">
     <div class="card-header">
-      <h3 class="card-title">Edit City</h3>
+      <h3 class="card-title">{{ $t('city.editCity') }}</h3>
     </div>
     <!-- /.card-header -->
     <form>
       <div class="card-body">
         <div class="form-group row">
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">{{ $t('form.name') }}</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control" v-model="city.name" v-bind:class="{ 'is-invalid':errors.name }">
                     <span class="text-danger" v-if="errors.name"> {{ errors.name[0] }}</span>
@@ -16,8 +16,8 @@
       </div>
       <!-- /.card-body -->
       <div class="card-footer">
-        <button type="button" @click="updateThisCity" class="btn btn-info">Save</button>
-        <button type="button" @click="deleteCityConfirm(city.id)" class="btn btn-danger float-right">Delete</button>
+        <button type="button" @click="updateThisCity" class="btn btn-info">{{ $t('save') }}</button>
+        <button type="button" @click="deleteCityConfirm(city.id)" class="btn btn-danger float-right">{{ $t('delete') }}</button>
 
       </div>
     </form>
@@ -51,18 +51,18 @@
 
     updateThisCity: function() {
       this.updateCity(this.city).then(() => {
-        this.myToast('success','City has been updated.');
+        this.myToast('success',this.$t('city.updatedCity'));
       });
     },
     deleteCityConfirm(id){
       Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: this.$t('areYouSure'),
+        text: this.$t('noRevert'),
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: this.$t('yesDelete')
       }).then((result) => {
         if (result.value) {
           this.deleteCityConfirmed(id)
@@ -71,7 +71,7 @@
     },
     deleteCityConfirmed: function(id) {
       this.deleteCityFromEdit(id).then(() => {
-        this.myToast('success','City has been deleted.');
+        this.myToast('success',this.$t('city.deletedCity'));
         this.$router.push({ name: "Cities" });
       });
     },

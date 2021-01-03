@@ -1,10 +1,10 @@
 <template>
   <div class="card card-primary card-outline">
     <div class="card-header">
-      <h3 class="card-title">Branch District Tasks</h3>
+      <h3 class="card-title">{{ $t('branch.branchDistrictTasks') }}</h3>
       <div class=" float-right col-sm-6" >
-        <multiselect v-model="branch.district" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Şube İlçesi Seçin" :options="branchDistrict" :searchable="true" :allow-empty="false" @input='getDistrictTasks'>
-          <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> ilçesindeki kuryeler<strong>  {{ option.language }}</strong></template>
+        <multiselect v-model="branch.district" :deselect-label="$t('select.cantRemove')" track-by="name" label="name" :placeholder="$t('select.selectDistrict')" :options="branchDistrict" :searchable="true" :allow-empty="false" @input='getDistrictTasks'>
+          <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> {{ $t('select.selected') }}<strong>  {{ option.language }}</strong></template>
         </multiselect>
       </div>
       <!-- /.card-tools -->
@@ -15,12 +15,12 @@
       <table class="table table-striped projects">
         <thead>
           <tr>
-            <th style="width: 10px">#ID</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Created At</th>
-            <th>Status</th>
-            <th style="width: 70px">Actions</th>
+            <th style="width: 10px">#</th>
+            <th>{{ $t('form.description') }}</th>
+            <th>{{ $t('form.price') }}</th>
+            <th>{{ $t('form.createdAt') }}</th>
+            <th>{{ $t('form.status') }}</th>
+            <th style="width: 70px">{{ $t('actions') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -31,7 +31,7 @@
             <td>{{ task.created_at | moment("MMMM Do YYYY") }}</td>
             <td>
                  <task-status v-show="!task.deleted_at" :status=task.status />
-              <span v-show="task.deleted_at" class="badge badge-danger">Deleted</span>
+              <span v-show="task.deleted_at" class="badge badge-danger">{{ $t('form.deleted') }}</span>
             </td>
             <td>
               <router-link style="margin-right: 11px"  :to="{name: 'EditTask', params: { id: task.id }}" class="btn btn-outline-info btn-xs btn-flat"><i class="fas fa-edit"></i></router-link>
@@ -41,8 +41,8 @@
       </table>
     </div>
     <div class="card-footer">
-     <small v-show="empty"><center>Select a district to view tasks</center></small>
-     <small v-show="!empty && branchDistrictTasks == ''"><center>Not Found.</center></small>
+     <small v-show="empty"><center>{{ $t('select.selectDistrict') }}</center></small>
+     <small v-show="!empty && branchDistrictTasks == ''"><center>{{ $t('notFound') }}</center></small>
       <pagination class="float-right" :data="branchDistrictTasks" @pagination-change-page="getBranchDistrictTasks"></pagination>
    </div>
  </div>

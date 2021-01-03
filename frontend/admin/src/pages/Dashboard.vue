@@ -95,7 +95,7 @@
         <div class="col-12 col-md-6">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">{{ $t('couriers') }} - {{ $t('users') }}</h3>
+              <h3 class="card-title">{{ $t('courier.couriers') }} - {{ $t('users') }}</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

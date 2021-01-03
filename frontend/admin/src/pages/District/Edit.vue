@@ -7,13 +7,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Edit District</h1>
+            <h1>{{ $t('district.editDistrict') }}</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><router-link to="/">Home</router-link>
-                <li class="breadcrumb-item"><router-link to="/district">Districts</router-link>
-                  <li class="breadcrumb-item active">Edit District</li>
+              <li class="breadcrumb-item"><router-link to="/">{{ $t('home') }}</router-link>
+                <li class="breadcrumb-item"><router-link to="/district">{{ $t('district.districts') }}</router-link>
+                  <li class="breadcrumb-item active">{{ $t('district.editDistrict') }}</li>
                 </ol>
               </div>
             </div>
@@ -25,22 +25,22 @@
           <!-- Default box -->
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Edit District Form</h3>
+              <h3 class="card-title">{{ $t('district.editDistrictForm') }}</h3>
             </div>
             <!-- form start -->
             <form>
               <div class="card-body">
                <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">City</label>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">{{ $t('form.city') }}</label>
                 <div class="col-sm-10">
-                  <multiselect v-model="district.city" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="İl Seçin" :options="cities" :searchable="true" :allow-empty="false">
-                    <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> il olarak seçildi<strong>  {{ option.language }}</strong></template>
+                  <multiselect v-model="district.city" :deselect-label="$t('select.cantRemove')" track-by="name" label="name" :placeholder="$t('select.selectCity')" :options="cities" :searchable="true" :allow-empty="false">
+                    <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> {{ $t('select.selected') }}<strong>  {{ option.language }}</strong></template>
                   </multiselect>
                   <span class="text-danger" v-if="errors.city"> {{ errors.city[0] }}</span>
                 </div>
               </div>
               <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">{{ $t('form.name') }}</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" v-model="district.name" v-bind:class="{ 'is-invalid':errors.name }">
                   <span class="text-danger" v-if="errors.name"> {{ errors.name[0] }}</span>
@@ -49,9 +49,9 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <button type="button" @click="updateThisDistrict" class="btn btn-info">Save</button>
+              <button type="button" @click="updateThisDistrict" class="btn btn-info">{{ $t('save') }}</button>
               <router-link to="/district" class="btn btn-default float-right">
-                Cancel
+                {{ $t('cancel') }}
               </router-link>
             </div>
             <!-- /.card-footer -->
@@ -90,7 +90,7 @@
 
       updateThisDistrict: function() {
         this.updateDistrict(this.district).then(() => {
-          this.myToast('success','District has been updated.');
+          this.myToast('success',this.$t('district.updatedDistrict'));
           this.$router.push({ name: "Districts" });
         });
       }

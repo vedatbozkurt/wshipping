@@ -7,13 +7,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Edit City</h1>
+            <h1>{{ $t('city.editCity') }}</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><router-link to="/">Home</router-link>
-                <li class="breadcrumb-item"><router-link to="/city">Cities</router-link>
-                  <li class="breadcrumb-item active">Edit City</li>
+              <li class="breadcrumb-item"><router-link to="/">{{ $t('home') }}</router-link>
+                <li class="breadcrumb-item"><router-link to="/city">{{ $t('city.cities') }}</router-link>
+                  <li class="breadcrumb-item active">{{ $t('city.editCity') }}</li>
                 </ol>
               </div>
             </div>
@@ -25,13 +25,13 @@
           <!-- Default box -->
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Edit City Form</h3>
+              <h3 class="card-title">{{ $t('city.editCityForm') }}</h3>
             </div>
             <!-- form start -->
             <form>
               <div class="card-body">
                 <div class="form-group row">
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">{{ $t('form.name') }}</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control" v-model="city.name" v-bind:class="{ 'is-invalid':errors.name }">
                     <span class="text-danger" v-if="errors.name"> {{ errors.name[0] }}</span>
@@ -40,9 +40,9 @@
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
-                <button type="button" @click="updateThisCity" class="btn btn-info">Save</button>
+                <button type="button" @click="updateThisCity" class="btn btn-info">{{ $t('save') }}</button>
                 <router-link to="/city" class="btn btn-default float-right">
-                  Cancel
+                  {{ $t('cancel') }}
                 </router-link>
               </div>
               <!-- /.card-footer -->
@@ -78,7 +78,7 @@
 
         updateThisCity: function() {
           this.updateCity(this.city).then(() => {
-            this.myToast('success','City has been updated.');
+            this.myToast('success',this.$t('city.updatedCity'));
             this.$router.push({ name: "Cities" });
           });
         }

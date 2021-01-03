@@ -16,31 +16,31 @@
     created() {
       if (this.status == 0 ) {
         this.statusClass= "onaybekliyor";
-        this.statusName= "Onay Bekliyor";
+        this.statusName= this.$t('task.pendingApproval');
       } else if (this.status == 1 ) {
         this.statusClass= "kuryeatamasiyapildi";
-        this.statusName= "Kurye Ataması Bekleniyor";
+        this.statusName= this.$t('task.approvedAwaitingCourierAssignment');
       } else if (this.status == 2 ) {
         this.statusClass= "kuryekabuledilmebekleniyor";
-        this.statusName= "Kuryenin Kabul Etmesi Bekleniyor";
+        this.statusName= this.$t('task.courierAssignedAcceptanceExpected');
       } else if (this.status == 3 ) {
         this.statusClass= "kuryekabuletti";
-        this.statusName= "Kurye Kabul etti";
+        this.statusName= this.$t('task.courierAccepted');
       } else if (this.status == 4 ) {
         this.statusClass= "kuryeyolda";
-        this.statusName= "Kurye Yolda";
+        this.statusName= this.$t('task.courierOnTheRoad');
       } else if (this.status == 5 ) {
         this.statusClass= "kuryehedefevardi";
-        this.statusName= "Kurye Hedefe Vardı";
+        this.statusName= this.$t('task.courierArrivedAtDestination');
       } else if (this.status == 6 ) {
         this.statusClass= "teslimedildi";
-        this.statusName= "Teslim Edildi";
+        this.statusName= this.$t('task.delivered');
       } else if (this.status == 7 ) {
         this.statusClass= "kuryeiptaletti";
-        this.statusName= "İptal Edildi";
+        this.statusName= this.$t('task.canceled');
       } else {
         this.statusClass= "badge-danger";
-        this.statusName= "Not Found";
+        this.statusName= this.$t('notFound');
       }
 
     },

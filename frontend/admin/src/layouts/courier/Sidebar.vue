@@ -2,7 +2,7 @@
         <div class="col-md-2">
           <div class="card card-warning card-outline">
             <div class="card-header">
-              <h3 class="card-title">Courier Details</h3>
+              <h3 class="card-title">{{ $t('courier.couriersDetails') }}</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -13,22 +13,22 @@
               <ul class="nav nav-pills flex-column">
                 <li class="nav-item active">
                   <router-link :to="{ name: 'CourierDetails', params: { id: $route.params.id }}"  class="nav-link">
-                    <i class="fas fa-file-alt"></i> Details
+                    <i class="fas fa-file-alt"></i> {{ $t('details') }}
                   </router-link>
                 </li>
                 <li class="nav-item">
                   <router-link :to="{ name: 'CourierTask', params: { id: $route.params.id }}"  class="nav-link">
-                    <i class="fas fa-tasks"></i> Tasks
+                    <i class="fas fa-tasks"></i> {{ $t('task.tasks') }}
                   </router-link>
                 </li>
                 <li class="nav-item">
                   <router-link :to="{ name: 'CourierCityBranch', params: { id: $route.params.id }}"  class="nav-link">
-                    <i class="fas fa-code-branch"></i> City Branches
+                    <i class="fas fa-code-branch"></i> {{ $t('city.cityBranches') }}
                   </router-link>
                 </li>
                 <li class="nav-item">
                   <router-link :to="{ name: 'CourierDistrictBranch', params: { id: $route.params.id }}"  class="nav-link">
-                    <i class="fas fa-code-branch"></i> District Branches
+                    <i class="fas fa-code-branch"></i> {{ $t('district.districtBranches') }}
                   </router-link>
                 </li>
               </ul>

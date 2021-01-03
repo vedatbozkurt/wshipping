@@ -34,68 +34,68 @@
            <li class="nav-item">
             <router-link to="/" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt red"></i>
-              <p>Dashboard</p>
+              <p>{{ $t('dashboard') }}</p>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/branch" class="nav-link">
               <i class="nav-icon fas fa-code-branch blue"></i>
-              <p>Branches</p>
+              <p>{{ $t('branches') }}</p>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/courier" class="nav-link">
               <i class="nav-icon fas fa-biking yellow"></i>
-              <p>Couriers</p>
+              <p>{{ $t('courier.couriers') }}</p>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/user" class="nav-link">
               <i class="nav-icon fas fa-users acikpink"></i>
-              <p>Users</p>
+              <p>{{ $t('users') }}</p>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/task" class="nav-link">
               <i class="nav-icon fas fa-tasks green"></i>
-              <p>Tasks</p>
+              <p>{{ $t('tasks') }}</p>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/address" class="nav-link">
               <i class="nav-icon fas fa-address-card pink"></i>
-              <p>Addresses</p>
+              <p>{{ $t('addresses') }}</p>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/city" class="nav-link">
               <i class="nav-icon far fa-dot-circle bordo"></i>
-              <p>Cities</p>
+              <p>{{ $t('city.cities') }}</p>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/district" class="nav-link">
               <i class="nav-icon fas fa-bullseye green2"></i>
-              <p>Districts</p>
+              <p>{{ $t('district.districts') }}</p>
             </router-link>
           </li>
-          <li class="nav-header">CUSTOMIZATION</li>
+          <li class="nav-header">{{ $t('customization') }}</li>
           <li class="nav-item">
            <router-link to="/profile" class="nav-link">
             <i class="nav-icon fas fa-user blue"></i>
-            <p>Profile</p>
+            <p>{{ $t('profile') }}</p>
           </router-link>
         </li>
         <li class="nav-item">
           <router-link to="/setting" class="nav-link">
             <i class="nav-icon fas fa-cog green"></i>
-            <p>Settings</p>
+            <p>{{ $t('settings') }}</p>
           </router-link>
         </li>
         <li class="nav-item">
           <a href="#" class="nav-link" @click="logout">
             <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
-            <p class="text">Logout</p>
+            <p class="text">{{ $t('logout') }}</p>
           </a>
         </li>
       </ul>

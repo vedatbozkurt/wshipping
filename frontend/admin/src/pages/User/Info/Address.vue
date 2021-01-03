@@ -1,7 +1,7 @@
 <template>
   <div class="card card-primary card-outline">
     <div class="card-header">
-      <h3 class="card-title">User Addresses</h3>
+      <h3 class="card-title">{{ $t('user.userAddresses') }}</h3>
     </div>
     <!-- /.card-header -->
     <!-- /.card-header -->
@@ -10,11 +10,11 @@
         <thead>
           <tr>
             <th style="width: 10px">#ID</th>
-            <th>Name</th>
-            <th>City</th>
-            <th>District</th>
-            <th>Created At</th>
-            <th style="width: 70px">Actions</th>
+            <th>{{ $t('form.name') }}</th>
+            <th>{{ $t('form.city') }}</th>
+            <th>{{ $t('form.district') }}</th>
+            <th>{{ $t('form.createdAt') }}</th>
+            <th style="width: 70px">{{ $t('actions') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -32,7 +32,7 @@
       </table>
     </div>
     <div class="card-footer">
-     <small v-show="userAddress == ''"><center>Not Found.</center></small>
+     <small v-show="userAddress == ''"><center>{{ $t('notFound') }}</center></small>
      <pagination class="float-right" :data="userAddress" @pagination-change-page="getUserAddress"></pagination>
     </div>
   </div>

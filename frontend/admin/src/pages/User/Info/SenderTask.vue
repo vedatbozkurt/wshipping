@@ -1,7 +1,7 @@
 <template>
   <div class="card card-primary card-outline">
     <div class="card-header">
-      <h3 class="card-title">Sent Tasks by User</h3>
+      <h3 class="card-title">{{ $t('user.sentTasksByUser') }}</h3>
     </div>
     <!-- /.card-header -->
     <!-- /.card-header -->
@@ -9,29 +9,29 @@
       <table class="table table-striped projects">
         <thead>
           <tr>
-            <th style="width: 10px">#ID</th>
-            <th>Courier Name</th>
-            <th>Courier Phone</th>
-            <th>Receiver Name</th>
-            <th>Receiver Phone</th>
-            <th>Price</th>
-            <th>Created At</th>
-            <th>Status</th>
-            <th style="width: 70px">Actions</th>
+            <th style="width: 10px">#</th>
+            <th>{{ $t('form.courierName') }}</th>
+            <th>{{ $t('form.courierPhone') }}</th>
+            <th>{{ $t('form.receiverName') }}</th>
+            <th>{{ $t('form.receiverPhone') }}</th>
+            <th>{{ $t('form.price') }}</th>
+            <th>{{ $t('form.createdAt') }}</th>
+            <th>{{ $t('form.status') }}</th>
+            <th style="width: 70px">{{ $t('actions') }}</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="task in userSenderTask.data" :key="task.id">
             <td>{{ task.id }}</td>
-            <td>{{ task.courier ? task.courier.name : 'No Courier'}}</td>
-            <td>{{ task.courier ? task.courier.phone : 'No Courier'}}</td>
+            <td>{{ task.courier ? task.courier.name : $t('form.noCourier')}}</td>
+            <td>{{ task.courier ? task.courier.phone : $t('form.noCourier')}}</td>
             <td>{{ task.receiver.name}}</td>
             <td>{{ task.receiver.phone}}</td>
             <td>{{ task.price}} {{currency}}</td>
             <td>{{ task.created_at | moment("MMMM Do YYYY") }}</td>
             <td>
               <task-status v-show="!task.deleted_at" :status=task.status />
-              <span v-show="task.deleted_at" class="badge badge-danger">Deleted</span>
+              <span v-show="task.deleted_at" class="badge badge-danger">{{ $t('form.deleted') }}</span>
             </td>
             <td>
               <router-link style="margin-right: 11px"  :to="{name: 'EditTask', params: { id: task.id }}" class="btn btn-outline-info btn-xs btn-flat"><i class="fas fa-edit"></i></router-link>
@@ -41,7 +41,7 @@
       </table>
     </div>
     <div class="card-footer">
-      <small v-show="userSenderTask == ''"><center>Not Found.</center></small>
+      <small v-show="userSenderTask == ''"><center>{{ $t('notFound') }}</center></small>
       <pagination class="float-right" :data="userSenderTask" @pagination-change-page="getUserSenderTasks"></pagination>
     </div>
   </div>

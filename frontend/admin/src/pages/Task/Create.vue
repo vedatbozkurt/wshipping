@@ -6,13 +6,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Create Task</h1>
+            <h1>{{ $t('task.createTask') }}</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><router-link to="/">Home</router-link>
-                <li class="breadcrumb-item"><router-link to="/task">Tasks</router-link>
-                  <li class="breadcrumb-item active">Create Task</li>
+              <li class="breadcrumb-item"><router-link to="/">{{ $t('home') }}</router-link>
+                <li class="breadcrumb-item"><router-link to="/task">{{ $t('task.tasks') }}</router-link>
+                  <li class="breadcrumb-item active">{{ $t('task.createTask') }}</li>
                 </ol>
               </div>
             </div>
@@ -25,7 +25,7 @@
           <!-- Default box -->
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">New Task Form</h3>
+              <h3 class="card-title">{{ $t('task.newTaskForm') }}</h3>
 
               <div class="card-tools">
            <!--  <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -36,41 +36,41 @@
         <form>
           <div class="card-body">
             <div class="form-group row">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Sender
+              <label for="inputEmail3" class="col-sm-2 col-form-label">{{ $t('form.senderName') }}
               </label>
               <div class="col-sm-10">
-                <multiselect v-model="task.sender" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Gönderici" :options="allUsers" :searchable="true" :allow-empty="false" @input='getSenderUserAddress'>
-                  <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> gönderici olarak seçildi<strong>  {{ option.language }}</strong></template>
+                <multiselect v-model="task.sender" :deselect-label="$t('select.cantRemove')" track-by="name" label="name" :placeholder="$t('form.senderName')" :options="allUsers" :searchable="true" :allow-empty="false" @input='getSenderUserAddress'>
+                  <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> {{ $t('select.selected') }}<strong>  {{ option.language }}</strong></template>
                 </multiselect>
                 <span class="text-danger" v-if="errors.sender"> {{ errors.sender[0] }}</span>
               </div>
             </div>
 
             <div class="form-group row">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Sender Address</label>
+              <label for="inputEmail3" class="col-sm-2 col-form-label">{{ $t('form.senderAddress') }}</label>
               <div class="col-sm-10">
-                <multiselect v-model="task.senderaddress" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Gönderici Adresi" :options="userSenderAddress" :searchable="true" :allow-empty="false" noOptions="Select Sender">
-                  <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> gönderici adresi olarak seçildi<strong>  {{ option.language }}</strong></template>
+                <multiselect v-model="task.senderaddress" :deselect-label="$t('select.cantRemove')" track-by="name" label="name" :placeholder="$t('form.senderAddress')" :options="userSenderAddress" :searchable="true" :allow-empty="false" noOptions="Select Sender">
+                  <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> {{ $t('select.selected') }}<strong>  {{ option.language }}</strong></template>
                 </multiselect>
                 <span class="text-danger" v-if="errors.senderaddress"> {{ errors.senderaddress[0] }}</span>
               </div>
             </div>
 
             <div class="form-group row">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Receiver</label>
+              <label for="inputEmail3" class="col-sm-2 col-form-label">{{ $t('form.receiverName') }}</label>
               <div class="col-sm-10">
-                <multiselect v-model="task.receiver" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Alıcı" :options="allUsers" :searchable="true" :allow-empty="false" @input='getReceiverUserAddress'>
-                  <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> alıcı olarak seçildi<strong>  {{ option.language }}</strong></template>
+                <multiselect v-model="task.receiver" :deselect-label="$t('select.cantRemove')" track-by="name" label="name" :placeholder="$t('form.receiverName')" :options="allUsers" :searchable="true" :allow-empty="false" @input='getReceiverUserAddress'>
+                  <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> {{ $t('select.selected') }}<strong>  {{ option.language }}</strong></template>
                 </multiselect>
                 <span class="text-danger" v-if="errors.receiver"> {{ errors.receiver[0] }}</span>
               </div>
             </div>
 
             <div class="form-group row">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Receiver Address</label>
+              <label for="inputEmail3" class="col-sm-2 col-form-label">{{ $t('form.receiverAddress') }}</label>
               <div class="col-sm-10">
-                <multiselect v-model="task.receiveraddress" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Alıcı Adresi" :options="allAddresses" :searchable="true" :allow-empty="false">
-                  <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> alıcı adresi olarak seçildi<strong>  {{ option.language }}</strong></template>
+                <multiselect v-model="task.receiveraddress" :deselect-label="$t('select.cantRemove')" track-by="name" label="name" :placeholder="$t('form.receiverAddress')" :options="allAddresses" :searchable="true" :allow-empty="false">
+                  <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> {{ $t('select.selected') }}<strong>  {{ option.language }}</strong></template>
                 </multiselect>
                 <span class="text-danger" v-if="errors.receiveraddress"> {{ errors.receiveraddress[0] }}</span>
               </div>
@@ -78,47 +78,47 @@
 
 
             <div class="form-group row">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Courier</label>
+              <label for="inputEmail3" class="col-sm-2 col-form-label">{{ $t('courier.courier') }}</label>
               <div class="row col-sm-10">
                 <div class="col-sm-6">
-                  <multiselect v-model="branch.id" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Select Courier Branch" :options="allBranches" :searchable="true" :allow-empty="false" @input='getBranchAllCouriers'>
-                    <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> seçildi<strong>  {{ option.language }}</strong></template>
+                  <multiselect v-model="branch.id" :deselect-label="$t('select.cantRemove')" track-by="name" label="name" :placeholder="$t('branch.branches')" :options="allBranches" :searchable="true" :allow-empty="false" @input='getBranchAllCouriers'>
+                    <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> {{ $t('select.selected') }}<strong>  {{ option.language }}</strong></template>
                   </multiselect>
                   <!-- <span class="text-danger" v-if="errors.courier_id"> {{ errors.courier_id[0] }}</span> -->
                 </div>
                 <div class="col-sm-6">
-                  <multiselect v-model="task.courier" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Select Courier Branch" :options="branchAllCourier" :searchable="true" :allow-empty="false">
-                    <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> kurye olarak seçildi<strong>  {{ option.language }}</strong></template>
+                  <multiselect v-model="task.courier" :deselect-label="$t('select.cantRemove')" track-by="name" label="name" :placeholder="$t('courier.courier')" :options="branchAllCourier" :searchable="true" :allow-empty="false">
+                    <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> {{ $t('select.selected') }}<strong>  {{ option.language }}</strong></template>
                   </multiselect>
                 </div>
               </div>
             </div>
             <div class="form-group row">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Price</label>
+              <label for="inputEmail3" class="col-sm-2 col-form-label">{{ $t('form.price') }}</label>
               <div class="col-sm-10">
                 <input type="text" class="form-control" v-model="task.price" v-bind:class="{ 'is-invalid':errors.price }">
                 <span class="text-danger" v-if="errors.price"> {{ errors.price[0] }}</span>
               </div>
             </div>
             <div class="form-group row">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
+              <label for="inputEmail3" class="col-sm-2 col-form-label">{{ $t('form.description') }}</label>
               <div class="col-sm-10">
                 <input type="text" class="form-control" v-model="task.description" v-bind:class="{ 'is-invalid':errors.description }">
                 <span class="text-danger" v-if="errors.description"> {{ errors.description[0] }}</span>
               </div>
             </div>
             <div class="form-group row">
-              <label for="inputPassword3" class="col-sm-2 col-form-label">Status</label>
+              <label for="inputPassword3" class="col-sm-2 col-form-label">{{ $t('form.status') }}</label>
               <div class="col-sm-10">
                 <select class="form-control" v-bind:class="{ 'is-invalid': errors.status }" v-model="task.status">
-                  <option value="0">Onay Bekliyor</option>
-                  <option value="1">Onaylandı - Kurye Ataması Bekleniyor</option>
-                  <option value="2">Kurye atandı-Kurye Kabul Etmesi Bekleniyor</option>
-                  <option value="3">Kurye Kabul etti</option>
-                  <option value="4">Kurye Yolda</option>
-                  <option value="5">Kurye Hedefe Vardı</option>
-                  <option value="6">Gönderi Teslim Edildi</option>
-                  <option value="7">İptal Edildi</option>
+                  <option value="0">{{ $t('task.pendingApproval') }}</option>
+                      <option value="1">{{ $t('task.approvedAwaitingCourierAssignment') }}</option>
+                      <option value="2">{{ $t('task.courierAssignedAcceptanceExpected') }}</option>
+                      <option value="3">{{ $t('task.courierAccepted') }}</option>
+                      <option value="4">{{ $t('task.courierOnTheRoad') }}</option>
+                      <option value="5">{{ $t('task.courierArrivedAtDestination') }}</option>
+                      <option value="6">{{ $t('task.delivered') }}</option>
+                      <option value="7">{{ $t('task.canceled') }}</option>
                 </select>
                 <span class="text-danger" v-if="errors.status"> {{ errors.status[0] }}</span>
               </div>
@@ -126,9 +126,9 @@
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
-            <button type="button" @click="addTask()" class="btn btn-info">Save</button>
+            <button type="button" @click="addTask()" class="btn btn-info">{{ $t('save') }}</button>
             <router-link to="/task" class="btn btn-default float-right">
-              Cancel
+              {{ $t('cancel') }}
             </router-link>
           </div>
           <!-- /.card-footer -->
@@ -189,7 +189,7 @@
     },
     addTask: function() {
       this.createTask(this.task).then(() => {
-        this.myToast('success','Task has been created.');
+        this.myToast('success',this.$t('task.createdTask'));
         this.$router.push({ name: "Tasks" });
       });
     },

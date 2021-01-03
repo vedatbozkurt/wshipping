@@ -6,11 +6,11 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-9">
-            <h1>Cities</h1>
+            <h1>{{ $t('city.cities') }}</h1>
           </div>
           <div class="col-sm-3">
             <div class="input-group input-group-sm float-sm-right">
-              <input type="text" class="form-control" v-model="search" placeholder="Search City">
+              <input type="text" class="form-control" v-model="search" :placeholder="$t('city.searchCity')">
               <div class="input-group-append">
                 <a class="btn btn-primary" @click.prevent="searchThis()">
                   <i class="fas fa-search"></i>
@@ -27,10 +27,10 @@
 
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">City List</h3>
+          <h3 class="card-title">{{ $t('city.cityList') }}</h3>
           <div class="card-tools">
            <router-link to="/city/create" class="btn btn-outline-success btn-sm btn-flat">
-            <i class="fas fa-plus"></i> New </router-link>
+            <i class="fas fa-plus"></i> {{ $t('new') }} </router-link>
           </div>
         </div>
         <!-- /.card-header -->
@@ -39,8 +39,8 @@
             <thead>
               <tr>
                 <th style="width: 10px">#</th>
-                <th>Name</th>
-                <th style="width: 120px">Actions</th>
+                <th>{{ $t('form.name') }}</th>
+                <th style="width: 120px">{{ $t('actions') }}</th>
               </tr>
             </thead>
             <tbody>
@@ -101,13 +101,13 @@
     },
     deleteCityConfirm(id){
       Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: this.$t('areYouSure'),
+        text: this.$t('noRevert'),
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: this.$t('yesDelete')
       }).then((result) => {
         if (result.value) {
           this.deleteCityConfirmed(id)
@@ -116,7 +116,7 @@
     },
     deleteCityConfirmed: function(id) {
       this.deleteCity(id).then(() => {
-        this.myToast('success','City has been deleted.');
+        this.myToast('success',this.$t('city.deletedCity'));
       });
     }
   }

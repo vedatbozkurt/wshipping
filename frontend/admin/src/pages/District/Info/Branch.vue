@@ -1,7 +1,7 @@
 <template>
   <div class="card card-primary card-outline">
     <div class="card-header">
-      <h3 class="card-title">District Branches</h3>
+      <h3 class="card-title">{{ $t('district.districtBranches') }}</h3>
     </div>
     <!-- /.card-header -->
     <!-- /.card-header -->
@@ -9,13 +9,13 @@
       <table class="table table-striped projects">
         <thead>
           <tr>
-            <th style="width: 10px">#ID</th>
-           <th>Name</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Created At</th>
-            <th>Status</th>
-            <th style="width: 70px">Actions</th>
+            <th style="width: 10px">#</th>
+           <th>{{ $t('form.name') }}</th>
+            <th>{{ $t('form.phone') }}</th>
+            <th>{{ $t('form.email') }}</th>
+            <th>{{ $t('form.createdAt') }}</th>
+            <th>{{ $t('form.status') }}</th>
+            <th style="width: 70px">{{ $t('actions') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -25,7 +25,7 @@
             <td>{{ branch.phone}}</td>
             <td>{{ branch.email}}</td>
             <td>{{ branch.created_at | moment("MMMM Do YYYY") }}</td>
-            <td><span class="badge " :class="branch.status == 1 ? 'badge-success' : 'badge-warning'" >{{ branch.status == 1 ? 'active' : 'inactive'}}</span></td>
+            <td><span class="badge " :class="branch.status == 1 ? 'badge-success' : 'badge-warning'" >{{ branch.status == 1 ? $t('form.active') : $t('form.inactive')}}</span></td>
             <td>
               <router-link style="margin-right: 11px"  :to="{name: 'EditBranch', params: { id: branch.id }}" class="btn btn-outline-info btn-xs btn-flat"><i class="fas fa-edit"></i></router-link>
             </td>
@@ -34,7 +34,7 @@
       </table>
     </div>
     <div class="card-footer">
-     <small v-show="districtBranches == ''"><center>Not Found.</center></small>
+     <small v-show="districtBranches == ''"><center>{{ $t('notFound') }}</center></small>
      <pagination class="float-right" :data="districtBranches" @pagination-change-page="getDistrictBranches"></pagination>
    </div>
  </div>

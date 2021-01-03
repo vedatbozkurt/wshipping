@@ -1,10 +1,10 @@
 <template>
   <div class="card card-primary card-outline">
     <div class="card-header">
-      <h3 class="card-title">Courier City Branches</h3>
+      <h3 class="card-title">{{ $t('courier.courierCityBranches') }}</h3>
       <div class=" float-right col-sm-6" >
-        <multiselect v-model="courier.city" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Şube İli Seçin" :options="courierCity" :searchable="true" :allow-empty="false" @input='getCityBranches'>
-          <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> ilindeki şubeler<strong>  {{ option.language }}</strong></template>
+        <multiselect v-model="courier.city" :deselect-label="$t('select.cantRemove')" track-by="name" label="name" :placeholder="$t('select.selectCity')" :options="courierCity" :searchable="true" :allow-empty="false" @input='getCityBranches'>
+          <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong> {{ $t('select.selected') }}<strong>  {{ option.language }}</strong></template>
         </multiselect>
       </div>
       <!-- /.card-tools -->
@@ -15,11 +15,11 @@
       <table class="table table-striped projects">
         <thead>
           <tr>
-            <th style="width: 10px">#ID</th>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th style="width: 70px">Actions</th>
+            <th style="width: 10px">#</th>
+            <th>{{ $t('form.name') }}</th>
+            <th>{{ $t('form.phone') }}</th>
+            <th>{{ $t('form.email') }}</th>
+            <th style="width: 70px">{{ $t('actions') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -36,8 +36,8 @@
       </table>
     </div>
     <div class="card-footer">
-     <small v-show="empty"><center>Select a city to view branches</center></small>
-     <small v-show="!empty && courierCityBranches == ''"><center>Not Found.</center></small>
+     <small v-show="empty"><center>{{ $t('select.selectCity') }}</center></small>
+     <small v-show="!empty && courierCityBranches == ''"><center>{{ $t('notFound') }}</center></small>
    </div>
  </div>
  <!-- /.card -->

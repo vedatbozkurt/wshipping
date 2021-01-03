@@ -1,7 +1,7 @@
 <template>
   <div class="card card-primary card-outline">
     <div class="card-header">
-      <h3 class="card-title">City Districts</h3>
+      <h3 class="card-title">{{ $t('city.cityDistricts') }}</h3>
     </div>
     <!-- /.card-header -->
     <!-- /.card-header -->
@@ -9,9 +9,9 @@
       <table class="table table-striped projects">
         <thead>
           <tr>
-            <th style="width: 10px">#ID</th>
-            <th>Name</th>
-            <th style="width: 70px">Actions</th>
+            <th style="width: 10px">#</th>
+            <th>{{ $t('form.name') }}</th>
+            <th style="width: 70px">{{ $t('actions') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -26,7 +26,7 @@
       </table>
     </div>
     <div class="card-footer">
-     <small v-show="cityDistricts == ''"><center>Not Found.</center></small>
+     <small v-show="cityDistricts == ''"><center>{{ $t('notFound') }}</center></small>
      <pagination class="float-right" :data="cityDistricts" @pagination-change-page="getCityDistricts"></pagination>
    </div>
  </div>

@@ -6,11 +6,11 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-9">
-            <h1>Users</h1>
+            <h1>{{ $t('users') }}</h1>
           </div>
           <div class="col-sm-3">
             <div class="input-group input-group-sm float-sm-right">
-              <input type="text" class="form-control" v-model="search" placeholder="Search City">
+              <input type="text" class="form-control" v-model="search" :placeholder="$t('user.searchUser')">
               <div class="input-group-append">
                 <a class="btn btn-primary" @click.prevent="searchThis()">
                   <i class="fas fa-search"></i>
@@ -25,10 +25,10 @@
     <section class="content">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Users List</h3>
+          <h3 class="card-title">{{ $t('user.userList') }}</h3>
           <div class="card-tools">
            <router-link to="/user/create" class="btn btn-outline-success btn-sm btn-flat">
-            <i class="fas fa-plus"></i> New </router-link>
+            <i class="fas fa-plus"></i> {{ $t('new') }} </router-link>
           </div>
         </div>
         <!-- /.card-header -->
@@ -37,12 +37,12 @@
             <thead>
               <tr>
                 <th style="width: 10px">#</th>
-                <th>Photo</th>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Status</th>
-                <th style="width: 120px">Actions</th>
+                <th>{{ $t('form.photo') }}</th>
+                <th>{{ $t('form.name') }}</th>
+                <th>{{ $t('form.phone') }}</th>
+                <th>{{ $t('form.email') }}</th>
+                <th>{{ $t('form.status') }}</th>
+                <th style="width: 120px">{{ $t('actions') }}</th>
               </tr>
             </thead>
             <tbody>
@@ -52,7 +52,7 @@
                 <td>{{ user.name }}</td>
                 <td>{{ user.phone }}</td>
                 <td>{{ user.email }}</td>
-                <td><span v-show="!user.deleted_at"  class="badge " :class="user.status == 1 ? 'badge-success' : 'badge-warning'" >{{ user.status == 1 ? 'Active' : 'Inactive'}}</span>
+                <td><span v-show="!user.deleted_at"  class="badge " :class="user.status == 1 ? 'badge-success' : 'badge-warning'" >{{ user.status == 1 ? $t('form.active') : $t('form.inactive')}}</span>
                   <span v-show="user.deleted_at" class="badge badge-danger">Deleted</span>
                 </td>
                 <td>
@@ -109,13 +109,13 @@
     },
     deleteUserConfirm(id){
       Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: this.$t('areYouSure'),
+        text: this.$t('noRevert'),
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: this.$t('yesDelete')
       }).then((result) => {
         if (result.value) {
           this.deleteUserConfirmed(id)
@@ -124,7 +124,7 @@
     },
     deleteUserConfirmed: function(id) {
       this.deleteUser(id).then(() => {
-        this.myToast('success','User has been deleted.');
+        this.myToast('success',this.$t('user.deletedUser'));
       });
     }
   }

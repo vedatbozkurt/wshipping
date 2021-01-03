@@ -124,9 +124,6 @@
           <a href="#" @click="setLocale('tr')" class="dropdown-item">
              Turkish
           </a>
-          <a href="#" @click="setLocale('fr')" class="dropdown-item">
-             French
-          </a>
         </div>
       </li>
       <li class="nav-item">

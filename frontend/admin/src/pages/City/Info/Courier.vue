@@ -1,7 +1,7 @@
 <template>
   <div class="card card-primary card-outline">
     <div class="card-header">
-      <h3 class="card-title">City Couriers</h3>
+      <h3 class="card-title">{{ $t('city.cityCouriers') }}</h3>
     </div>
     <!-- /.card-header -->
     <!-- /.card-header -->
@@ -10,13 +10,13 @@
         <thead>
           <tr>
             <th style="width: 10px">#ID</th>
-            <th>Photo</th>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Created At</th>
-            <th>Status</th>
-            <th style="width: 70px">Actions</th>
+            <th>{{ $t('form.photo') }}</th>
+            <th>{{ $t('form.name') }}</th>
+            <th>{{ $t('form.phone') }}</th>
+            <th>{{ $t('form.email') }}</th>
+            <th>{{ $t('form.createdAt') }}</th>
+            <th>{{ $t('form.status') }}</th>
+            <th style="width: 70px">{{ $t('actions') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -27,7 +27,7 @@
             <td>{{ courier.phone }}</td>
             <td>{{ courier.email }}</td>
             <td>{{ courier.created_at | moment("MMMM Do YYYY") }}</td>
-            <td><span class="badge " :class="courier.status == 1 ? 'badge-success' : 'badge-warning'" >{{ courier.status == 1 ? 'active' : 'inactive'}}</span></td>
+            <td><span class="badge " :class="courier.status == 1 ? 'badge-success' : 'badge-warning'" >{{ courier.status == 1 ? $t('form.active') : $t('form.inactive')}}</span></td>
             <td>
               <router-link style="margin-right: 11px"  :to="{name: 'EditCourier', params: { id: courier.id }}" class="btn btn-outline-info btn-xs btn-flat"><i class="fas fa-edit"></i></router-link>
             </td>
@@ -36,7 +36,7 @@
       </table>
     </div>
     <div class="card-footer">
-     <small v-show="cityCouriers == ''"><center>Not Found.</center></small>
+     <small v-show="cityCouriers == ''"><center>{{ $t('notFound') }}</center></small>
      <pagination class="float-right" :data="cityCouriers" @pagination-change-page="getCityCouriers"></pagination>
    </div>
  </div>
