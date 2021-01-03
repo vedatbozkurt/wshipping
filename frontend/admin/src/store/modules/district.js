@@ -3,7 +3,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-27 20:29:22
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-04 00:34:07
+* @Last Modified time: 2020-07-05 20:34:28
 */
 import axios from "axios";
 const namespaced= true;
@@ -22,7 +22,7 @@ const state = {
 const getters = {
   //branch:info:Details-Branch:create(dropdown),edit(dropdown)
   //courier:info:Details,courier:create(dropdown),courier:edit(dropdown)
- citiesDistricts: state => state.citiesDistrictsData,
+  citiesDistricts: state => state.citiesDistrictsData,
  cityDistricts: state => state.cityDistrictsData,  //adress:create(dropdown),edit(dropdown)
  districts: state => state.districtsData,  //district:index
  district: state => state.districtData, //district:Info:Details,district:create,district:edit
@@ -46,10 +46,17 @@ const actions =  {
     })
   },
   async getDistricts({ commit }, page = 1) { // all districts with pagination
-    await axios.get(process.env.VUE_APP_API_URL + "district?page=" + page)
-    .then(response => {
-      commit("setDistricts", response.data);
-    })
+    if (this.state.searchData == null ) {
+      await axios.get(process.env.VUE_APP_API_URL + "district?page=" + page)
+      .then(response => {
+        commit("setDistricts", response.data);
+      })
+    }else {
+      await axios.post(process.env.VUE_APP_API_URL + "district/"+ this.state.searchData +"/?page=" + page)
+      .then(response => {
+        commit("setDistricts", response.data);
+      })
+    }
   },
   async createDistrict({ commit }, data) {
     await axios.post(process.env.VUE_APP_API_URL + "district/store", data)

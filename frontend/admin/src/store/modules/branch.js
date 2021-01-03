@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-04 20:09:01
+* @Last Modified time: 2020-07-05 20:59:47
 */
 import axios from "axios";
 const namespaced= true;
@@ -34,7 +34,7 @@ const getters = {
   //Branch:info:DistrictCourier-Branch:info:DistrictTask-Branch:info:DistrictUser
   //Branch:create,edit
   //task:create,edit
-branch: state => state.branchData,
+  branch: state => state.branchData,
  branchAllCourier: state => state.branchAllCourierData, //task:create,edit
  branchCourier: state => state.branchCourierData, //Branch:info:Courier
  branchUser: state => state.branchUserData, //Branch:info:User
@@ -53,10 +53,17 @@ branch: state => state.branchData,
 
 const actions =  {
   async getBranches({ commit }, page = 1) {
-    await axios.get(process.env.VUE_APP_API_URL + "branch?page=" + page)
-    .then(response => {
-      commit("setBranches", response.data);
-    })
+    if (this.state.searchData == null ) {
+      await axios.get(process.env.VUE_APP_API_URL + "branch?page=" + page)
+      .then(response => {
+        commit("setBranches", response.data);
+      })
+    }else {
+      await axios.post(process.env.VUE_APP_API_URL + "branch/"+ this.state.searchData +"/?page=" + page)
+      .then(response => {
+        commit("setBranches", response.data);
+      })
+    }
   },
   async getAllBranches({ commit }) {
     await axios.get(process.env.VUE_APP_API_URL + "branch/all")

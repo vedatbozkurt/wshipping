@@ -10,11 +10,11 @@
           </div>
           <div class="col-sm-3">
             <div class="input-group input-group-sm float-sm-right">
-              <input type="text" class="form-control" placeholder="Search User">
+              <input type="text" class="form-control" v-model="search" placeholder="Search City">
               <div class="input-group-append">
-                <div class="btn btn-primary">
+                <a class="btn btn-primary" @click.prevent="searchThis()">
                   <i class="fas fa-search"></i>
-                </div>
+                </a>
               </div>
             </div>
           </div>
@@ -55,7 +55,7 @@
                 <td>{{ user.phone }}</td>
                 <td>{{ user.email }}</td>
                 <td><span v-show="!user.deleted_at"  class="badge " :class="user.status == 1 ? 'badge-success' : 'badge-warning'" >{{ user.status == 1 ? 'Active' : 'Inactive'}}</span>
-                <span v-show="user.deleted_at" class="badge badge-danger">Deleted</span>
+                  <span v-show="user.deleted_at" class="badge badge-danger">Deleted</span>
                 </td>
                 <td>
                   <router-link style="margin-right: 11px"  :to="{name: 'UserDetails', params: { id: user.id, user: { user } }}"  class="btn btn-outline-primary btn-xs btn-flat"><i class="fas fa-info-circle"></i></router-link>
@@ -92,6 +92,7 @@
  export default {
   data() {
     return {
+      search: null,
     }
   },
 
@@ -99,11 +100,15 @@
     ...mapGetters("user", ["users"])
   },
   created() {
+    this.$store.commit("setSearch", null);
     this.getUsers();
   },
   methods: {
     ...mapActions("user", ["getUsers","deleteUser"]),
-
+    searchThis: function() {
+      this.$store.commit('setSearch', this.search);
+      this.getUsers();
+    },
     deleteUserConfirm(id){
       Swal.fire({
         title: 'Are you sure?',

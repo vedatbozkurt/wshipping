@@ -10,6 +10,7 @@ import courier from './modules/courier';
 import user from './modules/user';
 import task from './modules/task';
 import address from './modules/address';
+import dashboard from './modules/dashboard';
 
 // Load Vuex
 Vue.use(Vuex);
@@ -18,12 +19,14 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
     errors: [],
-    loader: true
+    loader: true,
+    searchData: null,
   },
 
   getters: {
     errors: state => state.errors,
-    loader: state => state.loader
+    loader: state => state.loader,
+    search: state => state.searchData
   },
 
   mutations: {
@@ -32,6 +35,9 @@ export default new Vuex.Store({
     },
      setLoader(state, loader) {
       state.loader = loader;
+    },
+    setSearch(state, data) {
+      state.searchData = data;
     }
   },
 

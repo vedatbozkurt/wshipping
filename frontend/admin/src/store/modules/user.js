@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-04 13:10:57
+* @Last Modified time: 2020-07-05 21:25:58
 */
 import axios from "axios";
 const namespaced= true;
@@ -22,7 +22,7 @@ const getters = {
  users: state => state.usersData, //user:index
   //adress:create(dropdown),edit(dropdown)
   //task:create(dropdown),edit(dropdown)
- allUsers: state => state.allUsersData,
+  allUsers: state => state.allUsersData,
  user: state => state.userData, ////user:info:Details,create,edit
  userAddress: state => state.userAddressData, //user:info:Address
  userSenderTask: state => state.userSenderTaskData, //user:info:SenderTask
@@ -33,10 +33,17 @@ const getters = {
 
 const actions =  {
   async getUsers({ commit }, page = 1) {
-    await axios.get(process.env.VUE_APP_API_URL + "user?page=" + page)
-    .then(response => {
-      commit("setUsers", response.data);
-    })
+    if (this.state.searchData === null ) {
+      await axios.get(process.env.VUE_APP_API_URL + "user?page=" + page)
+      .then(response => {
+        commit("setUsers", response.data);
+      })
+    }else {
+      await axios.post(process.env.VUE_APP_API_URL + "user/"+ this.state.searchData +"/?page=" + page)
+      .then(response => {
+        commit("setUsers", response.data);
+      })
+    }
   },
   async getAllUsers({ commit }) {
     await axios.get(process.env.VUE_APP_API_URL + "user/all")

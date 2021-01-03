@@ -10,11 +10,11 @@
           </div>
           <div class="col-sm-3">
             <div class="input-group input-group-sm float-sm-right">
-              <input type="text" class="form-control" placeholder="Search Task">
+              <input type="text" class="form-control" v-model="search" placeholder="Search City">
               <div class="input-group-append">
-                <div class="btn btn-primary">
+                <a class="btn btn-primary" @click.prevent="searchThis()">
                   <i class="fas fa-search"></i>
-                </div>
+                </a>
               </div>
             </div>
           </div>
@@ -98,6 +98,7 @@
  export default {
   data() {
     return {
+      search: null,
     }
   },
   components: {
@@ -107,11 +108,15 @@
     ...mapGetters("task", ["tasks"])
   },
   created() {
+    this.$store.commit("setSearch", null);
     this.getTasks();
   },
   methods: {
     ...mapActions("task", ["getTasks","deleteTask"]),
-
+    searchThis: function() {
+      this.$store.commit('setSearch', this.search);
+      this.getTasks();
+    },
     deleteTaskConfirm(id){
       Swal.fire({
         title: 'Are you sure?',

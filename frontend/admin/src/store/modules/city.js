@@ -3,7 +3,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-27 20:29:22
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-04 00:35:49
+* @Last Modified time: 2020-07-05 20:14:08
 */
 import axios from "axios";
 const namespaced= true;
@@ -24,7 +24,7 @@ const getters = {
 //Branch:create(dropdown),edit(dropdown)
 //courier:info:Details(dropdown),courier:create(dropdown),courier:edit(dropdown)
 //district:Info:Details(droppdown),district:create(dropdown),district:edit(dropdown)
- cities: state => state.citiesData,
+cities: state => state.citiesData,
  citiesPage: state => state.citiesPageData, //city:index(paginate)
  city: state => state.cityData, //city:Info:Details-city:create,edit
  cityDistricts: state => state.cityDistrictsData, //city:Info:District
@@ -42,10 +42,17 @@ async getCities({ commit }) { // all cities
   })
 },
 async getCitiesPage({ commit }, page = 1) { // all cities with pagination
-  await axios.get(process.env.VUE_APP_API_URL + "city?page=" + page)
-  .then(response => {
-    commit("setCitiesPage", response.data);
-  })
+  if (this.state.searchData == null ) {
+    await axios.get(process.env.VUE_APP_API_URL + "city?page=" + page)
+    .then(response => {
+      commit("setCitiesPage", response.data);
+    })
+  }else {
+    await axios.post(process.env.VUE_APP_API_URL + "city/"+ this.state.searchData +"/?page=" + page)
+    .then(response => {
+      commit("setCitiesPage", response.data);
+    })
+  }
 },
 async createCity({ commit }, data) {
   await axios.post(process.env.VUE_APP_API_URL + "city/store", data)
@@ -148,6 +155,7 @@ const mutations =  {
   setCityUsers(state, data) { state.cityUsersData = data },
   setCityTasks(state, data) { state.cityTasksData = data },
   setCityID(state, data) { state.CityIDData = data },
+  setSearch(state, data) { state.search = data; }
 }
 
 

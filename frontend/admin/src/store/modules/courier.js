@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-04 01:27:13
+* @Last Modified time: 2020-07-05 21:08:24
 */
 import axios from "axios";
 const namespaced= true;
@@ -32,10 +32,17 @@ const getters = {
 
 const actions =  {
   async getCouriers({ commit }, page = 1) {
-    await axios.get(process.env.VUE_APP_API_URL + "courier?page=" + page)
-    .then(response => {
-      commit("setCouriers", response.data);
-    })
+    if (this.state.searchData == null ) {
+      await axios.get(process.env.VUE_APP_API_URL + "courier?page=" + page)
+      .then(response => {
+        commit("setCouriers", response.data);
+      })
+    }else {
+      await axios.post(process.env.VUE_APP_API_URL + "courier/"+ this.state.searchData +"/?page=" + page)
+      .then(response => {
+        commit("setCouriers", response.data);
+      })
+    }
   },
   async createCourier({ commit }, data) {
     await axios.post(process.env.VUE_APP_API_URL + "courier/store", data)
