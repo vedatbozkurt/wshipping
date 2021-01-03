@@ -8,6 +8,7 @@ import district from './modules/district';
 import branch from './modules/branch';
 import courier from './modules/courier';
 import user from './modules/user';
+import task from './modules/task';
 
 // Load Vuex
 Vue.use(Vuex);
@@ -43,5 +44,6 @@ export default new Vuex.Store({
     branch,
     courier,
     user,
+    task,
   }
 });

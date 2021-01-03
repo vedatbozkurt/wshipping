@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12">
-            <h1>Users</h1>
+            <h1>Tasks</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -17,9 +17,9 @@
 
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Users List</h3>
+          <h3 class="card-title">Task List</h3>
           <div class="card-tools">
-           <router-link to="/user/create" class="btn btn-outline-success btn-sm btn-flat">
+           <router-link to="/task/create" class="btn btn-outline-success btn-sm btn-flat">
             <i class="fas fa-plus"></i> New </router-link>
           </div>
         </div>
@@ -29,30 +29,35 @@
             <thead>
               <tr>
                 <th style="width: 10px">#</th>
-                <th>Photo</th>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>Email</th>
+                <th>Sender Name</th>
+                <th>Sender Phone</th>
+                <th>Receiver Name</th>
+                <th>Receiver Phone</th>
+                <th>Courier Name</th>
+                <th>Courier Phone</th>
+                <th>Price</th>
+                <th>Created At</th>
                 <th>Status</th>
                 <th style="width: 120px">Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="user in users.data" :key="user.id">
-                <td>{{ user.id }}</td>
-                <td><img alt="Avatar" class="table-avatar" src="https://adminlte.io/themes/dev/AdminLTE/dist/img/avatar.png"></td>
-                <td>{{ user.name }}</td>
-                <td>{{ user.phone }}</td>
-                <td>{{ user.email }}</td>
-                <td><span v-show="!user.deleted_at"  class="badge " :class="user.status == 1 ? 'badge-success' : 'badge-warning'" >{{ user.status == 1 ? 'Active' : 'Inactive'}}</span>
-                <span v-show="user.deleted_at" class="badge badge-danger">Deleted</span>
+              <tr v-for="task in tasks.data" :key="task.id">
+                <td>{{ task.id }}</td>
+                <td>{{ task.sender.name }}</td>
+                <td>{{ task.sender.phone }}</td>
+                <td>{{ task.receiver.name }}</td>
+                <td>{{ task.receiver.phone }}</td>
+                <td>{{ task.courier ? task.courier.name : 'No Courier'}}</td>
+                <td>{{ task.courier ? task.courier.phone : 'No Courier'}}</td>
+                <td>{{ task.price }}</td>
+                <td>{{ task.created_at | moment("MMMM Do YYYY") }}</td>
+                <td><span v-show="!task.deleted_at"  class="badge " :class="task.status == 1 ? 'badge-success' : 'badge-warning'" >{{ task.status == 1 ? 'Active' : 'Inactive'}}</span>
+                  <span v-show="task.deleted_at" class="badge badge-danger">Deleted</span>
                 </td>
                 <td>
-                  <router-link style="margin-right: 11px"  :to="{name: 'UserDetails', params: { id: user.id, user: { user } }}"  class="btn btn-outline-primary btn-xs btn-flat"><i class="fas fa-info-circle"></i></router-link>
-
-                  <router-link style="margin-right: 11px"  :to="{name: 'EditUser', params: { id: user.id }}" class="btn btn-outline-info btn-xs btn-flat"><i class="fas fa-edit"></i></router-link>
-
-                  <button class="btn btn-outline-danger btn-xs btn-flat" @click.prevent="deleteUserConfirm(user.id)">
+                  <router-link style="margin-right: 11px"  :to="{name: 'EditTask', params: { id: task.id }}" class="btn btn-outline-info btn-xs btn-flat"><i class="fas fa-edit"></i></router-link>
+                  <button class="btn btn-outline-danger btn-xs btn-flat" @click.prevent="deleteTaskConfirm(task.id)">
                     <i class="fas fa-trash-alt"></i>
                   </button>
                 </td>
@@ -63,12 +68,11 @@
         <!-- /.card-body -->
         <div class="card-footer clearfix">
           <ul class="pagination pagination-sm m-0 float-right">
-            <pagination class="float-right" :data="users" @pagination-change-page="getUsers"></pagination>
+            <pagination class="float-right" :data="tasks" @pagination-change-page="getTasks"></pagination>
           </ul>
         </div>
       </div>
       <!-- /.card -->
-
     </section>
     <!-- /.content -->
   </div>
@@ -86,15 +90,15 @@
   },
 
   computed: {
-    ...mapGetters("user", ["users"])
+    ...mapGetters("task", ["tasks"])
   },
   created() {
-    this.getUsers();
+    this.getTasks();
   },
   methods: {
-    ...mapActions("user", ["getUsers","deleteUser"]),
+    ...mapActions("task", ["getTasks","deleteTask"]),
 
-    deleteUserConfirm(id){
+    deleteTaskConfirm(id){
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -105,13 +109,13 @@
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.value) {
-          this.deleteUserConfirmed(id)
+          this.deleteTaskConfirmed(id)
         }
       });
     },
-    deleteUserConfirmed: function(id) {
-      this.deleteUser(id).then(() => {
-        this.myToast('success','User has been deleted.');
+    deleteTaskConfirmed: function(id) {
+      this.deleteTask(id).then(() => {
+        this.myToast('success','Task has been deleted.');
       });
     }
   }

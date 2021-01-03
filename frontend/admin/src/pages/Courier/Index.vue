@@ -44,7 +44,7 @@
                 <td>{{ courier.name }}</td>
                 <td>{{ courier.phone }}</td>
                 <td>{{ courier.email }}</td>
-                <td><span v-show="!courier.deleted_at"  class="badge " :class="courier.status ? 'badge-success' : 'badge-warning'" >{{ courier.status == 1 ? 'Active' : 'Inactive'}}</span>
+                <td><span v-show="!courier.deleted_at"  class="badge " :class="courier.status == 1 ? 'badge-success' : 'badge-warning'" >{{ courier.status == 1 ? 'Active' : 'Inactive'}}</span>
                 <span v-show="courier.deleted_at" class="badge badge-danger">Deleted</span>
                 </td>
                 <td>

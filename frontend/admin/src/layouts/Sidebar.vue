@@ -56,7 +56,7 @@
           </li>
           <li class="nav-item">
             <router-link to="/" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt text-primary"></i>
+              <i class="nav-icon fas fa-tachometer-alt red"></i>
               <p>Dashboard</p>
             </router-link>
           </li>
@@ -76,6 +76,12 @@
             <router-link to="/user" class="nav-link">
               <i class="nav-icon fas fa-users pink"></i>
               <p>Users</p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/task" class="nav-link">
+              <i class="nav-icon fas fa-tasks green"></i>
+              <p>Tasks</p>
             </router-link>
           </li>
           <li class="nav-header">CUSTOMIZATION</li>

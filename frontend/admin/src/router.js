@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-16 01:37:20
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-01 15:27:45
+* @Last Modified time: 2020-07-01 16:12:03
 */
 import Vue from "vue";
 import VueRouter from 'vue-router'
@@ -69,6 +69,9 @@ const routes = [
   { path: 'receivertasks', component: () => import("./pages/User/Info/ReceiverTask"), name: 'UserReceiverTask'},
   { path: 'addresses', component: () => import("./pages/User/Info/Address"), name: 'UserAddress'},
   ]},//User pages end
+ { path: 'task', component: () => import("./pages/Task/Index"),name: 'Tasks'}, //Task pages start
+  { path: 'task/create', component: () => import("./pages/Task/Create"), name: 'CreateTask'},
+  { path: 'task/:id', component: () => import("./pages/Task/Edit"), name: 'EditTask'},
 
   { path: 'setting', component: () => import("./pages/Setting"), name: 'Setting'},
   { path: 'profile', component: () => import("./pages/Profile"), name: 'Profile'},

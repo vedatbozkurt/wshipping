@@ -36,7 +36,7 @@
             </td>
             <td>{{ user.phone}}</td>
             <td>{{ user.email}}</td>
-            <td><span class="badge " :class="user.status == 1 ? 'badge-success' : 'badge-warning'" >{{ user.status === 1 ? 'active' : 'inactive'}}</span></td>
+            <td><span class="badge " :class="user.status == 1 ? 'badge-success' : 'badge-warning'" >{{ user.status == 1 ? 'active' : 'inactive'}}</span></td>
             <td>
               <button style="margin-right: 11px" class="btn btn-outline-info btn-xs btn-flat">
                 <i class="fas fa-edit"></i>
