@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-07 00:14:18
+* @Last Modified time: 2020-07-08 03:35:12
 */
 import axios from "axios";
 const namespaced= true;
@@ -65,7 +65,8 @@ const actions =  {
     })
   },
   async updateCourier({ commit }, data) {
-    await axios.put(process.env.VUE_APP_API_URL + `courier/${data.id}`, data)
+    let id = data.get('id');
+    await axios.post(process.env.VUE_APP_API_URL + `courier/${id}`, data)
     .then(response => {
       if (response.data === 'success') {
         commit("setErrors", {}, { root: true });

@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-07 00:19:37
+* @Last Modified time: 2020-07-08 02:50:08
 */
 import axios from "axios";
 const namespaced= true;
@@ -71,7 +71,8 @@ const actions =  {
     })
   },
   async updateUser({ commit }, data) {
-    await axios.put(process.env.VUE_APP_API_URL + `user/${data.id}`, data)
+    let id = data.get('id');
+    await axios.post(process.env.VUE_APP_API_URL + `user/${id}`, data)
     .then(response => {
       if (response.data === 'success') {
         commit("setErrors", {}, { root: true });

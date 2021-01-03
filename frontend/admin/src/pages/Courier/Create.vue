@@ -57,7 +57,7 @@
             <div class="form-group row">
               <label for="inputEmail3" class="col-sm-2 col-form-label">{{ $t('form.photo') }}</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" v-model="courier.image" v-bind:class="{ 'is-invalid':errors.image }">
+                <input type="file" class="form-control" v-on:change="onImageChange">
                 <span class="text-danger" v-if="errors.image"> {{ errors.image[0] }}</span>
               </div>
             </div>
@@ -140,24 +140,21 @@
 </template>
 <script>
  import { mapGetters, mapActions } from "vuex";
-
-
-
  export default {
   data() {
     return {
+      courier: {}
     }
   },
-
   computed: {
     ...mapGetters(["errors"]),
-    ...mapGetters("courier", ["courier"]),
     ...mapGetters("city", ["cities"]),
     ...mapGetters("district", ["citiesDistricts"])
   },
   mounted() {
     this.$store.commit("setErrors", {});
     this.$store.commit('courier/setCourier', {});
+    this.$store.commit('city/setCities', []);
     this.$store.commit('district/setCitiesDistricts', []);
   },
   created() {
@@ -167,13 +164,27 @@
     ...mapActions("courier", ["createCourier"]),
     ...mapActions("city", ["getCities"]),
     ...mapActions("district", ["getCitiesDistricts"]),
-
+    onImageChange(e) {
+      this.courier.image = e.target.files[0];
+    },
     getCityDistricts: function() {
       this.getCitiesDistricts(this.courier.city).then(() => {
       });
     },
     addCourier: function() {
-      this.createCourier(this.courier).then(() => {
+      let formData = new FormData();
+      formData.append('city', JSON.stringify(this.courier.city));
+      formData.append('district', JSON.stringify(this.courier.district));
+      formData.append('phone', this.courier.phone);
+      formData.append('name', this.courier.name);
+      formData.append('email', this.courier.email);
+      formData.append('vehicle', this.courier.vehicle);
+      formData.append('plate', this.courier.plate);
+      formData.append('color', this.courier.color);
+      formData.append('password', this.courier.password);
+      formData.append('image', this.courier.image);
+      formData.append('status', this.courier.status);
+      this.createCourier(formData).then(() => {
         this.myToast('success',this.$t('courier.createdCourier'));
         this.$router.push({ name: "Couriers" });
       });

@@ -37,7 +37,7 @@
             <div class="form-group row">
               <label for="inputEmail3" class="col-sm-2 col-form-label">{{ $t('form.photo') }}</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" v-model="user.image" v-bind:class="{ 'is-invalid':errors.image }">
+                <input type="file" class="form-control" v-on:change="onImageChange">
                 <span class="text-danger" v-if="errors.image"> {{ errors.image[0] }}</span>
               </div>
             </div>
@@ -105,12 +105,19 @@
  export default {
   data() {
     return {
+      user: {
+        image:'',
+        name:'',
+        phone:'',
+        email:'',
+        status:'',
+        password:''
+      }
     }
   },
 
   computed: {
     ...mapGetters(["errors"]),
-    ...mapGetters("user", ["user"]),
   },
   mounted() {
     this.$store.commit("setErrors", {});
@@ -120,9 +127,18 @@
   },
   methods: {
     ...mapActions("user", ["createUser"]),
-
+    onImageChange(e) {
+      this.user.image = e.target.files[0];
+    },
     addUser: function() {
-      this.createUser(this.user).then(() => {
+      let formData = new FormData();
+      formData.append('image', this.user.image);
+      formData.append('name', this.user.name);
+      formData.append('phone', this.user.phone);
+      formData.append('email', this.user.email);
+      formData.append('status', this.user.status);
+      formData.append('password', this.user.password);
+      this.createUser(formData).then(() => {
         this.myToast('success',this.$t('user.createdUser'));
         this.$router.push({ name: "Users" });
       });
