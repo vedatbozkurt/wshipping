@@ -6,11 +6,11 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-9">
-            <h1>Addresses</h1>
+            <h1>{{ $t('addresses') }}</h1>
           </div>
           <div class="col-sm-3">
             <div class="input-group input-group-sm float-sm-right">
-              <input type="text" class="form-control" placeholder="Search Address">
+              <input type="text" class="form-control" :placeholder="$t('searchAddress')">
               <div class="input-group-append">
                 <div class="btn btn-primary">
                   <i class="fas fa-search"></i>
@@ -27,10 +27,10 @@
 
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Address List</h3>
+          <h3 class="card-title">{{ $t('addressList') }}</h3>
           <div class="card-tools">
            <router-link to="/address/create" class="btn btn-outline-success btn-sm btn-flat">
-            <i class="fas fa-plus"></i> New </router-link>
+            <i class="fas fa-plus"></i> {{ $t('new') }} </router-link>
           </div>
         </div>
         <!-- /.card-header -->
@@ -39,11 +39,11 @@
             <thead>
               <tr>
                 <th style="width: 10px">#</th>
-                <th>Name</th>
-                <th>Owner User</th>
-                <th>City</th>
-                <th>District</th>
-                <th style="width: 120px">Actions</th>
+                <th>{{ $t('form.name') }}</th>
+                <th>{{ $t('addressOwner') }}</th>
+                <th>{{ $t('form.city') }}</th>
+                <th>{{ $t('form.district') }}</th>
+                <th style="width: 120px">{{ $t('actions') }}</th>
               </tr>
             </thead>
             <tbody>
@@ -101,13 +101,13 @@
 
     deleteAddressConfirm(id){
       Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: this.$t('areYouSure'),
+        text: this.$t('noRevert'),
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: this.$t('yesDelete')
       }).then((result) => {
         if (result.value) {
           this.deleteAddressConfirmed(id)
@@ -116,7 +116,7 @@
     },
     deleteAddressConfirmed: function(id) {
       this.deleteAddress(id).then(() => {
-        this.myToast('success','Address has been deleted.');
+        this.myToast('success',this.$t('addressDeleted'));
       });
     }
   }

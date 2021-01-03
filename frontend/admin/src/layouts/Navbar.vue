@@ -112,6 +112,23 @@
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
       </li>
+       <!-- Language Dropdown Menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="fas fa-language cyan" style="font-size: 1.65rem;"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right p-0">
+          <a href="#" @click="setLocale('en')" class="dropdown-item">
+            English
+          </a>
+          <a href="#" @click="setLocale('tr')" class="dropdown-item">
+             Turkish
+          </a>
+          <a href="#" @click="setLocale('fr')" class="dropdown-item">
+             French
+          </a>
+        </div>
+      </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
           <i class="fas fa-th-large"></i>
@@ -121,3 +138,20 @@
   </nav>
   <!-- /.navbar -->
   </template>
+<script>
+  export default {
+    computed: {
+    },
+
+    mounted() {
+    },
+
+    methods: {
+      setLocale(locale) {
+      console.log(locale)
+      this.$i18n.locale = locale
+      localStorage.setItem('userlocale', locale);
+    },
+    }
+  };
+</script>

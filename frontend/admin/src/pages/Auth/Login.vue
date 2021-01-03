@@ -2,12 +2,12 @@
   <div class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a href="/"><b>Admin</b> Login</a>
+        <a href="/"><b>Admin</b> {{ $t('login') }}</a>
       </div>
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body login-card-body">
-          <p class="login-box-msg">Sign in to start your session</p>
+          <p class="login-box-msg">{{ $t('signinStart') }}</p>
 
           <form>
             <div class="input-group mb-3">
@@ -16,7 +16,7 @@
               class="form-control"
               :class="{ 'is-invalid': errors.email }"
               v-model="details.email"
-              placeholder="Email">
+              :placeholder="$t('email')">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-envelope"></span>
@@ -31,7 +31,7 @@
               class="form-control"
               :class="{ 'is-invalid': errors.password }"
               v-model="details.password"
-              placeholder="Password">
+              :placeholder="$t('password')">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-lock"></span>
@@ -44,7 +44,7 @@
             <div class="row">
               <!-- /.col -->
               <div class="col-12">
-                <button type="button" @click="login" class="btn btn-primary btn-block">Sign In</button>
+                <button type="button" @click="login" class="btn btn-primary btn-block">{{ $t('signin') }}</button>
               </div>
               <!-- /.col -->
             </div>
@@ -88,7 +88,7 @@
       login: function() {
         this.sendLoginRequest(this.details).then(() => {
           this.getCurrency();
-          this.myToast('success','Success Login.');
+          this.myToast('success',this.$t('signinSuccess'));
           this.$router.push({ name: "Dashboard" });
         });
       }

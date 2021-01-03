@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12">
-            <h1>Profile Page</h1>
+            <h1>{{ $t('profile') }}</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -18,7 +18,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Edit Profile</h3>
+          <h3 class="card-title">{{ $t('editProfile') }}</h3>
 
           <div class="card-tools">
            <!--  <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -29,21 +29,21 @@
         <form>
           <div class="card-body">
             <div class="form-group row">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+              <label for="inputEmail3" class="col-sm-2 col-form-label">{{ $t('form.name') }}</label>
               <div class="col-sm-10">
                 <input type="text" class="form-control" v-model="admin.name" v-bind:class="{ 'is-invalid':errors.name }">
                 <span class="text-danger" v-if="errors.name"> {{ errors.name[0] }}</span>
               </div>
             </div>
             <div class="form-group row">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+              <label for="inputEmail3" class="col-sm-2 col-form-label">{{ $t('form.email') }}</label>
               <div class="col-sm-10">
                 <input type="email" class="form-control" v-model="admin.email" v-bind:class="{ 'is-invalid': errors.email }">
                 <span class="text-danger" v-if="errors.email"> {{ errors.email[0] }}</span>
               </div>
             </div>
             <div class="form-group row">
-              <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+              <label for="inputPassword3" class="col-sm-2 col-form-label">{{ $t('password') }}</label>
               <div class="col-sm-10">
                 <input type="password" class="form-control" v-model="admin.password" v-bind:class="{ 'is-invalid':errors.password }">
                 <span class="text-danger" v-if="errors.password"> {{ errors.password[0] }}</span>
@@ -52,9 +52,9 @@
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
-            <button type="button" @click="updateProfile" class="btn btn-info">Save</button>
+            <button type="button" @click="updateProfile" class="btn btn-info">{{ $t('save') }}</button>
             <router-link to="/" class="btn btn-default float-right">
-              Cancel
+              {{ $t('cancel') }}
             </router-link>
           </div>
           <!-- /.card-footer -->
@@ -91,7 +91,7 @@
 
     updateProfile: function() {
       this.uploadAdminData(this.admin).then(() => {
-        this.myToast('success','Profile has been updated.');
+        this.myToast('success',this.$t('updatedProfile'));
       });
     }
   }

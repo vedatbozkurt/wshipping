@@ -3,9 +3,10 @@ import App from './App.vue'
 import router from "./router";
 import store from './store';
 import axios from "axios";
+import i18n from "./i18n";
 import './mixins/sweetAlerts'
 import Multiselect from 'vue-multiselect'
-  Vue.component('multiselect', Multiselect)
+Vue.component('multiselect', Multiselect)
 Vue.use(require('vue-moment'));
 
 
@@ -46,5 +47,6 @@ axios.interceptors.request.use(function(config) {
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App),
 }).$mount('#app')

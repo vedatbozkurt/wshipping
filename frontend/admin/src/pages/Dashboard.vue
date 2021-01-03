@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12">
-            <h1>Dashboard</h1>
+            <h1>{{ $t('dashboard') }}</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -21,7 +21,7 @@
             <span class="info-box-icon bg-info elevation-1"><i class="fas fa-code-branch"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Branches</span>
+              <span class="info-box-text">{{ $t('branches') }}</span>
               <span class="info-box-number">{{branches}}</span>
             </div>
             <!-- /.info-box-content -->
@@ -34,7 +34,7 @@
             <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-biking"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Couriers</span>
+              <span class="info-box-text">{{ $t('branches') }}</span>
               <span class="info-box-number">{{couriers}}</span>
             </div>
             <!-- /.info-box-content -->
@@ -51,7 +51,7 @@
             <span class="info-box-icon bg-success elevation-1"><i class="fas fa-users"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Users</span>
+              <span class="info-box-text">{{ $t('users') }}</span>
               <span class="info-box-number">{{users}}</span>
             </div>
             <!-- /.info-box-content -->
@@ -64,7 +64,7 @@
             <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-tasks"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Tasks</span>
+              <span class="info-box-text">{{ $t('tasks') }}</span>
               <span class="info-box-number">{{tasks}}</span>
             </div>
             <!-- /.info-box-content -->
@@ -78,10 +78,10 @@
         <div class="col-12 col-md-6">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Montly Tasks</h3>
+              <h3 class="card-title">{{ $t('montlyTasks') }}</h3>
               <div class="card-tools">
                <router-link to="/task/create" class="btn btn-outline-success btn-sm btn-flat">
-                <i class="fas fa-plus"></i> New </router-link>
+                <i class="fas fa-plus"></i> {{ $t('new') }} </router-link>
               </div>
             </div>
             <!-- /.card-header -->
@@ -95,7 +95,7 @@
         <div class="col-12 col-md-6">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Couriers and Users</h3>
+              <h3 class="card-title">{{ $t('couriers') }} - {{ $t('users') }}</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
