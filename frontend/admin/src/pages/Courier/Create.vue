@@ -143,7 +143,17 @@
  export default {
   data() {
     return {
-      courier: {},
+      courier: {
+        name:'',
+        email:'',
+        phone:'',
+        password:'',
+        vehicle:'',
+        plate:'',
+        color:'',
+        city:'',
+        district:'',
+      },
       result:''
     }
   },

@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-04-10 16:28:03
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-08 21:30:11
+* @Last Modified time: 2020-07-17 02:50:14
 */
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
@@ -62,6 +62,9 @@ const messages = {
     tasks: 'Tasks',
     montlyTasks: 'Montly Tasks',
     restore: 'Restore',
+    accept: 'Accept',
+    cancelTask: 'Are you sure you want to cancel the task?',
+    yesCancel: 'Yes Cancel',
     details: 'Details',
     customization: 'CUSTOMIZATION',
     branch: {
@@ -103,6 +106,7 @@ const messages = {
       deletedCourier: 'Courier has been deleted.',
       restoredCourier: 'Courier has been restored.',
       createdCourier: 'Courier has been created.',
+      registerCourier: 'Registered successfully',
     },
     form: {
      enterName: 'Enter Name',
@@ -138,6 +142,7 @@ const messages = {
      vehicle: 'Vehicle',
      plate: 'Plate',
      color: 'Color',
+     accept: 'Accept'
    },
    select: {
      selectCity: 'Select City',
@@ -199,7 +204,12 @@ const messages = {
      districtList: 'District List',
    },
    task: {
+     canceled: 'Canceled',
      tasks: 'Tasks',
+     myTasks: 'My Taks',
+     acceptedTask: 'Success, check my tasks page.',
+     canceledTask: 'Duty canceled',
+     courierAcceptWarning: 'You will be appointed as a courier of this task!',
      taskList: 'Task List',
      taskSearch: 'Search Task',
      createTask: 'Create Task',
@@ -214,11 +224,17 @@ const messages = {
      courierOnTheRoad: 'Courier On The Road',
      courierArrivedAtDestination: 'Courier Arrived at Destination',
      delivered: 'Delivered',
-     canceled: 'Canceled',
+     couriercanceled: 'courier canceled - new courier expected',
      restoredTask: 'Task has been restored.',
      updatedTask: 'Task has been updated.',
      createdTask: 'Task has been created.',
      deletedTask: 'Task has been deleted.',
+     courierReceivedTask: 'Courier Received Task.',
+     accepttask: 'Accept The Task',
+     receivedtask: 'I Received The Task',
+     onroad: 'I set out',
+     arrived: 'Arrived at Destination Address',
+     deliveredtask: 'I Delivered The Task',
    },
    month: {
      january: 'January',
@@ -287,6 +303,9 @@ const messages = {
   montlyTasks: 'Aylık Gönderiler',
   restore: 'Geri Yükle',
   details: 'Ayrıntılar',
+  accept: 'Kabul Et',
+  cancelTask: 'Görevi iptal etmek istediğine emin misin?',
+  yesCancel: 'Evet İptal Et',
   customization: 'ÖZELLEŞTİRME',
   branch: {
     branch: 'Şube',
@@ -327,6 +346,7 @@ const messages = {
     deletedCourier: 'Kurye silindi.',
     restoredCourier: 'Kurye geri yüklendi.',
     createdCourier: 'Kurye oluşturuldu.',
+    registerCourier: 'Kayıt başarılı.',
   },
   form: {
    enterName: 'Ad Gir',
@@ -362,6 +382,7 @@ const messages = {
    vehicle: 'Araç',
    plate: 'Plaka',
    color: 'Renk',
+   accept: 'Kabul Et'
  },
  select: {
    selectCity: 'İl Seç',
@@ -423,6 +444,11 @@ const messages = {
    districtList: 'İlçe Listesi',
  },
  task: {
+   canceled: 'İptal Edildi',
+   myTasks: 'Gönderilerim',
+   acceptedTask: 'İşlem başarılı, Gönderilerim sayfasını kontrol et.',
+   canceledTask: 'Gönderi kurye görevin iptal edildi.',
+   courierAcceptWarning: 'Bu gönderinin kuryesi olarak atanacaksın!',
    tasks: 'Gönderiler',
    taskList: 'Gönderi Listesi',
    taskSearch: 'Gönderi Ara',
@@ -438,11 +464,18 @@ const messages = {
    courierOnTheRoad: 'Kurye Yolda',
    courierArrivedAtDestination: 'Kurye Hedefe Vardı',
    delivered: 'Teslim Edildi',
-   canceled: 'İptal Edildi',
+   couriercanceled: 'Kurye iptal etti-Yeni kurye bekleniyor',
    restoredTask: 'Gönderi onarıldı.',
    updatedTask: 'Gönderi güncellendi.',
    createdTask: 'Gönderi oluşturuldu.',
    deletedTask: 'Gönderi silindi.',
+   courierReceivedTask: 'Kurye Gönderiyi Teslim Aldı.',
+   accepttask: 'Görevi Kabul Ediyorum',
+   receivedtask: 'Gönderiyi Teslim Aldım',
+   onroad: 'Teslim Etmek İçin Yola Çıktım',
+   arrived: 'Hedef Adrese Vardım',
+   deliveredtask: 'Gönderiyi Teslim Ettim',
+
  },
  month: {
    january: 'Ocak',

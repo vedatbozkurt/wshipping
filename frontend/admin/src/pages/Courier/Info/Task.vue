@@ -1,7 +1,7 @@
 <template>
   <div class="card card-primary card-outline">
     <div class="card-header">
-      <h3 class="card-title">Courier Tasks</h3>
+      <h3 class="card-title">{{ $t('courier.courierTasks') }}</h3>
     </div>
     <!-- /.card-header -->
     <!-- /.card-header -->

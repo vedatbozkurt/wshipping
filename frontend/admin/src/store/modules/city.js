@@ -3,7 +3,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-27 20:29:22
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-07 00:02:29
+* @Last Modified time: 2020-07-11 23:59:21
 */
 import axios from "axios";
 const namespaced= true;
@@ -16,7 +16,7 @@ const state = {
   cityBranchesData: {},
   cityUsersData: {},
   cityTasksData: {},
-  cidtIDData:null, //city:info dosyalarında kullanıldı
+  cityIDData:null, //city:info dosyalarında kullanıldı
 };
 
 const getters = {

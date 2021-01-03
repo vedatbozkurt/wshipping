@@ -115,10 +115,12 @@
                       <option value="1">{{ $t('task.approvedAwaitingCourierAssignment') }}</option>
                       <option value="2">{{ $t('task.courierAssignedAcceptanceExpected') }}</option>
                       <option value="3">{{ $t('task.courierAccepted') }}</option>
-                      <option value="4">{{ $t('task.courierOnTheRoad') }}</option>
-                      <option value="5">{{ $t('task.courierArrivedAtDestination') }}</option>
-                      <option value="6">{{ $t('task.delivered') }}</option>
-                      <option value="7">{{ $t('task.canceled') }}</option>
+                      <option value="4">{{ $t('task.courierReceivedTask') }}</option>
+                      <option value="5">{{ $t('task.courierOnTheRoad') }}</option>
+                      <option value="6">{{ $t('task.courierArrivedAtDestination') }}</option>
+                      <option value="7">{{ $t('task.delivered') }}</option>
+                      <option value="8">{{ $t('task.couriercanceled') }}</option>
+                      <option value="9">{{ $t('task.canceled') }}</option>
                     </select>
                     <span class="text-danger" v-if="errors.status"> {{ errors.status[0] }}</span>
                   </div>
