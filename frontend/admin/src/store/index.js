@@ -53,5 +53,6 @@ export default new Vuex.Store({
     user,
     task,
     address,
+    dashboard
   }
 });

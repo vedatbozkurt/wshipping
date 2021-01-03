@@ -36,7 +36,7 @@ axios.interceptors.request.use(function(config) {
   config.headers.common = {
     "Authorization": `Bearer ${localStorage.getItem("authToken")}`,
     "Content-Type": "application/json",
-    "Accept": "application/json"
+    "Accept": "application/json",
   };
   return config;
 });
