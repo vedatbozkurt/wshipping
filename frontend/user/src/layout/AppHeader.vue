@@ -106,7 +106,7 @@
       }
   },
   computed: {
-      ...mapGetters("auth", ["logged"])
+      ...mapGetters(["logged"])
   },
   mounted() {
 

@@ -7,6 +7,8 @@ import Landing from "./views/Landing.vue";
 import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import Profile from "./views/Profile.vue";
+import Home from "./views/Home.vue";
+import NotFound from "./views/NotFound.vue";
 
 Vue.use(Router);
 const auth = (to, from, next) => {
@@ -22,58 +24,73 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    {
-      path: "/",
-      name: "home",
-      components: {
-        header: AppHeader,
-        default: Landing,
-        footer: AppFooter
-      }
-    },
-    {
-      path: "/components",
-      name: "components",
-      components: {
-        header: AppHeader,
-        default: Components,
-        footer: AppFooter
-      }
-    },
-    {
-      path: "/login",
-      name: "login",
-      components: {
-        header: AppHeader,
-        default: Login,
-        footer: AppFooter
-      }
-    },
-    {
-      path: "/register",
-      name: "register",
-      components: {
-        header: AppHeader,
-        default: Register,
-        footer: AppFooter
-      }
-    },
-    {
-      path: "/profile",
-      name: "profile",
-      beforeEnter: auth,
-      components: {
-        header: AppHeader,
-        default: Profile,
-        footer: AppFooter
-      }
+  {
+    path: "/",
+    name: "home",
+    components: {
+      header: AppHeader,
+      default: Home,
+      footer: AppFooter
     }
-  ],
-  scrollBehavior: to => {
-    if (to.hash) {
-      return { selector: to.hash };
-    } else {
-      return { x: 0, y: 0 };
+  },
+  {
+    path: "/landing",
+    name: "landing",
+    components: {
+      header: AppHeader,
+      default: Landing,
+      footer: AppFooter
     }
+  },
+  {
+    path: "/components",
+    name: "components",
+    components: {
+      header: AppHeader,
+      default: Components,
+      footer: AppFooter
+    }
+  },
+  {
+    path: "/login",
+    name: "login",
+    components: {
+      header: AppHeader,
+      default: Login,
+      footer: AppFooter
+    }
+  },
+  {
+    path: "/register",
+    name: "register",
+    components: {
+      header: AppHeader,
+      default: Register,
+      footer: AppFooter
+    }
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    beforeEnter: auth,
+    components: {
+      header: AppHeader,
+      default: Profile,
+      footer: AppFooter
+    }
+  },
+  { path: '*',
+  name: 'NotFound',
+  components: {
+    default: NotFound,
   }
+}
+],
+scrollBehavior: to => {
+  if (to.hash) {
+    return { selector: to.hash };
+  } else {
+    return { x: 0, y: 0 };
+  }
+}
 });

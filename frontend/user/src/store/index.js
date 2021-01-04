@@ -6,6 +6,7 @@ import dashboard from './modules/dashboard';
 import address from './modules/address';
 import city from './modules/city';
 import district from './modules/district';
+import task from './modules/task';
 
 // Load Vuex
 Vue.use(Vuex);
@@ -15,13 +16,13 @@ export default new Vuex.Store({
   state: {
     errors: [],
     loader: false,
-    searchData: null,
+    loggedData: null,
   },
 
   getters: {
     errors: state => state.errors,
     loader: state => state.loader,
-    search: state => state.searchData,
+    logged: state => state.loggedData,
   },
 
   actions: {
@@ -30,7 +31,7 @@ export default new Vuex.Store({
   mutations: {
     setErrors(state, errors) { state.errors = errors; },
     setLoader(state, loader) { state.loader = loader; },
-    setSearch(state, data) { state.searchData = data; },
+    setLoggedData(state, data) { state.loggedData = data; },
   },
 
   modules: {
@@ -40,5 +41,6 @@ export default new Vuex.Store({
     address,
     city,
     district,
+    task,
   }
 });

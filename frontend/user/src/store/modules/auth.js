@@ -2,14 +2,13 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-26 14:42:53
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-22 02:20:53
+* @Last Modified time: 2020-07-22 17:29:16
 */
 import axios from "axios";
 const namespaced= true;
 
 const state = {
   userData: null,
-  loggedData: false,
 };
 
 /*getters: {
@@ -19,7 +18,6 @@ const state = {
   const getters = {
   // allPosts: state => state.posts,
   user: state => state.userData,
-  logged: state => state.loggedData,
 };
 
 const actions =  {
@@ -30,7 +28,7 @@ const actions =  {
     .then(response => {
       commit("setUserData", response.data.data.name);
       localStorage.setItem("authToken", response.data.data.token);
-      commit("setLoggedData", true);
+      commit("setLoggedData", true, { root: true });
       commit("setLoader", false, { root: true });
     })
     .catch(() => {
@@ -53,7 +51,7 @@ const actions =  {
     axios.post(process.env.VUE_APP_API_URL + "logout").then(() => {
       commit("setUserData", null);
       localStorage.removeItem("authToken");
-      commit("setLoggedData", false);
+      commit("setLoggedData", false, { root: true });
       commit("setLoader", false, { root: true });
     });
   }
@@ -61,7 +59,6 @@ const actions =  {
 
 const  mutations =  {
   setUserData(state, user) { state.userData = user; },
-  setLoggedData(state, data) { state.loggedData = data; },
 }
 
 
