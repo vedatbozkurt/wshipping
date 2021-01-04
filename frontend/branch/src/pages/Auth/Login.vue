@@ -2,7 +2,7 @@
   <div class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a href="/"><b>Admin</b> {{ $t('login') }}</a>
+        <a href="/"><b>{{ $t('branch.branch') }}</b> {{ $t('login') }}</a>
       </div>
       <!-- /.login-logo -->
       <div class="card">

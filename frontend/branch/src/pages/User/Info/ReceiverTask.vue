@@ -1,7 +1,7 @@
 <template>
   <div class="card card-primary card-outline">
     <div class="card-header">
-      <h3 class="card-title">{{ $t('courier.courierTasks') }}</h3>
+      <h3 class="card-title">{{ $t('user.receivedTasksByUser') }}</h3>
     </div>
     <!-- /.card-header -->
     <!-- /.card-header -->
@@ -9,11 +9,11 @@
       <table class="table table-striped projects">
         <thead>
           <tr>
-            <th style="width: 10px">#ID</th>
+            <th style="width: 10px">#</th>
+            <th>{{ $t('form.courierName') }}</th>
+            <th>{{ $t('form.courierPhone') }}</th>
             <th>{{ $t('form.senderName') }}</th>
             <th>{{ $t('form.senderPhone') }}</th>
-            <th>{{ $t('form.receiverName') }}</th>
-            <th>{{ $t('form.receiverPhone') }}</th>
             <th>{{ $t('form.price') }}</th>
             <th>{{ $t('form.createdAt') }}</th>
             <th>{{ $t('form.status') }}</th>
@@ -21,12 +21,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="task in courierTasks.data" :key="task.id">
+          <tr v-for="task in userReceiverTask.data" :key="task.id">
             <td>{{ task.id }}</td>
+            <td>{{ task.courier ? task.courier.name : $t('form.noCourier')}}</td>
+            <td>{{ task.courier ? task.courier.phone : $t('form.noCourier')}}</td>
             <td>{{ task.sender.name}}</td>
             <td>{{ task.sender.phone}}</td>
-            <td>{{ task.receiver.name}}</td>
-            <td>{{ task.receiver.phone}}</td>
             <td>{{ task.price}} {{currency}}</td>
             <td>{{ task.created_at | moment("MMMM Do YYYY") }}</td>
             <td>
@@ -41,8 +41,8 @@
       </table>
     </div>
     <div class="card-footer">
-      <small v-show="courierTasks == ''"><center>{{ $t('notFound') }}</center></small>
-     <pagination class="float-right" :data="courierTasks" @pagination-change-page="getCourierTask"></pagination>
+      <small v-show="userReceiverTask == ''"><center>{{ $t('notFound') }}</center></small>
+      <pagination class="float-right" :data="userReceiverTask" @pagination-change-page="getUserReceiverTasks"></pagination>
     </div>
   </div>
   <!-- /.card -->
@@ -60,14 +60,14 @@
   },
   computed: {
     ...mapGetters(["currency"]),
-    ...mapGetters("courier", ["courierTasks"]),
+    ...mapGetters("user", ["userReceiverTask"]),
   },
   created() {
-    this.$store.commit('courier/setCourierID', this.$route.params.id);
-    this.getCourierTask();
+    this.$store.commit('user/setUserID', this.$route.params.id);
+    this.getUserReceiverTasks();
   },
   methods: {
-    ...mapActions("courier", ["getCourierTask"]),
+    ...mapActions("user", ["getUserReceiverTasks"]),
   }
 }
 </script>

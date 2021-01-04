@@ -1,7 +1,7 @@
 <template>
   <div class="card card-primary card-outline">
     <div class="card-header">
-      <h3 class="card-title">{{ $t('courier.courierTasks') }}</h3>
+      <h3 class="card-title">{{ $t('district.districtTasks') }}</h3>
     </div>
     <!-- /.card-header -->
     <!-- /.card-header -->
@@ -10,7 +10,7 @@
         <thead>
           <tr>
             <th style="width: 10px">#ID</th>
-            <th>{{ $t('form.senderName') }}</th>
+           <th>{{ $t('form.senderName') }}</th>
             <th>{{ $t('form.senderPhone') }}</th>
             <th>{{ $t('form.receiverName') }}</th>
             <th>{{ $t('form.receiverPhone') }}</th>
@@ -21,7 +21,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="task in courierTasks.data" :key="task.id">
+          <tr v-for="task in districtTasks.data" :key="task.id">
             <td>{{ task.id }}</td>
             <td>{{ task.sender.name}}</td>
             <td>{{ task.sender.phone}}</td>
@@ -41,11 +41,11 @@
       </table>
     </div>
     <div class="card-footer">
-      <small v-show="courierTasks == ''"><center>{{ $t('notFound') }}</center></small>
-     <pagination class="float-right" :data="courierTasks" @pagination-change-page="getCourierTask"></pagination>
-    </div>
-  </div>
-  <!-- /.card -->
+     <small v-show="districtTasks == ''"><center>{{ $t('notFound') }}</center></small>
+     <pagination class="float-right" :data="districtTasks" @pagination-change-page="getDistrictTasks"></pagination>
+   </div>
+ </div>
+ <!-- /.card -->
 </template>
 <script>
  import TaskStatus from '../../../components/TaskStatus.vue'
@@ -55,19 +55,22 @@
     return {
     }
   },
-  components: {
+components: {
     TaskStatus
   },
   computed: {
     ...mapGetters(["currency"]),
-    ...mapGetters("courier", ["courierTasks"]),
+    ...mapGetters("district", ["districtTasks"]),
+  },
+  mounted() {
+    // this.$store.commit('city/setcityTasks', {});
   },
   created() {
-    this.$store.commit('courier/setCourierID', this.$route.params.id);
-    this.getCourierTask();
+    this.$store.commit('district/setDistrictID', this.$route.params.id);
+    this.getDistrictTasks();
   },
   methods: {
-    ...mapActions("courier", ["getCourierTask"]),
+    ...mapActions("district", ["getDistrictTasks"]),
   }
 }
 </script>

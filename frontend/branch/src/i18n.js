@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-04-10 16:28:03
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-08 21:30:11
+* @Last Modified time: 2020-07-14 13:41:18
 */
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
@@ -94,6 +94,7 @@ const messages = {
       courier: 'Courier',
       couriersDetails: 'Courier Details',
       editCourier: 'Edit Courier',
+      courierTasks: 'Courier Tasks',
       createCourier: 'Create Courier',
       searchCourier: 'Search Courier',
       newCourierForm: 'New Courier Form',
@@ -318,6 +319,7 @@ const messages = {
     courier: 'Kurye',
     couriersDetails: 'Kurye Ayrıntıları',
     editCourier: 'Kurye Düzenle',
+    courierTasks: 'Kurye Gönderileri',
     createCourier: 'Kurye Oluştur',
     searchCourier: 'Kurye Ara',
     newCourierForm: 'Yeni Kurye Formu',

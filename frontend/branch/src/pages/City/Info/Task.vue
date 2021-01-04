@@ -1,7 +1,7 @@
 <template>
   <div class="card card-primary card-outline">
     <div class="card-header">
-      <h3 class="card-title">{{ $t('courier.courierTasks') }}</h3>
+      <h3 class="card-title">{{ $t('city.cityTasks') }}</h3>
     </div>
     <!-- /.card-header -->
     <!-- /.card-header -->
@@ -9,7 +9,7 @@
       <table class="table table-striped projects">
         <thead>
           <tr>
-            <th style="width: 10px">#ID</th>
+            <th style="width: 10px">#</th>
             <th>{{ $t('form.senderName') }}</th>
             <th>{{ $t('form.senderPhone') }}</th>
             <th>{{ $t('form.receiverName') }}</th>
@@ -21,7 +21,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="task in courierTasks.data" :key="task.id">
+          <tr v-for="task in cityTasks.data" :key="task.id">
             <td>{{ task.id }}</td>
             <td>{{ task.sender.name}}</td>
             <td>{{ task.sender.phone}}</td>
@@ -41,11 +41,11 @@
       </table>
     </div>
     <div class="card-footer">
-      <small v-show="courierTasks == ''"><center>{{ $t('notFound') }}</center></small>
-     <pagination class="float-right" :data="courierTasks" @pagination-change-page="getCourierTask"></pagination>
-    </div>
-  </div>
-  <!-- /.card -->
+     <small v-show="cityTasks == ''"><center>{{ $t('notFound') }}</center></small>
+     <pagination class="float-right" :data="cityTasks" @pagination-change-page="getCityTasks"></pagination>
+   </div>
+ </div>
+ <!-- /.card -->
 </template>
 <script>
  import TaskStatus from '../../../components/TaskStatus.vue'
@@ -60,14 +60,17 @@
   },
   computed: {
     ...mapGetters(["currency"]),
-    ...mapGetters("courier", ["courierTasks"]),
+    ...mapGetters("city", ["cityTasks"]),
+  },
+  mounted() {
+    // this.$store.commit('city/setcityTasks', {});
   },
   created() {
-    this.$store.commit('courier/setCourierID', this.$route.params.id);
-    this.getCourierTask();
+    this.$store.commit('city/setCityID', this.$route.params.id);
+    this.getCityTasks();
   },
   methods: {
-    ...mapActions("courier", ["getCourierTask"]),
+    ...mapActions("city", ["getCityTasks"]),
   }
 }
 </script>

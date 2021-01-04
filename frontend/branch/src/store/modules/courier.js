@@ -2,12 +2,13 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-28 13:34:40
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-12 01:27:16
+* @Last Modified time: 2020-07-14 14:51:40
 */
 import axios from "axios";
 const namespaced= true;
 const state = {
   couriersData: {},
+  allCouriersData: [],
   courierData: {},
   courierTasksData: {},
   courierIDData: null, //courier:info dosyalarında kullanıldı
@@ -17,6 +18,7 @@ const getters = {
  couriers: state => state.couriersData,
  courier: state => state.courierData,
  courierTasks: state => state.courierTasksData,
+ allCouriers: state => state.allCouriersData,
 }
 
 const actions =  {
@@ -35,6 +37,14 @@ const actions =  {
         commit("setLoader", false, { root: true });
       })
     }
+  },
+  async getAllCouriers({ commit }) {
+    commit("setLoader", true, { root: true });
+      await axios.get(process.env.VUE_APP_API_URL + "courier/allcouriers")
+      .then(response => {
+        commit("setAllCouriers", response.data);
+        commit("setLoader", false, { root: true });
+      })
   },
   async createCourier({ commit }, data) {
     await axios.post(process.env.VUE_APP_API_URL + "courier/store", data)
@@ -91,6 +101,7 @@ const actions =  {
 
 const mutations =  {
   setCouriers(state, data) { state.couriersData = data },
+  setAllCouriers(state, data) { state.allCouriersData = data },
   setCourier(state, data) { state.courierData = data },
   removeCourier: (state, id) => (state.couriersData.data = state.couriersData.data.filter(todo => todo.id !== id)),
   setCourierTask(state, data) { state.courierTasksData = data },

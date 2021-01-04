@@ -13,13 +13,13 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-1 d-flex">
         <div class="image">
-          <!-- <img v-if="logo" :src="getLogo()" style="width: 50px" class="elevation-2" alt="User Image"> -->
+         <img v-if="logo" :src="getLogo()" style="width: 50px" class="elevation-2" alt="User Image">
         </div><!--
         <div class="info">
           <router-link to="/profile" class="d-block">{{ user.name }}</router-link>
         </div> -->
         <div class="info">
-          <a href="#" class="d-block"> Branch Adı: {{branch.name}} </a>
+          <a href="#" class="d-block"> {{branch.name}} </a>
         </div>
       </div>
 
@@ -40,6 +40,36 @@
             <router-link to="/courier" class="nav-link">
               <i class="nav-icon fas fa-biking yellow"></i>
               <p>{{ $t('courier.couriers') }}</p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/user" class="nav-link">
+              <i class="nav-icon fas fa-users acikpink"></i>
+              <p>{{ $t('users') }}</p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/task" class="nav-link">
+              <i class="nav-icon fas fa-tasks green"></i>
+              <p>{{ $t('tasks') }}</p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/address" class="nav-link">
+              <i class="nav-icon fas fa-address-card orange"></i>
+              <p>{{ $t('addresses') }}</p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/city" class="nav-link">
+              <i class="nav-icon far fa-dot-circle bordo"></i>
+              <p>{{ $t('city.cities') }}</p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/district" class="nav-link">
+              <i class="nav-icon fas fa-bullseye green2"></i>
+              <p>{{ $t('district.districts') }}</p>
             </router-link>
           </li>
 
@@ -67,14 +97,18 @@
   import { mapGetters,mapActions} from "vuex";
   export default {
     computed: {
+      ...mapGetters(["logo"]),
       ...mapGetters("profile", ["branch"])
     },
 
     mounted() {
       this.getBranchData();
     },
-
+    created() {
+      this.getInitialData();
+    },
     methods: {
+      ...mapActions(["getInitialData"]),
       ...mapActions("auth", ["sendLogoutRequest"]),
       ...mapActions("profile", ["getBranchData"]),
 
@@ -82,6 +116,9 @@
         this.sendLogoutRequest();
         this.$router.push({name: 'Login'});
       },
+      getLogo(){
+        return process.env.VUE_APP_URL+"images/" + this.logo;
+      }
     }
   }
 </script>
