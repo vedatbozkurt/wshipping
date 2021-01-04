@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-16 01:37:20
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-16 16:49:02
+* @Last Modified time: 2020-07-16 23:57:43
 */
 import Vue from "vue";
 import VueRouter from 'vue-router'
@@ -34,6 +34,9 @@ const routes = [
   children: [
   { path: '/', component: () => import("./pages/Dashboard"), name: 'Dashboard'},
   { path: 'profile', component: () => import("./pages/Profile"), name: 'Profile'},
+   { path: 'task', component: () => import("./pages/Task/Index"),name: 'Tasks'}, //Task pages start
+   { path: 'mytasks', component: () => import("./pages/Task/MyTasks"), name: 'MyTasks'},
+   { path: 'task/:id', component: () => import("./pages/Task/Edit"), name: 'EditTask'},
   ]
 },
 /*{path: "/register", name: "Register", beforeEnter: guest, component: () => import("./pages/Auth/Register.vue") },*/

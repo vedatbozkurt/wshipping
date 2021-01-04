@@ -5,6 +5,7 @@ import profile from './modules/profile';
 import dashboard from './modules/dashboard';
 import city from './modules/city';
 import district from './modules/district';
+import task from './modules/task';
 
 // Load Vuex
 Vue.use(Vuex);
@@ -38,5 +39,6 @@ export default new Vuex.Store({
     dashboard,
     city,
     district,
+    task,
   }
 });

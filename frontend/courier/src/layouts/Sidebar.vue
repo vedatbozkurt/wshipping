@@ -36,6 +36,20 @@
             </router-link>
           </li>
 
+          <li class="nav-item">
+            <router-link to="/task" class="nav-link">
+              <i class="nav-icon fas fa-tasks green"></i>
+              <p>{{ $t('tasks') }}</p>
+            </router-link>
+          </li>
+
+          <li class="nav-item">
+            <router-link to="/mytasks" class="nav-link">
+              <i class="nav-icon fas fa-tasks acikpink"></i>
+              <p>{{ $t('task.myTasks') }}</p>
+            </router-link>
+          </li>
+
           <li class="nav-header">{{ $t('customization') }}</li>
           <li class="nav-item">
            <router-link to="/profile" class="nav-link">
