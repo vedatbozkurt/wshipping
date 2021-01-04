@@ -3,6 +3,9 @@ import Vuex from 'vuex';
 import auth from './modules/auth';
 import profile from './modules/profile';
 import dashboard from './modules/dashboard';
+import courier from './modules/courier';
+import city from './modules/city';
+import district from './modules/district';
 
 // Load Vuex
 Vue.use(Vuex);
@@ -33,6 +36,9 @@ export default new Vuex.Store({
   modules: {
     auth,
     profile,
-    dashboard
+    dashboard,
+    district,
+    city,
+    courier,
   }
 });

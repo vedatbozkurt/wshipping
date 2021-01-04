@@ -36,6 +36,13 @@
             </router-link>
           </li>
 
+          <li class="nav-item">
+            <router-link to="/courier" class="nav-link">
+              <i class="nav-icon fas fa-biking yellow"></i>
+              <p>{{ $t('courier.couriers') }}</p>
+            </router-link>
+          </li>
+
           <li class="nav-header">{{ $t('customization') }}</li>
           <li class="nav-item">
            <router-link to="/profile" class="nav-link">
