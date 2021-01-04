@@ -17,7 +17,7 @@
         <div class="row justify-content-center mt--300">
           <div class="col-lg-12 mt--150">
             <card gradient="secondary" shadow body-classes="p-lg-5">
-              <h3 class="h4 text-success font-weight-bold mb-4">Create Task</h3>
+              <h3 class="h4 text-success font-weight-bold mb-4">{{ $t('task.createTask') }}</h3>
               <div class="row py-1 align-items-center">
                 <div class="col-sm-2">
                   <small class="text-uppercase text-muted font-weight-bold">{{$t('form.senderAddress')}}</small>
@@ -60,13 +60,13 @@
 
         <div class="row align-items-center">
           <div class="col-sm-2">
-            <small class="text-uppercase text-muted font-weight-bold">receiverEmail</small>
+            <small class="text-uppercase text-muted font-weight-bold">{{$t('form.receiverEmail')}}</small>
           </div>
           <div class="col-sm-10">
            <span class="text-danger" v-if="errors.receiverEmail"> {{ errors.receiverEmail[0] }}</span>
            <base-input alternative
            class="mb-3"
-           placeholder="receiverEmail"
+           :placeholder="$t('form.receiverEmail')"
            v-model="task.receiveremail">
          </base-input>
        </div>
@@ -102,7 +102,7 @@
 
 
  <div class="text-center">
-  <base-button type="primary" @click="addTask()" class="my-4">Create</base-button>
+  <base-button type="primary" @click="addTask()" class="my-4">{{ $t('save') }}</base-button>
   <router-link to="/task" class="btn btn-neutral">
     {{ $t('cancel') }}
   </router-link>

@@ -22,7 +22,7 @@
            <base-input alternative
            type="file"
            class="mb-3"
-           placeholder="Image"
+           :placeholder="$t('form.photo')"
            v-on:change="onImageChange"
            addon-left-icon="ni ni-image">
          </base-input>
@@ -30,7 +30,7 @@
          <span class="text-danger" v-if="errors.name"> {{ errors.name[0] }}</span>
          <base-input alternative
          class="mb-3"
-         placeholder="Name"
+         :placeholder="$t('form.name')"
          v-model="editedUser.name"
          addon-left-icon="ni ni-circle-08">
        </base-input>
@@ -38,14 +38,14 @@
        <span class="text-danger" v-if="errors.phone"> {{ errors.phone[0] }}</span>
        <base-input alternative
        class="mb-3"
-       placeholder="Phone"
+       :placeholder="$t('form.phone')"
        v-model="editedUser.phone"
        addon-left-icon="ni ni-mobile-button">
      </base-input>
 
      <span class="text-danger" v-if="errors.email"> {{ errors.email[0] }}</span>
      <base-input alternative
-     placeholder="Email"
+     :placeholder="$t('form.email')"
      v-model="editedUser.email"
      addon-left-icon="ni ni-email-83">
    </base-input>
@@ -53,12 +53,12 @@
    <span class="text-danger" v-if="errors.password"> {{ errors.password[0] }}</span>
    <base-input alternative
    type="password"
-   placeholder="Password"
+   :placeholder="$t('form.password')"
    v-model="editedUser.password"
    addon-left-icon="ni ni-lock-circle-open">
  </base-input>
  <div class="text-center">
-  <base-button type="primary" @click="updateProfile" class="my-4">Update</base-button>
+  <base-button type="primary" @click="updateProfile" class="my-4">{{ $t('save') }}</base-button>
   <router-link to="/profile" class="btn btn-neutral">
     {{ $t('cancel') }}
   </router-link>

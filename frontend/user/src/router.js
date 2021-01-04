@@ -16,7 +16,6 @@ import EditAddress from "./views/address/EditAddress.vue";
 import IndexTask from "./views/task/Index.vue";
 import SentTask from "./views/task/Sent.vue";
 import ReceivedTask from "./views/task/Received.vue";
-import EditTask from "./views/task/Edit.vue";
 import CreateTask from "./views/task/Create.vue";
 
 Vue.use(Router);
@@ -165,16 +164,6 @@ export default new Router({
     components: {
       header: AppHeader,
       default: CreateTask,
-      footer: AppFooter
-    }
-  },
-  {
-    path: "/task/:id",
-    name: "EditTask",
-    beforeEnter: auth,
-    components: {
-      header: AppHeader,
-      default: EditTask,
       footer: AppFooter
     }
   },

@@ -17,7 +17,7 @@
         <div class="row justify-content-center mt--300">
           <div class="col-lg-12 mt--150">
             <card gradient="secondary" shadow body-classes="p-lg-5">
-              <h3 class="h4 text-success font-weight-bold mb-4">Create Address</h3>
+              <h3 class="h4 text-success font-weight-bold mb-4">{{ $t('createAddress') }}</h3>
 
               <span class="text-danger" v-if="errors.city"> {{ errors.city[0] }}</span>
               <select class="form-control" v-model="address.city" :placeholder="$t('select.selectCity')" v-on:change="getThisCityDistricts">
@@ -52,7 +52,7 @@
           </select>
 
           <div class="text-center">
-            <base-button type="primary" @click="addAddress()" class="my-4">Create</base-button>
+            <base-button type="primary" @click="addAddress()" class="my-4">{{ $t('save') }}</base-button>
             <router-link to="/profile" class="btn btn-neutral">
               {{ $t('cancel') }}
             </router-link>

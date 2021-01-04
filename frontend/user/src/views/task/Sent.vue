@@ -19,10 +19,10 @@
             <card gradient="secondary" shadow body-classes="p-lg-5">
               <!-- Buttons -->
               <div class="float-right">
-                <router-link :to="{name: 'CreateTask'}" class="btn btn-outline-info btn-sm btn-flat">New Task</router-link>
-                <router-link :to="{name: 'IndexTask'}" class="btn btn-outline-info btn-sm btn-flat">Tasks</router-link>
-                <router-link :to="{name: 'ReceivedTask'}" class="btn btn-outline-info btn-sm btn-flat">Received Tasks</router-link>
-              </div> <h3 class="h4 text-success font-weight-bold mb-4">Sent Tasks</h3>
+                <router-link :to="{name: 'CreateTask'}" class="btn btn-outline-info btn-sm btn-flat">{{ $t('new') }}</router-link>
+                <router-link :to="{name: 'IndexTask'}" class="btn btn-outline-info btn-sm btn-flat">{{ $t('task.tasks') }}</router-link>
+                <router-link :to="{name: 'ReceivedTask'}" class="btn btn-outline-info btn-sm btn-flat">{{ $t('user.receivedTasks') }}</router-link>
+              </div> <h3 class="h4 text-success font-weight-bold mb-4">{{ $t('user.sentDetails') }}</h3>
 
               <!-- Button styles -->
               <div class="row py-3 align-items-left">
@@ -53,7 +53,7 @@
                     type="white"
                     class="btn btn-outline-info btn-sm btn-flat"
                     @click="getThisTaskDetails(task.id)">
-                    Details
+                    {{ $t('details') }}
                   </base-button>
                       <!--
                       <base-button size="sm" class="btn btn-outline-danger btn-xs btn-flat" @click.prevent="deleteTaskConfirm(task.id)">Delete
@@ -65,7 +65,7 @@
           </table>
         </div>
          <modal :show.sync="modals.modal1">
-                     <h6 slot="header" class="modal-title" id="modal-title-default">Task Details #{{taskid}}</h6>
+                     <h6 slot="header" class="modal-title" id="modal-title-default">{{ $t('details') }} #{{taskid}}</h6>
 
                         <div class="row py-3 align-items-left">
                             <div class="col-sm-4">
@@ -81,7 +81,7 @@
                                 <p>{{mytask.senderphone}}</p>
                             </div>
                             <div class="col-sm-4">
-                                <small class="text-uppercase text-muted font-weight-bold">Sender Mail:</small>
+                                <small class="text-uppercase text-muted font-weight-bold">{{ $t('form.senderEmail') }}:</small>
                             </div>
                             <div class="col-sm-8">
                                 <p>{{mytask.senderemail}}</p>
@@ -105,7 +105,7 @@
                                 <p>{{mytask.receiverphone}}</p>
                             </div>
                             <div class="col-sm-4">
-                                <small class="text-uppercase text-muted font-weight-bold">receiver Mail:</small>
+                                <small class="text-uppercase text-muted font-weight-bold">{{ $t('form.receiverEmail') }}:</small>
                             </div>
                             <div class="col-sm-8">
                                 <p>{{mytask.receiveremail}}</p>
@@ -208,7 +208,7 @@
           this.mytask.receiveremail = this.task.receiver.email;
           this.mytask.senderaddress =this.task.senderaddress.city.name+' / '+this.task.senderaddress.district.name;
           this.mytask.receiveraddress =this.task.receiveraddress.city.name+' / '+this.task.receiveraddress.district.name;
-          this.task.courier ? this.mytask.courier = this.task.courier.name : this.mytask.courier = 'No Courier';
+          this.task.courier ? this.mytask.courier = this.task.courier.name : this.mytask.courier = this.$t('form.noCourier');
         });
       },
     }

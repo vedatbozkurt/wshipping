@@ -19,13 +19,13 @@
           class="border-0">
           <template>
             <div class="text-center text-muted mb-4">
-              <small>Sign in with credentials</small>
+              <small>{{ $t('signinStart') }}</small>
             </div>
             <form role="form">
               <span class="text-danger" v-if="errors.email"> {{ errors.email[0] }}</span>
               <base-input alternative
               class="mb-3"
-              placeholder="Email"
+              :placeholder="$t('form.email')"
               v-model="details.email"
               addon-left-icon="ni ni-email-83">
             </base-input>
@@ -34,7 +34,7 @@
             <base-input alternative
             type="password"
             v-model="details.password"
-            placeholder="Password"
+            :placeholder="$t('form.password')"
             addon-left-icon="ni ni-lock-circle-open">
           </base-input>
           <span class="text-danger" v-if="errors.notapproved"> {{ errors.notapproved[0] }}</span>

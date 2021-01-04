@@ -26,23 +26,23 @@
               </div>
               <div class="col-lg-4 order-lg-3 text-lg-right align-self-lg-center">
                 <div class="card-profile-actions py-4 mt-lg-0">
-                   <router-link to="/task" class="btn btn-sm btn-info mr-2">Tasks List</router-link>
-                   <router-link to="/task/create" class="btn btn-warning btn-sm mr-2">New Task</router-link>
+                   <router-link to="/task" class="btn btn-sm btn-info mr-2">{{ $t('task.tasks') }}</router-link>
+                   <router-link to="/task/create" class="btn btn-warning btn-sm mr-2">{{ $t('task.createTask') }}</router-link>
                 </div>
               </div>
               <div class="col-lg-4 order-lg-1">
                 <div class="card-profile-stats d-flex justify-content-center">
                   <div>
                     <span class="heading">{{sentTask}}</span>
-                    <span class="description">Sent Tasks</span>
+                    <span class="description">{{ $t('user.sentDetails') }}</span>
                   </div>
                   <div>
                     <span class="heading">{{receivedTask}}</span>
-                    <span class="description">Received Tasks</span>
+                    <span class="description">{{ $t('user.receivedTasks') }}</span>
                   </div>
                   <div>
                     <span class="heading">{{addresses}}</span>
-                    <span class="description">Addresses</span>
+                    <span class="description">{{ $t('addresses') }}</span>
                   </div>
                 </div>
               </div>
@@ -57,7 +57,7 @@
                 {{ $t('editProfile') }}
               </router-link>
               <router-link to="/address" class="btn btn-primary mt-4 mb-4">
-                My Addresses
+                {{ $t('addresses') }}
               </router-link>
             </div>
           </div>

@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-04-10 16:28:03
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-20 00:28:58
+* @Last Modified time: 2020-07-23 20:15:50
 */
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
@@ -34,6 +34,7 @@ const messages = {
     addressUpdated: 'Address has been updated.',
     addressDeleted: 'Address has been deleted.',
     new: 'New',
+    edit: 'Edit',
     login: 'Login',
     logout: 'Logout',
     register: 'Register',
@@ -108,6 +109,8 @@ const messages = {
       createdCourier: 'Courier has been created.',
       registerCourier: 'Registered successfully',
     },
+    user: {
+    },
     form: {
      enterName: 'Enter Name',
      enterEmail: 'Enter Email',
@@ -133,9 +136,11 @@ const messages = {
      senderName: 'Sender Name',
      senderAddress: 'Sender Address',
      senderPhone: 'Sender Phone',
+     senderEmail: 'Sender Email',
      receiverName: 'Receiver Name',
      receiverPhone: 'Receiver Phone',
      receiverAddress: 'Receiver Address',
+     receiverEmail: 'Receiver Email',
      courierName: 'Courier Name',
      courierPhone: 'Courier Phone',
      noCourier: 'No Courier',
@@ -274,6 +279,7 @@ const messages = {
   addressUpdated: 'Adres güncellendi.',
   addressDeleted: 'Adres silindi.',
   new: 'Yeni',
+  edit: 'Düzenle',
   login: 'Giriş ',
   logout: 'Çıkış',
   register: 'Kayıt',
@@ -373,9 +379,11 @@ const messages = {
    senderName: 'Gönderen Adı',
    senderAddress: 'Gönderen Adresi',
    senderPhone: 'Gönderen Telefonu',
+   senderEmail: 'Gönderen Email',
    receiverName: 'Alıcı Adı',
    receiverPhone: 'Alıcı Telefonu',
    receiverAddress: 'Alıcı Adresi',
+   receiverEmail: 'Alıcı Email',
    courierName: 'Kurye Adı',
    courierPhone: 'Kurye Telefonu',
    noCourier: 'Kurye Yok',

@@ -19,7 +19,7 @@
                         <card gradient="secondary" shadow body-classes="p-lg-5">
             <!-- Buttons -->
              <div class="float-right">
-            <router-link :to="{name: 'addressCreate'}" class="btn btn-outline-info btn-sm btn-flat">New</router-link>
+            <router-link :to="{name: 'addressCreate'}" class="btn btn-outline-info btn-sm btn-flat">{{ $t('new') }}</router-link>
             </div> <h3 class="h4 text-success font-weight-bold mb-4">{{ $t('addresses') }}</h3>
 
             <!-- Button styles -->
@@ -41,8 +41,8 @@
                 <td>{{ address.city.name }}</td>
                 <td>{{ address.district.name }}</td>
                 <td><div>
-                  <router-link style="margin-right: 11px"  :to="{name: 'addressEdit', params: { id: address.id }}" class="btn btn-outline-info btn-sm btn-flat">Edit</router-link>
-                  <base-button size="sm" class="btn btn-outline-danger btn-xs btn-flat" @click.prevent="deleteAddressConfirm(address.id)">Delete
+                  <router-link style="margin-right: 11px"  :to="{name: 'addressEdit', params: { id: address.id }}" class="btn btn-outline-info btn-sm btn-flat">{{ $t('edit') }}</router-link>
+                  <base-button size="sm" class="btn btn-outline-danger btn-xs btn-flat" @click.prevent="deleteAddressConfirm(address.id)">{{ $t('delete') }}
                   </base-button></div>
                 </td>
               </tr>

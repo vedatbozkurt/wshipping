@@ -17,8 +17,7 @@
         <div class="row justify-content-center mt--300">
           <div class="col-lg-8 mt--150">
             <card gradient="secondary" shadow body-classes="p-lg-5">
-              <h3 class="h4 text-success font-weight-bold mb-4">Edit Address</h3>
-
+              <h3 class="h4 text-success font-weight-bold mb-4">{{ $t('editAddress') }}</h3>
               <span class="text-danger" v-if="errors.city"> {{ errors.city[0] }}</span>
               <select class="form-control" v-model="address.city_id" :placeholder="$t('select.selectCity')" v-on:change="getThisCityDistricts">
                 <option v-for="city in cities" :value="city.id">{{ city.name }}</option>
