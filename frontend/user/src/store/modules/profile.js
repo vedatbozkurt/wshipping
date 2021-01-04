@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-26 14:42:53
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-22 17:21:31
+* @Last Modified time: 2020-07-22 22:49:42
 */
 import axios from "axios";
 const namespaced= true;
@@ -17,11 +17,11 @@ const state = {
 
   const getters = {
    user: state => state.userData
-};
+ };
 
-const actions =  {
+ const actions =  {
   async getUserData({ commit }) {
-      commit("setLoader", true, { root: true });
+    commit("setLoader", true, { root: true });
     await axios.get(process.env.VUE_APP_API_URL + "profile")
     .then(response => {
       commit("setUserData", response.data);
@@ -33,10 +33,12 @@ const actions =  {
     });
   },
   async uploadUserData({ commit }, data) {
+    commit("setLoader", true, { root: true });
     commit("setErrors", {}, { root: true });
-    await axios.put(process.env.VUE_APP_API_URL + "profile", data)
+    await axios.post(process.env.VUE_APP_API_URL + "profile", data)
     .then(response => {
       commit("setUserData", response.data);
+      commit("setLoader", false, { root: true });
     });
   },
 }

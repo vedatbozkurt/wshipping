@@ -6,9 +6,18 @@ import Components from "./views/Components.vue";
 import Landing from "./views/Landing.vue";
 import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
-import Profile from "./views/Profile.vue";
+import Profile from "./views/profile/Profile.vue";
+import EditProfile from "./views/profile/EditProfile.vue";
 import Home from "./views/Home.vue";
 import NotFound from "./views/NotFound.vue";
+import Address from "./views/address/Address.vue";
+import CreateAddress from "./views/address/CreateAddress.vue";
+import EditAddress from "./views/address/EditAddress.vue";
+import IndexTask from "./views/task/Index.vue";
+import SentTask from "./views/task/Sent.vue";
+import ReceivedTask from "./views/task/Received.vue";
+import EditTask from "./views/task/Edit.vue";
+import CreateTask from "./views/task/Create.vue";
 
 Vue.use(Router);
 const auth = (to, from, next) => {
@@ -76,6 +85,96 @@ export default new Router({
     components: {
       header: AppHeader,
       default: Profile,
+      footer: AppFooter
+    }
+  },
+  {
+    path: "/profile/edit",
+    name: "editprofile",
+    beforeEnter: auth,
+    components: {
+      header: AppHeader,
+      default: EditProfile,
+      footer: AppFooter
+    }
+  },
+  {
+    path: "/address",
+    name: "address",
+    beforeEnter: auth,
+    components: {
+      header: AppHeader,
+      default: Address,
+      footer: AppFooter
+    }
+  },
+  {
+    path: "/address/create",
+    name: "addressCreate",
+    beforeEnter: auth,
+    components: {
+      header: AppHeader,
+      default: CreateAddress,
+      footer: AppFooter
+    }
+  },
+  {
+    path: "/address/:id",
+    name: "addressEdit",
+    beforeEnter: auth,
+    components: {
+      header: AppHeader,
+      default: EditAddress,
+      footer: AppFooter
+    }
+  },
+  {
+    path: "/task",
+    name: "IndexTask",
+    beforeEnter: auth,
+    components: {
+      header: AppHeader,
+      default: IndexTask,
+      footer: AppFooter
+    }
+  },
+  {
+    path: "/task/sent",
+    name: "SentTask",
+    beforeEnter: auth,
+    components: {
+      header: AppHeader,
+      default: SentTask,
+      footer: AppFooter
+    }
+  },
+  {
+    path: "/task/received",
+    name: "ReceivedTask",
+    beforeEnter: auth,
+    components: {
+      header: AppHeader,
+      default: ReceivedTask,
+      footer: AppFooter
+    }
+  },
+  {
+    path: "/task/create",
+    name: "CreateTask",
+    beforeEnter: auth,
+    components: {
+      header: AppHeader,
+      default: CreateTask,
+      footer: AppFooter
+    }
+  },
+  {
+    path: "/task/:id",
+    name: "EditTask",
+    beforeEnter: auth,
+    components: {
+      header: AppHeader,
+      default: EditTask,
       footer: AppFooter
     }
   },
