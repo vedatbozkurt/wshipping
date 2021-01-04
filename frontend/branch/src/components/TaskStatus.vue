@@ -27,17 +27,20 @@
         this.statusClass= "kuryekabuletti";
         this.statusName= this.$t('task.courierAccepted');
       } else if (this.status == 4 ) {
+        this.statusClass= "kuryegonderiyialdi";
+        this.statusName= this.$t('task.courierReceivedTask');
+      } else if (this.status == 5 ) {
         this.statusClass= "kuryeyolda";
         this.statusName= this.$t('task.courierOnTheRoad');
-      } else if (this.status == 5 ) {
+      } else if (this.status == 6 ) {
         this.statusClass= "kuryehedefevardi";
         this.statusName= this.$t('task.courierArrivedAtDestination');
-      } else if (this.status == 6 ) {
+      } else if (this.status == 7 ) {
         this.statusClass= "teslimedildi";
         this.statusName= this.$t('task.delivered');
-      } else if (this.status == 7 ) {
+      } else if (this.status == 8 ) {
         this.statusClass= "kuryeiptaletti";
-        this.statusName= this.$t('task.canceled');
+        this.statusName= this.$t('task.couriercanceled');
       } else {
         this.statusClass= "badge-danger";
         this.statusName= this.$t('notFound');
@@ -45,15 +48,17 @@
 
     },
   }
-  //status
+ //status
             //0:onay bekliyor
             //1:onaylandı-Kurye Ataması Bekleniyor
             //2:Kurye atandı-Kurye Kabul Etmesi Bekleniyor
             //3:Kurye Kabul etti
-            //4:Kurye yola çıktı
-            //5:Kurye hedefe vardı
-            //6:Gönderi teslim edildi
-            //7:İptal edildi-Kurye vazgeçti,yeni Kurye Kabul Etmesi Bekleniyor
+            //4:Kurye gönderiyi teslim aldı
+            //5:Kurye yola çıktı
+            //6:Kurye hedefe vardı
+            //7:Gönderi teslim edildi
+            //8:Kurye vazgeçti,yeni Kurye Kabul Etmesi Bekleniyor
+            //9:İptal edildi
           </script>
 <style scoped>
 .onaybekliyor { background-color:#fcd314; }
@@ -64,4 +69,5 @@
 .kuryehedefevardi { background-color:#dacdf7 ; }
 .teslimedildi { background-color:#10e060 ; }
 .kuryeiptaletti { background-color:#e0102f ; }
+.kuryegonderiyialdi { background-color:#b87afa ; }
 </style>

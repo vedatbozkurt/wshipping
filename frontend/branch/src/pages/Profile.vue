@@ -82,8 +82,7 @@
  export default {
   data() {
     return {
-      profile:{
-      }
+      profile:{}
     }
   },
 
