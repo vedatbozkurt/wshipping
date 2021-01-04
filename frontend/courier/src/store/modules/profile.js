@@ -2,7 +2,7 @@
 * @Author: @vedatbozkurt
 * @Date:   2020-06-26 14:42:53
 * @Last Modified by:   @vedatbozkurt
-* @Last Modified time: 2020-07-16 14:01:19
+* @Last Modified time: 2020-07-16 19:43:14
 */
 import axios from "axios";
 const namespaced= true;
@@ -33,10 +33,12 @@ const actions =  {
     });
   },
   async uploadCourierData({ commit }, data) {
+    commit("setLoader", true, { root: true });
     commit("setErrors", {}, { root: true });
-    await axios.put(process.env.VUE_APP_API_URL + "profile", data)
+    await axios.post(process.env.VUE_APP_API_URL + "profile", data)
     .then(response => {
-      commit("setCourierData", response.data);
+      commit("setCourierData", response.data.data);
+      commit("setLoader", false, { root: true });
     });
   },
 }
