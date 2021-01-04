@@ -30,87 +30,187 @@
                 <thead>
                   <tr>
                     <th style="width: 10px">#</th>
-                <th>{{ $t('form.receiverName') }}</th>
-                <th>{{ $t('form.price') }}</th>
-                <th>{{ $t('form.createdAt') }}</th>
-                <th>{{ $t('form.status') }}</th>
-                <th style="width: 110px">{{ $t('actions') }}</th>
+                    <th>{{ $t('form.receiverName') }}</th>
+                    <th>{{ $t('form.price') }}</th>
+                    <th>{{ $t('form.createdAt') }}</th>
+                    <th>{{ $t('form.status') }}</th>
+                    <th style="width: 110px">{{ $t('actions') }}</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="task in sentTasks.data" :key="task.id">
                     <td>{{ task.id }}</td>
-                <td>{{ task.receiver.name }}</td>
-                <td>{{ task.price }} {{currency}}</td>
-                <td>{{ task.created_at | moment("MMMM Do YYYY") }}</td>
-                <td>
-                 <task-status v-show="!task.deleted_at" :status=task.status />
-                 <span v-show="task.deleted_at" class="badge badge-danger">{{ $t('form.deleted') }}</span>
-               </td>
-                    <td><div>
-                      <router-link style="margin-right: 11px"  :to="{name: 'EditTask', params: { id: task.id }}" class="btn btn-outline-info btn-sm btn-flat">Edit</router-link>
+                    <td>{{ task.receiver.name }}</td>
+                    <td>{{ task.price == 0 ? '-' : task.price }} {{currency}}</td>
+                    <td>{{ task.created_at | moment("MMMM Do YYYY") }}</td>
+                    <td>
+                     <task-status v-show="!task.deleted_at" :status=task.status />
+                     <span v-show="task.deleted_at" class="badge badge-danger">{{ $t('form.deleted') }}</span>
+                   </td>
+                   <td><div>
+                    <!-- <router-link style="margin-right: 11px"  :to="{name: 'EditTask', params: { id: task.id }}" class="btn btn-outline-info btn-sm btn-flat">Edit</router-link> -->
+                    <base-button
+                    type="white"
+                    class="btn btn-outline-info btn-sm btn-flat"
+                    @click="getThisTaskDetails(task.id)">
+                    Details
+                  </base-button>
                       <!--
                       <base-button size="sm" class="btn btn-outline-danger btn-xs btn-flat" @click.prevent="deleteTaskConfirm(task.id)">Delete
                     </base-button> -->
                   </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <ul class="pagination pagination-sm m-0 float-right">
-            <pagination class="float-right" :data="sentTasks" @pagination-change-page="getSentTasks"></pagination>
-          </ul>
-        </card>
-      </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+         <modal :show.sync="modals.modal1">
+                     <h6 slot="header" class="modal-title" id="modal-title-default">Task Details #{{taskid}}</h6>
+
+                        <div class="row py-3 align-items-left">
+                            <div class="col-sm-4">
+                                <small class="text-uppercase text-muted font-weight-bold">{{ $t('form.senderName') }}:</small>
+                            </div>
+                            <div class="col-sm-8">
+                                <p>{{mytask.sendername}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <small class="text-uppercase text-muted font-weight-bold">{{ $t('form.senderPhone') }}:</small>
+                            </div>
+                            <div class="col-sm-8">
+                                <p>{{mytask.senderphone}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <small class="text-uppercase text-muted font-weight-bold">Sender Mail:</small>
+                            </div>
+                            <div class="col-sm-8">
+                                <p>{{mytask.senderemail}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <small class="text-uppercase text-muted font-weight-bold">{{ $t('form.senderAddress') }}:</small>
+                            </div>
+                            <div class="col-sm-8">
+                                <p>{{mytask.senderaddress}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <small class="text-uppercase text-muted font-weight-bold">{{ $t('form.receiverName') }}:</small>
+                            </div>
+                            <div class="col-sm-8">
+                                <p>{{mytask.receivername}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <small class="text-uppercase text-muted font-weight-bold">{{ $t('form.receiverPhone') }}:</small>
+                            </div>
+                            <div class="col-sm-8">
+                                <p>{{mytask.receiverphone}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <small class="text-uppercase text-muted font-weight-bold">receiver Mail:</small>
+                            </div>
+                            <div class="col-sm-8">
+                                <p>{{mytask.receiveremail}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <small class="text-uppercase text-muted font-weight-bold">{{ $t('form.receiverAddress') }}:</small>
+                            </div>
+                            <div class="col-sm-8">
+                                <p>{{mytask.receiveraddress}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <small class="text-uppercase text-muted font-weight-bold">{{ $t('courier.courier') }}:</small>
+                            </div>
+                            <div class="col-sm-8">
+                                <p>{{mytask.courier}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <small class="text-uppercase text-muted font-weight-bold">{{ $t('form.price') }}:</small>
+                            </div>
+                            <div class="col-sm-8">
+                                <p>{{ task.price == 0 ? '-' : task.price }} {{currency}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <small class="text-uppercase text-muted font-weight-bold">{{ $t('form.description') }}:</small>
+                            </div>
+                            <div class="col-sm-8">
+                                <p>{{task.description}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <small class="text-uppercase text-muted font-weight-bold">{{ $t('form.status') }}:</small>
+                            </div>
+                            <div class="col-sm-8">
+                                <p><span v-if="task.status==0">{{ $t('task.pendingApproval') }}</span>
+                                  <span v-if="task.status==1">{{ $t('task.approvedAwaitingCourierAssignment') }}</span>
+                                  <span v-if="task.status==2">{{ $t('task.courierAssignedAcceptanceExpected') }}</span>
+                                  <span v-if="task.status==3">{{ $t('task.courierAccepted') }}</span>
+                                  <span v-if="task.status==4">{{ $t('task.courierReceivedTask') }}</span>
+                                  <span v-if="task.status==5">{{ $t('task.courierOnTheRoad') }}</span>
+                                  <span v-if="task.status==6">{{ $t('task.courierArrivedAtDestination') }}</span>
+                                  <span v-if="task.status==7">{{ $t('task.delivered') }}</span>
+                                  <span v-if="task.status==8">{{ $t('task.couriercanceled') }}</span></p>
+                              </div>
+                          </div>
+
+                    <template slot="footer">
+                            <base-button type="link" class="ml-auto" @click="modals.modal1 = false">Close
+                        </base-button>
+                    </template>
+                </modal>
+        <ul class="pagination pagination-sm m-0 float-right">
+          <pagination class="float-right" :data="sentTasks" @pagination-change-page="getSentTasks"></pagination>
+        </ul>
+      </card>
     </div>
   </div>
+</div>
 </section>
 </div>
 </template>
 <script>
- import TaskStatus from '../../components/TaskStatus.vue'
- import { mapGetters, mapActions } from "vuex";
- import Swal from 'sweetalert2'
- window.Swal = Swal
+  import Modal from "@/components/Modal.vue";
+  import TaskStatus from '../../components/TaskStatus.vue'
+  import { mapGetters, mapActions } from "vuex";
 
- export default {
-  data() {
-    return {
-    }
-  },
-  components: {
-    TaskStatus
-  },
-  computed: {
-    ...mapGetters(["currency"]),
-    ...mapGetters("task", ["sentTasks"])
-  },
-  created() {
-    this.getSentTasks();
-  },
-  methods: {
-    ...mapActions("task", ["getSentTasks","deleteTask"]),
-    deleteTaskConfirm(id){
-      Swal.fire({
-        title: this.$t('areYouSure'),
-        text: this.$t('noRevert'),
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: this.$t('yesDelete')
-      }).then((result) => {
-        if (result.value) {
-          this.deleteTaskConfirmed(id)
-        }
-      });
+  export default {
+    data() {
+      return {
+        mytask:{},
+        taskid:null,
+        modals: {
+          modal1: false,
+        },
+      }
     },
-    deleteTaskConfirmed: function(id) {
-      this.deleteTask(id).then(() => {
-        this.myToast('success',this.$t('task.deletedTask'));
-      });
+    components: {
+      TaskStatus,
+      Modal
+    },
+    computed: {
+      ...mapGetters(["currency"]),
+      ...mapGetters("task", ["sentTasks","task"])
+    },
+    created() {
+      this.getSentTasks();
+    },
+    methods: {
+      ...mapActions("task", ["getSentTasks","getTaskDetails"]),
+      getThisTaskDetails(id) {
+        // this.mytask = {};
+        this.taskid = id;
+        // console.log(this.taskid)
+        this.getTaskDetails(this.taskid).then(() => {
+          this.modals.modal1 = true
+          this.mytask = this.task;
+          this.mytask.sendername = this.task.sender.name;
+          this.mytask.senderphone = this.task.sender.phone;
+          this.mytask.senderemail = this.task.sender.email;
+          this.mytask.receivername =this.task.receiver.name;
+          this.mytask.receiverphone = this.task.receiver.phone;
+          this.mytask.receiveremail = this.task.receiver.email;
+          this.mytask.senderaddress =this.task.senderaddress.city.name+' / '+this.task.senderaddress.district.name;
+          this.mytask.receiveraddress =this.task.receiveraddress.city.name+' / '+this.task.receiveraddress.district.name;
+          this.task.courier ? this.mytask.courier = this.task.courier.name : this.mytask.courier = 'No Courier';
+        });
+      },
     }
   }
-}
 </script>

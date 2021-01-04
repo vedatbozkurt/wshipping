@@ -42,7 +42,7 @@
                   <tr v-for="task in receivedTasks.data" :key="task.id">
                     <td>{{ task.id }}</td>
                     <td>{{ task.sender.name }}</td>
-                    <td>{{ task.price }} {{currency}}</td>
+                    <td>{{ task.price == 0 ? '-' : task.price }} {{currency}}</td>
                     <td>{{ task.created_at | moment("MMMM Do YYYY") }}</td>
                     <td>
                      <task-status v-show="!task.deleted_at" :status=task.status />
@@ -55,7 +55,6 @@
                     @click="getThisTaskDetails(task.id)">
                     Details
                   </base-button>
-
               </td>
             </tr>
           </tbody>
@@ -123,7 +122,7 @@
                                 <small class="text-uppercase text-muted font-weight-bold">{{ $t('form.price') }}:</small>
                             </div>
                             <div class="col-sm-8">
-                                <p>{{task.price}} {{currency}}</p>
+                                <p>{{ task.price == 0 ? '-' : task.price }} {{currency}}</p>
                             </div>
                             <div class="col-sm-4">
                                 <small class="text-uppercase text-muted font-weight-bold">{{ $t('form.description') }}:</small>
@@ -166,8 +165,6 @@
   import Modal from "@/components/Modal.vue";
   import TaskStatus from '../../components/TaskStatus.vue'
   import { mapGetters, mapActions } from "vuex";
-  import Swal from 'sweetalert2'
-  window.Swal = Swal
 
   export default {
 

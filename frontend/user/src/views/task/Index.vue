@@ -43,7 +43,7 @@
                     <td>{{ task.id }}</td>
                     <td>{{ task.sender.name }}</td>
                     <td>{{ task.receiver.name }}</td>
-                    <td>{{ task.price }} {{currency}}</td>
+                    <td>{{ task.price == 0 ? '-' : task.price }} {{currency}}</td>
                     <td>{{ task.created_at | moment("MMMM Do YYYY") }}</td>
                     <td>
                      <task-status v-show="!task.deleted_at" :status=task.status />
@@ -56,7 +56,12 @@
                     @click="getThisTaskDetails(task.id)">
                     Details
                   </base-button>
-                  <modal :show.sync="modals.modal1">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+       <modal :show.sync="modals.modal1">
                      <h6 slot="header" class="modal-title" id="modal-title-default">Task Details #{{task.id}}</h6>
 
                         <div class="row py-3 align-items-left">
@@ -118,7 +123,7 @@
                                 <small class="text-uppercase text-muted font-weight-bold">{{ $t('form.price') }}:</small>
                             </div>
                             <div class="col-sm-8">
-                                <p>{{task.price}} {{currency}}</p>
+                                <p>{{ task.price == 0 ? '-' : task.price }} {{currency}}</p>
                             </div>
                             <div class="col-sm-4">
                                 <small class="text-uppercase text-muted font-weight-bold">{{ $t('form.description') }}:</small>
@@ -147,11 +152,6 @@
                         </base-button>
                     </template>
                 </modal>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
       <ul class="pagination pagination-sm m-0 float-right">
         <pagination class="float-right" :data="tasks" @pagination-change-page="getTasks"></pagination>
       </ul>
@@ -166,8 +166,6 @@
   import Modal from "@/components/Modal.vue";
   import TaskStatus from '../../components/TaskStatus.vue'
   import { mapGetters, mapActions } from "vuex";
-  import Swal from 'sweetalert2'
-  window.Swal = Swal
 
   export default {
 
@@ -187,9 +185,6 @@
     computed: {
       ...mapGetters(["currency"]),
       ...mapGetters("task", ["tasks","task"])
-    },
-    mounted() {
-      this.$store.commit('task/setTask', {});
     },
     created() {
       this.getTasks();
