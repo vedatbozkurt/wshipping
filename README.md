@@ -3,7 +3,7 @@
  * @Email: info@wedat.org
  * @Date: 2020-12-08 00:41:58
  * @LastEditors: @vedatbozkurt
- * @LastEditTime: 2021-01-05 00:22:29
+ * @LastEditTime: 2021-01-05 00:26:38
 -->
 # Shipment and Courier Management
 
@@ -12,9 +12,8 @@ Shipment and Courier Management application is based on Laravel and VueJs. Restf
 
 
 ## Features
-![](https://raw.githubusercontent.com/vedatbozkurt/wshipping/main/screenshots/admin-dash.png)
+![](https://raw.githubusercontent.com/vedatbozkurt/wshipping/main/screenshots/admin-dash.png?token=ADJKC5IGT4SEGEBR47O62HC76OEBC)
 ### Laravel
-
 * Eloquent Relationships, Scopes, Soft Deletes ...
 * Restful Api 
 * Passport OAuth2 authentication (bearer token)
